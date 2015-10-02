@@ -1,0 +1,17 @@
+*.xnb
+*.exe
+*.mgcontent
+*.dll
+*.pdb
+Towerdefense/Towerdefense/bin/Windows/Debug/MonoGame.Framework.xml
+Towerdefense/Towerdefense/bin/Windows/Debug/SharpDX.DXGI.xml
+Towerdefense/Towerdefense/bin/Windows/Debug/SharpDX.Direct2D1.xml
+Towerdefense/Towerdefense/bin/Windows/Debug/SharpDX.Direct3D11.xml
+Towerdefense/Towerdefense/bin/Windows/Debug/SharpDX.Direct3D9.xml
+Towerdefense/Towerdefense/bin/Windows/Debug/SharpDX.MediaFoundation.xml
+Towerdefense/Towerdefense/bin/Windows/Debug/SharpDX.RawInput.xml
+Towerdefense/Towerdefense/bin/Windows/Debug/SharpDX.XAudio2.xml
+Towerdefense/Towerdefense/bin/Windows/Debug/SharpDX.XInput.xml
+Towerdefense/Towerdefense/bin/Windows/Debug/SharpDX.xml
+Towerdefense/Towerdefense/obj/x86/Debug/Towerdefense.csproj.FileListAbsolute.txt
+Towerdefense/Towerdefense/obj/x86/Debug/Towerdefense.csprojResolveAssemblyReference.cache
