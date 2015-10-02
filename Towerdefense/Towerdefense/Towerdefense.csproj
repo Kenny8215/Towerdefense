@@ -8,8 +8,8 @@
     <ProjectGuid>{4125AC35-EDD8-41FC-B1C8-0B98936ED71D}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GameStateManagementSample</RootNamespace>
-    <AssemblyName>GameStateManagementSample</AssemblyName>
+    <RootNamespace>Towerdefense</RootNamespace>
+    <AssemblyName>Towerdefense</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MonoGamePlatform>Windows</MonoGamePlatform>
     <MonoGameContentBuilderExe>

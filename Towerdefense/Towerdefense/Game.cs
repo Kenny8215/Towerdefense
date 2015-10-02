@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 #endregion
 
-namespace GameStateManagement
+namespace Towerdefense
 {
     /// <summary>
     /// Sample showing how to manage different game states, with transitions
@@ -20,7 +20,7 @@ namespace GameStateManagement
     /// menu. This main game class is extremely simple: all the interesting
     /// stuff happens in the ScreenManager component.
     /// </summary>
-    public class GameStateManagementGame : Microsoft.Xna.Framework.Game
+    public class Towerdefense : Microsoft.Xna.Framework.Game
     {
         #region Fields
 
@@ -44,7 +44,7 @@ namespace GameStateManagement
         /// <summary>
         /// The main game constructor.
         /// </summary>
-        public GameStateManagementGame()
+        public Towerdefense()
         {
             Content.RootDirectory = "Content";
 
@@ -105,7 +105,7 @@ namespace GameStateManagement
     {
         static void Main()
         {
-            using (GameStateManagementGame game = new GameStateManagementGame())
+            using (Towerdefense game = new Towerdefense())
             {
                 game.Run();
             }
