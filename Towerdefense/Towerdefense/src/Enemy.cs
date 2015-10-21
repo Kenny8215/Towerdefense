@@ -16,5 +16,13 @@ namespace Towerdefense.src
         private Boolean isBoss;
         private Boolean isFlying;
 
+        public Enemy(Texture2D sprite, int hitPoints, int walkDistance, float movementSpeed, string resistance, Boolean isBoss, Boolean isFlying) : base(sprite, hitPoints) {
+
+            this.walkDistance = walkDistance;
+            this.movementSpeed = movementSpeed;
+            this.resistance = resistance;
+            this.isBoss = isBoss;
+            this.isFlying = isFlying;
+        }
     }
 }
