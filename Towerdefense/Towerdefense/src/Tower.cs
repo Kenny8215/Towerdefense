@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Towerdefense.src
 {
-    class Tower
+    class Tower : GameObject
     {
         /*Towerrange*/
         private int range;
@@ -26,7 +26,17 @@ namespace Towerdefense.src
 
         /*Tower can be upgraded*/
         private Boolean IsUpgradeable;
-        
+
+        /*Constructor*/
+        public Tower(Texture2D sprite,int range, int cost, int damage, int fireRate, int speed, Boolean isUpgradeable) : base(sprite) {
+            
+            this.range = range;
+            this.cost = cost;
+            this.damage = damage;
+            this.fireRate = fireRate;
+            this.speed = speed;
+            this.IsUpgradeable = isUpgradeable;
+        }
         
         public Vector2 SearchClosestEnemy(){
         

@@ -9,11 +9,18 @@ namespace Towerdefense
 {
     abstract class GameObject
     {
-        int ID = 0;
-        Texture2D Sprite;
+        private static int amountObjects = 0;
+        private int ID;
+        Texture2D sprite;
 
+        public GameObject(Texture2D sprite) {
+
+            amountObjects++;
+            ID = amountObjects;
+            this.sprite = sprite;
+        }
         public int getID(){return this.ID;}
-        public void setSprite(Texture2D Sprite) { this.Sprite = Sprite; }
+        public void setSprite(Texture2D sprite) { this.sprite = sprite; }
   
     }
 }

@@ -16,3 +16,5 @@ Towerdefense/Towerdefense/bin/Windows/Debug/SharpDX.xml
 Towerdefense/Towerdefense/obj/x86/Debug/Towerdefense.csproj.FileListAbsolute.txt
 Towerdefense/Towerdefense/obj/x86/Debug/Towerdefense.csprojResolveAssemblyReference.cache
 *.cache
+*.suo
+*.manifest
