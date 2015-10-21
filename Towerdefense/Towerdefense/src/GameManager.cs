@@ -9,7 +9,7 @@ namespace Towerdefense.src
 {
     class GameManager
     {
-<<<<<<< HEAD
+
         public List<Vector2> createGrid(int maxHeight, int amountOfFields){
             List<Vector2> fieldPosition = new List<Vector2>();
            int offset= maxHeight/amountOfFields;
@@ -27,7 +27,7 @@ namespace Towerdefense.src
                  return fieldPosition;
         }
 
-=======
+
         /*list of sprites*/
         SortedList<enemyType, Texture2D> spriteList = new SortedList<enemyType, Texture2D>();
 
@@ -88,11 +88,6 @@ namespace Towerdefense.src
         {
 
         }
-
-
-
->>>>>>> 9d0dda7415da3bf5210b1ab3a1ccda2d521d1a28
-
     }
 
 }
