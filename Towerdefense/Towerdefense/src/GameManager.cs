@@ -9,25 +9,33 @@ namespace Towerdefense.src
 {
     class GameManager
     {
-<<<<<<< HEAD
-        public List<Vector2> createGrid(int maxHeight, int amountOfFields){
-            List<Vector2> fieldPosition = new List<Vector2>();
-           int offset= maxHeight/amountOfFields;
 
-           for (int i = 0; i <= amountOfFields;i++ )
-           {
-               for (int j = 0; j <= amountOfFields; j++)
-               {
-                   fieldPosition.Add(new Vector2(offset / 2 * j, offset * (j + 1) - offset / 2));
-                    Console.WriteLine("X Position :" + fieldPosition.ElementAt(j + i).X);
-                    Console.WriteLine("Y Position :" + fieldPosition.ElementAt(j + i).Y);
-               }
-               }
-       
-                 return fieldPosition;
+        /*Calculates the center of each gridelement*/
+        public Vector2[,] createGrid(int maxHeight, int amountOfFields)
+        {
+            Vector2[,] positionArray = new Vector2[amountOfFields, amountOfFields];
+            int offset = maxHeight / amountOfFields;
+            int y = 0;
+            int x = 0;
+
+            for (int i = 0; i < amountOfFields; i++)
+            {
+                y += offset / 2;
+                x = 0;
+                for (int j = 0; j < amountOfFields; j++)
+                {
+                   
+                    x += offset / 2;
+                    positionArray[i, j] = new Vector2(x, y);
+                    x += offset / 2;
+                   //Console.WriteLine("X :" + positionArray[i, j].X + "Y :" + positionArray[i, j].Y);
+                }
+                y += offset / 2;
+            }
+            return positionArray;
         }
 
-=======
+
         /*list of sprites*/
         SortedList<enemyType, Texture2D> spriteList = new SortedList<enemyType, Texture2D>();
 
@@ -91,7 +99,6 @@ namespace Towerdefense.src
 
 
 
->>>>>>> 9d0dda7415da3bf5210b1ab3a1ccda2d521d1a28
 
     }
 
