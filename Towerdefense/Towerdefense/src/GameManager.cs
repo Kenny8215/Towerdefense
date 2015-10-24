@@ -10,7 +10,6 @@ namespace Towerdefense.src
     class GameManager
     {
 
-<<<<<<< HEAD
         /*Calculates the center of each gridelement*/
         public Vector2[,] createGrid(int maxHeight, int amountOfFields)
         {
@@ -34,7 +33,7 @@ namespace Towerdefense.src
                 y += offset / 2;
             }
             return positionArray;
-=======
+
         public List<Vector2> createGrid(int maxHeight, int amountOfFields){
             List<Vector2> fieldPosition = new List<Vector2>();
            int offset= maxHeight/amountOfFields;
@@ -50,7 +49,6 @@ namespace Towerdefense.src
                }
        
                  return fieldPosition;
->>>>>>> e2917579dfe47bb0954eb275e3ca27ee91e278fe
         }
 
 
