@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml;
 using System.Linq;
 using System.Text;
 
@@ -9,7 +10,14 @@ namespace Towerdefense.src
     {
         public void load(String str)
         {
+            var uri = new System.Uri(str);
+            var converted = uri.AbsoluteUri;
 
+            XmlTextReader read = new XmlTextReader(converted);
+
+            read.ReadToFollowing("wave");
+
+            
         }
 
         public int[,] getGrid()
