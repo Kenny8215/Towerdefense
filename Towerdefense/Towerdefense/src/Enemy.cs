@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Towerdefense.src
+namespace Towerdefense
 {
     class Enemy : DynamicGameObject
     {

@@ -16,6 +16,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 #endregion
 
+
 namespace Towerdefense
 {
     /// <summary>
@@ -29,13 +30,21 @@ namespace Towerdefense
 
         ContentManager content;
         SpriteFont gameFont;
+        GameManager gameManager = new GameManager();
+
+        Texture2D nonroad;
+
+        float pauseAlpha;
+        static int amountOfField = 20;
+        Boolean hasDrawnGrid = false;
 
         Vector2 playerPosition = new Vector2(100, 100);
         Vector2 enemyPosition = new Vector2(100, 100);
+        Vector2[,] FieldCenterPosition = new Vector2[amountOfField,amountOfField];
 
         Random random = new Random();
 
-        float pauseAlpha;
+        
 
         #endregion
 
@@ -61,6 +70,7 @@ namespace Towerdefense
                 content = new ContentManager(ScreenManager.Game.Services, "Content");
 
             gameFont = content.Load<SpriteFont>("gamefont");
+            nonroad = content.Load<Texture2D>("nonroad");
 
             // A real game would probably have more content than this sample, so
             // it would take longer to load. We simulate that by delaying for a
@@ -193,14 +203,10 @@ namespace Towerdefense
             // Our player and enemy are both actually just text strings.
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
 
-            spriteBatch.Begin();
 
-            spriteBatch.DrawString(gameFont, "// TODO", playerPosition, Color.Green);
+            if (hasDrawnGrid == false) { FieldCenterPosition = gameManager.createGrid(ScreenManager.GraphicsDevice.Viewport.Height, amountOfField); hasDrawnGrid = true; }
 
-            spriteBatch.DrawString(gameFont, "Insert Gameplay Here",
-                                   enemyPosition, Color.DarkRed);
-
-            spriteBatch.End();
+            gameManager.DrawInitializedGrid(FieldCenterPosition, amountOfField, nonroad, content,spriteBatch,ScreenManager.GraphicsDevice);
 
             // If the game is transitioning on or off, fade it out to black.
             if (TransitionPosition > 0 || pauseAlpha > 0)
