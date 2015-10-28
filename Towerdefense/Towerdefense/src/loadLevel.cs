@@ -4,7 +4,7 @@ using System.Xml;
 using System.Linq;
 using System.Text;
 
-namespace Towerdefense.src
+namespace Towerdefense
 {
     class LoadLevel
     {
