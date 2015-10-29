@@ -9,16 +9,26 @@ namespace Towerdefense
 {
     class Enemy : DynamicGameObject
     {
+        Texture2D sprite;
+
+        private int hitPoints;
+        private Vector2 position;
+
         private int walkDistance;
+        private int rotation;
         private float movementSpeed;
         private string resistance;
 
         private Boolean isBoss;
         private Boolean isFlying;
 
-        public Enemy(Texture2D sprite, int hitPoints, int walkDistance, float movementSpeed, string resistance, Boolean isBoss, Boolean isFlying) : base(sprite, hitPoints) {
+        public Enemy(Texture2D sprite, int hitPoints, Vector2 position, int walkDistance, int rotation, float movementSpeed, string resistance, Boolean isBoss, Boolean isFlying) : base(sprite, hitPoints) {
 
+            this.sprite = sprite;
+            this.hitPoints = hitPoints;
+            this.position = position;
             this.walkDistance = walkDistance;
+            this.rotation = rotation;
             this.movementSpeed = movementSpeed;
             this.resistance = resistance;
             this.isBoss = isBoss;
