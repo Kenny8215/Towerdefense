@@ -60,6 +60,9 @@ namespace Towerdefense
             // Activate the first screens.
             screenManager.AddScreen(new BackgroundScreen(), null);
             screenManager.AddScreen(new MainMenuScreen(), null);
+
+            //Mouse Visible
+            this.IsMouseVisible = true;
         }
 
 

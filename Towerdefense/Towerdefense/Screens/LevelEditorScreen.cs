@@ -24,7 +24,7 @@ namespace Towerdefense
     /// placeholder to get the idea across: you'll probably want to
     /// put some more interesting gameplay in here!
     /// </summary>
-    class GameplayScreen : GameScreen
+    class LevelEditorScreen : GameScreen
     {
         #region Fields
 
@@ -33,11 +33,13 @@ namespace Towerdefense
         GameManager gameManager = new GameManager();
 
         Texture2D nonroad;
+         
 
         float pauseAlpha;
         static int amountOfField = 20;
         Boolean hasDrawnGrid = false;
 
+        Vector2 highlitedGridElement = new Vector2(0, 0);
         Vector2 playerPosition = new Vector2(100, 100);
         Vector2 enemyPosition = new Vector2(100, 100);
         Vector2[,] FieldCenterPosition = new Vector2[amountOfField,amountOfField];
@@ -54,7 +56,7 @@ namespace Towerdefense
         /// <summary>
         /// Constructor.
         /// </summary>
-        public GameplayScreen()
+        public LevelEditorScreen()
         {
             TransitionOnTime = TimeSpan.FromSeconds(1.5);
             TransitionOffTime = TimeSpan.FromSeconds(0.5);
@@ -131,6 +133,7 @@ namespace Towerdefense
 
                 // TODO: this game isn't very fun! You could probably improve
                 // it by inserting something more interesting in this space :-)
+                
             }
         }
 
@@ -148,6 +151,7 @@ namespace Towerdefense
             int playerIndex = (int)ControllingPlayer.Value;
 
             KeyboardState keyboardState = input.CurrentKeyboardStates[playerIndex];
+            KeyboardState lastKeyboardState = input.LastKeyboardStates[playerIndex];
             GamePadState gamePadState = input.CurrentGamePadStates[playerIndex];
 
             // The game pauses either if the user presses the pause button, or if
@@ -163,30 +167,8 @@ namespace Towerdefense
             }
             else
             {
-                // Otherwise move the player position.
-                Vector2 movement = Vector2.Zero;
-
-                if (keyboardState.IsKeyDown(Keys.Left))
-                    movement.X--;
-
-                if (keyboardState.IsKeyDown(Keys.Right))
-                    movement.X++;
-
-                if (keyboardState.IsKeyDown(Keys.Up))
-                    movement.Y--;
-
-                if (keyboardState.IsKeyDown(Keys.Down))
-                    movement.Y++;
-
-                Vector2 thumbstick = gamePadState.ThumbSticks.Left;
-
-                movement.X += thumbstick.X;
-                movement.Y -= thumbstick.Y;
-
-                if (movement.Length() > 1)
-                    movement.Normalize();
-
-                playerPosition += movement * 2;
+                // Sets the new field if the user pressed left,right,up or down
+                highlitedGridElement = gameManager.SetNewField(keyboardState, lastKeyboardState, highlitedGridElement,amountOfField);
             }
         }
 
@@ -202,6 +184,11 @@ namespace Towerdefense
 
             // Our player and enemy are both actually just text strings.
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
+
+
+            if (hasDrawnGrid == false) { FieldCenterPosition = gameManager.createGrid(ScreenManager.GraphicsDevice.Viewport.Height, amountOfField); hasDrawnGrid = true; }
+
+            gameManager.DrawInitializedGrid(FieldCenterPosition,highlitedGridElement,amountOfField, nonroad, content,spriteBatch,ScreenManager.GraphicsDevice);
 
             // If the game is transitioning on or off, fade it out to black.
             if (TransitionPosition > 0 || pauseAlpha > 0)

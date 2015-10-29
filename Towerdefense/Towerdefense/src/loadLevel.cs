@@ -14,7 +14,7 @@ namespace Towerdefense.src
 
         public int[,] getGrid()
         {
-            int[,] ret = new int[,];
+            int[,] ret = new int[1,1];
 
             return ret;
         }
