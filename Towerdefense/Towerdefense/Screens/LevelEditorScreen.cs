@@ -33,11 +33,17 @@ namespace Towerdefense
         GameManager gameManager = new GameManager();
 
         Texture2D nonroad;
-         
+        Texture2D road1;
+        Texture2D road2;
+        Texture2D road3;
+        Texture2D road4;
+        Texture2D[] textures;
 
         float pauseAlpha;
         static int amountOfField = 20;
         Boolean hasDrawnGrid = false;
+
+        int[,] roadTypeArray;
 
         Vector2 highlitedGridElement = new Vector2(0, 0);
         Vector2 playerPosition = new Vector2(100, 100);
@@ -73,7 +79,18 @@ namespace Towerdefense
 
             gameFont = content.Load<SpriteFont>("gamefont");
             nonroad = content.Load<Texture2D>("nonroad");
-
+            road1 = content.Load<Texture2D>("road1");
+            road2 = content.Load<Texture2D>("road2");
+            road3 = content.Load<Texture2D>("road3");
+            road4 = content.Load<Texture2D>("road4");
+            roadTypeArray = new int[amountOfField, amountOfField];
+            for (int i = 0; i < amountOfField; i++) {
+                for (int j = 0; j < amountOfField; j++)
+                {
+                    roadTypeArray[i, j] = 0;
+                }
+            }
+                textures = new Texture2D[] { nonroad, road1, road2, road3, road4 };
             // A real game would probably have more content than this sample, so
             // it would take longer to load. We simulate that by delaying for a
             // while, giving you a chance to admire the beautiful loading screen.
@@ -169,9 +186,11 @@ namespace Towerdefense
             {
                 // Sets the new field if the user pressed left,right,up or down
                 highlitedGridElement = gameManager.SetNewField(keyboardState, lastKeyboardState, highlitedGridElement,amountOfField);
+
+                //Sets the new roadType when the user Presses Enter
+              roadTypeArray = gameManager.setRoadType(keyboardState,lastKeyboardState,highlitedGridElement,roadTypeArray,textures);
             }
         }
-
 
         /// <summary>
         /// Draws the gameplay screen.
@@ -187,9 +206,8 @@ namespace Towerdefense
 
 
             if (hasDrawnGrid == false) { FieldCenterPosition = gameManager.createGrid(ScreenManager.GraphicsDevice.Viewport.Height, amountOfField); hasDrawnGrid = true; }
-
-            gameManager.DrawInitializedGrid(FieldCenterPosition,highlitedGridElement,amountOfField, nonroad, content,spriteBatch,ScreenManager.GraphicsDevice);
-
+            //gameManager.DrawInitializedGrid(FieldCenterPosition,highlitedGridElement,amountOfField, nonroad, content,spriteBatch,ScreenManager.GraphicsDevice);
+            gameManager.drawGrid(roadTypeArray, FieldCenterPosition, highlitedGridElement, amountOfField, textures, content, spriteBatch, ScreenManager.GraphicsDevice); 
             // If the game is transitioning on or off, fade it out to black.
             if (TransitionPosition > 0 || pauseAlpha > 0)
             {

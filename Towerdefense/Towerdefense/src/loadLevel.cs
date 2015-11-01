@@ -10,14 +10,14 @@ namespace Towerdefense
     {
         public void load(String str)
         {
-            var uri = new System.Uri(str);
+           /* var uri = new System.Uri(str);
             var converted = uri.AbsoluteUri;
 
             XmlTextReader read = new XmlTextReader(converted);
 
             read.ReadToFollowing("wave");
 
-            
+            */
         }
 
         public int[,] getGrid()
