@@ -9,6 +9,7 @@ namespace Towerdefense
 {
     class Enemy : DynamicGameObject
     {
+        #region Fields
         Texture2D sprite;
 
         private int hitPoints;
@@ -21,6 +22,7 @@ namespace Towerdefense
 
         private Boolean isBoss;
         private Boolean isFlying;
+        #endregion
 
         public Enemy(Texture2D sprite, int hitPoints, Vector2 position, int walkDistance, int rotation, float movementSpeed, string resistance, Boolean isBoss, Boolean isFlying) : base(sprite, hitPoints) {
 

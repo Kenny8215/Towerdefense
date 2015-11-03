@@ -17,7 +17,7 @@ namespace Towerdefense
 
         /*list of enemywaves*/
         SortedList<int, List<Enemy>> waveList;
-
+         
         /*actual wave*/
         int actualWave = 0;
 
@@ -41,8 +41,7 @@ namespace Towerdefense
         public void updateEnemys()
         {
 
-        }
-
+        } 
 
         #region Grid and LevelEditor methods
         /*Calculates the center of each gridelement*/
@@ -144,11 +143,17 @@ namespace Towerdefense
             return roadTypeRotation;
         }
 
+        public Boolean LevelEditorMenu(MouseState ms, Boolean DrawMenu)
+        {
 
 
-        public void LevelEditorMenu() {
+            if (DrawMenu == true && ms.MiddleButton == ButtonState.Pressed) { DrawMenu = false; }
+
+            if (ms.RightButton == ButtonState.Pressed) { DrawMenu = true; }
+
+            return DrawMenu;
+        }
         }
         #endregion
     }
 
-}

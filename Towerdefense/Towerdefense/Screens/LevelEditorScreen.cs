@@ -32,6 +32,7 @@ namespace Towerdefense
         SpriteFont gameFont;
         GameManager gameManager = new GameManager();
 
+        Texture2D menu;
         Texture2D nonroad;
         Texture2D road1;
         Texture2D road2;
@@ -39,21 +40,17 @@ namespace Towerdefense
         Texture2D road4;
         Texture2D[] textures;
 
+        MouseState prevMouseState;
+
         float pauseAlpha;
         static int amountOfField = 20;
         Boolean hasDrawnGrid = false;
+        Boolean DrawMenu = false;
+        Vector2 highlitedGridElement = new Vector2(0,0);
+        Vector2 mousePosition;
 
         Vector2[,] roadTypeAndRotation;
-
-        Vector2 highlitedGridElement = new Vector2(0, 0);
-        Vector2 playerPosition = new Vector2(100, 100);
-        Vector2 enemyPosition = new Vector2(100, 100);
         Vector2[,] FieldCenterPosition = new Vector2[amountOfField,amountOfField];
-
-        Random random = new Random();
-
-        
-
         #endregion
 
         #region Initialization
@@ -78,6 +75,9 @@ namespace Towerdefense
                 content = new ContentManager(ScreenManager.Game.Services, "Content");
 
             gameFont = content.Load<SpriteFont>("gamefont");
+
+
+            menu = content.Load<Texture2D>("shortcuts");
             nonroad = content.Load<Texture2D>("nonroad");
             road1 = content.Load<Texture2D>("road1");
             road2 = content.Load<Texture2D>("road2");
@@ -92,6 +92,7 @@ namespace Towerdefense
                 }
             }
                 textures = new Texture2D[] { nonroad, road1, road2, road3, road4 };
+
             // A real game would probably have more content than this sample, so
             // it would take longer to load. We simulate that by delaying for a
             // while, giving you a chance to admire the beautiful loading screen.
@@ -136,19 +137,6 @@ namespace Towerdefense
 
             if (IsActive)
             {
-                // Apply some random jitter to make the enemy move around.
-                const float randomization = 10;
-
-                enemyPosition.X += (float)(random.NextDouble() - 0.5) * randomization;
-                enemyPosition.Y += (float)(random.NextDouble() - 0.5) * randomization;
-
-                // Apply a stabilizing force to stop the enemy moving off the screen.
-                Vector2 targetPosition = new Vector2(
-                    ScreenManager.GraphicsDevice.Viewport.Width / 2 - gameFont.MeasureString("Insert Gameplay Here").X / 2, 
-                    200);
-
-                enemyPosition = Vector2.Lerp(enemyPosition, targetPosition, 0.05f);
-
                 // TODO: this game isn't very fun! You could probably improve
                 // it by inserting something more interesting in this space :-)
                 
@@ -185,13 +173,24 @@ namespace Towerdefense
             }
             else
             {
+                //creates the grid
+                if (hasDrawnGrid == false)
+                {
+                    FieldCenterPosition = gameManager.createGrid(ScreenManager.GraphicsDevice.Viewport.Height, amountOfField); hasDrawnGrid = true;
+                }
+
                 // Sets the new field if the user pressed left,right,up or down
                 highlitedGridElement = gameManager.SetNewField(keyboardState, lastKeyboardState, highlitedGridElement,amountOfField);
 
                 //Sets the new roadType when the user Presses Enter also Rotates the texture 90 degree when R is pressed
               roadTypeAndRotation = gameManager.setRoadTypeAndRotation(keyboardState,lastKeyboardState,highlitedGridElement,roadTypeAndRotation,textures);
                 
-
+                /*Menu*/
+                
+            DrawMenu =  gameManager.LevelEditorMenu(Mouse.GetState(),DrawMenu);
+            if (Mouse.GetState().RightButton == ButtonState.Pressed){mousePosition = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
+            }
+            prevMouseState = Mouse.GetState();
             }
         }
 
@@ -206,11 +205,15 @@ namespace Towerdefense
 
             // Our player and enemy are both actually just text strings.
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
-
-
-            if (hasDrawnGrid == false) { FieldCenterPosition = gameManager.createGrid(ScreenManager.GraphicsDevice.Viewport.Height, amountOfField); hasDrawnGrid = true; }
-            //gameManager.DrawInitializedGrid(FieldCenterPosition,highlitedGridElement,amountOfField, nonroad, content,spriteBatch,ScreenManager.GraphicsDevice);
-            gameManager.drawGrid(roadTypeAndRotation, FieldCenterPosition, highlitedGridElement, amountOfField, textures, content, spriteBatch, ScreenManager.GraphicsDevice); 
+            
+            gameManager.drawGrid(roadTypeAndRotation, FieldCenterPosition, highlitedGridElement, amountOfField, textures, content, spriteBatch, ScreenManager.GraphicsDevice);
+            
+            if (DrawMenu) {
+                spriteBatch.Begin();
+                spriteBatch.Draw(menu, mousePosition, null, Color.White, 0F, new Vector2(menu.Width/2,menu.Height/2),1F, SpriteEffects.None, 1);
+                spriteBatch.End();
+            }
+            
             // If the game is transitioning on or off, fade it out to black.
             if (TransitionPosition > 0 || pauseAlpha > 0)
             {
@@ -219,8 +222,6 @@ namespace Towerdefense
                 ScreenManager.FadeBackBufferToBlack(alpha);
             }
         }
-
-
         #endregion
     }
 }
