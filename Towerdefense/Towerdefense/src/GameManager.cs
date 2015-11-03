@@ -97,10 +97,12 @@ namespace Towerdefense
         }
 
         /*Draws the grid textures*/
-        public void drawGrid(int[,] roadtype, Vector2[,] center, Vector2 highlightIndex, int amountOfFields, Texture2D[] texture, ContentManager content, SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
+        public void drawGrid(Vector2[,] roadTypeRotation, Vector2[,] center, Vector2 highlightIndex, int amountOfFields, Texture2D[] texture, ContentManager content, SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
         {
             float offset = 0.5F * ((float)graphicsDevice.Viewport.Height / amountOfFields);
-            Vector2 textureCenter = new Vector2(texture[0].Width, texture[0].Height);
+            Vector2 offsetVector = new Vector2(offset, offset);
+            float rotation = 1.57079633F;
+            Vector2 textureCenter = new Vector2(texture[0].Width / 2, texture[0].Height / 2);
             float scale = (float)graphicsDevice.Viewport.Height / (amountOfFields * texture[0].Height);
 
             spriteBatch.Begin();
@@ -110,11 +112,11 @@ namespace Towerdefense
                 {
                     if (i == highlightIndex.X && j == highlightIndex.Y)
                     {
-                        spriteBatch.Draw(texture[roadtype[i,j]], center[i, j] + new Vector2(offset, offset), null, new Color(255, 255, 0, 0.7F), 0, textureCenter, scale, SpriteEffects.None, 0);
+                        spriteBatch.Draw(texture[(int)roadTypeRotation[i, j].X], center[i, j], null, new Color(255, 255, 0, 0.7F), (roadTypeRotation[i, j].Y) * rotation, textureCenter, scale, SpriteEffects.None, 0);
                     }
                     else
                     {
-                        spriteBatch.Draw(texture[roadtype[i,j]], center[i, j] + new Vector2(offset, offset), null, Color.White, 0, textureCenter, scale, SpriteEffects.None, 0);
+                        spriteBatch.Draw(texture[(int)roadTypeRotation[i, j].X], center[i, j], null, Color.White, (roadTypeRotation[i, j].Y) * rotation , textureCenter, scale, SpriteEffects.None, 0);
                     }
                 }
             }
@@ -124,14 +126,25 @@ namespace Towerdefense
 
         /*Draws the sprites at the center of each gridelement, can be used to initialize the grid with a specific texture,
           * This method is called in the LoadContent method in the GameplayScreen*/
-        public int[,] setRoadType(KeyboardState ks,KeyboardState ps,Vector2 highlightedGridElement,int[,] roadTypeArray, Texture2D[] textureArray) {
+        public Vector2[,] setRoadTypeAndRotation(KeyboardState ks,KeyboardState ps,Vector2 highlightedGridElement,Vector2[,] roadTypeRotation, Texture2D[] textureArray) {
+          
+            /*Sets the Road Type to the next Type when Enter is pressed*/
             if (ks.IsKeyDown(Keys.Enter) && !ps.IsKeyDown(Keys.Enter))
             {
-                roadTypeArray[(int)highlightedGridElement.X, (int)highlightedGridElement.Y]++;
-                if (roadTypeArray[(int)highlightedGridElement.X, (int)highlightedGridElement.Y] >= textureArray.Length - 1) { roadTypeArray[(int)highlightedGridElement.X, (int)highlightedGridElement.Y] = 0; }
+                roadTypeRotation[(int)highlightedGridElement.X, (int)highlightedGridElement.Y].X++;
+                if (roadTypeRotation[(int)highlightedGridElement.X, (int)highlightedGridElement.Y].X >= textureArray.Length - 1) { roadTypeRotation[(int)highlightedGridElement.X, (int)highlightedGridElement.Y].X = 0; }
             }
-            return roadTypeArray;
+
+            /*Rotates the current Road 90 degree*/
+            if(ks.IsKeyDown(Keys.R) && !ps.IsKeyDown(Keys.R)){
+                 roadTypeRotation[(int)highlightedGridElement.X, (int)highlightedGridElement.Y].Y++;
+                if (roadTypeRotation[(int)highlightedGridElement.X, (int)highlightedGridElement.Y].Y >= textureArray.Length - 1) { roadTypeRotation[(int)highlightedGridElement.X, (int)highlightedGridElement.Y].Y = 0; }
+            }
+
+            return roadTypeRotation;
         }
+
+
 
         public void LevelEditorMenu() {
         }
