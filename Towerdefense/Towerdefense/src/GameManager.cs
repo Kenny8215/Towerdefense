@@ -45,11 +45,13 @@ namespace Towerdefense
 
         #region PlayerInput 
         
-        public Vector2 SetCurrentFieldMouse(MouseState ms,Vector2 offset,Vector2 currentField){
-              
+        public Vector2 SetCurrentFieldMouse(MouseState ms,Vector2 offset,Vector2 currentField,Boolean SetFieldWithMouse ){
+
+            if (SetFieldWithMouse)
+            {
                 currentField.X = (int)(ms.Position.X / offset.X);
                 currentField.Y = (int)(ms.Position.Y / offset.Y);
-            
+            }
             return currentField;
         }
         

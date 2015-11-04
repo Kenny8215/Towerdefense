@@ -40,9 +40,7 @@ namespace Towerdefense
         Texture2D[] roadArray;
 
         Vector2 highlitedGridElement;
-        Vector2 mousePosition;
         Vector2 offset;
-        Vector2 highlitedGridIndex;
 
         Vector2[,] roadTypeAndRotation;
 
@@ -104,12 +102,6 @@ namespace Towerdefense
 
             //creates the grid
                 FieldCenterPosition = gameManager.createGrid(ScreenManager.GraphicsDevice.Viewport.Height, amountOfField);
-             /*   for (int i = 0; i < amountOfField; i++) {
-                    for (int j = 0; j < amountOfField; j++)
-                    {
-                        System.Console.WriteLine("X :" + FieldCenterPosition[j,i].X + "Y :" + FieldCenterPosition[j,i].Y);
-                    }
-                }*/
 
                     // A real game would probably have more content than this sample, so
                     // it would take longer to load. We simulate that by delaying for a
@@ -192,7 +184,7 @@ namespace Towerdefense
             }
             else
             {
-              highlitedGridElement = gameManager.SetCurrentFieldMouse(mouseState,offset,highlitedGridElement);
+              highlitedGridElement = gameManager.SetCurrentFieldMouse(mouseState,offset,highlitedGridElement,true);
          
                //TODO Handle Input
 

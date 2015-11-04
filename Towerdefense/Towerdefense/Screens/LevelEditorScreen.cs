@@ -46,8 +46,10 @@ namespace Towerdefense
         static int amountOfField = 20;
         Boolean hasDrawnGrid = false;
         Boolean DrawMenu = false;
+        Boolean setWithMouse = false;
         Vector2 highlitedGridElement = new Vector2(0,0);
         Vector2 mousePosition;
+        Vector2 offset;
 
         Vector2[,] roadTypeAndRotation;
         Vector2[,] FieldCenterPosition = new Vector2[amountOfField,amountOfField];
@@ -92,6 +94,9 @@ namespace Towerdefense
                 }
             }
                 textures = new Texture2D[] { nonroad, road1, road2, road3, road4 };
+
+                offset.X = ScreenManager.GraphicsDevice.Viewport.Height / amountOfField;
+                offset.Y = ScreenManager.GraphicsDevice.Viewport.Height / amountOfField;
 
             // A real game would probably have more content than this sample, so
             // it would take longer to load. We simulate that by delaying for a
@@ -159,6 +164,7 @@ namespace Towerdefense
             KeyboardState keyboardState = input.CurrentKeyboardStates[playerIndex];
             KeyboardState lastKeyboardState = input.LastKeyboardStates[playerIndex];
             GamePadState gamePadState = input.CurrentGamePadStates[playerIndex];
+            MouseState ms = Mouse.GetState();
 
             // The game pauses either if the user presses the pause button, or if
             // they unplug the active gamepad. This requires us to keep track of
@@ -178,6 +184,8 @@ namespace Towerdefense
                 {
                     FieldCenterPosition = gameManager.createGrid(ScreenManager.GraphicsDevice.Viewport.Height, amountOfField); hasDrawnGrid = true;
                 }
+
+                gameManager.SetCurrentFieldMouse(ms, offset, highlitedGridElement, setWithMouse);
 
                 // Sets the new field if the user pressed left,right,up or down
                 highlitedGridElement = gameManager.SetNewField(keyboardState, lastKeyboardState, highlitedGridElement,amountOfField);
