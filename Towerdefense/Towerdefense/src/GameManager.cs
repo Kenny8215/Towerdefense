@@ -41,7 +41,21 @@ namespace Towerdefense
         public void updateEnemys()
         {
 
-        } 
+        }
+
+        #region PlayerInput 
+        
+        public Vector2 SetCurrentFieldMouse(MouseState ms,Vector2 offset,Vector2 currentField){
+              
+                currentField.X = (int)(ms.Position.X / offset.X);
+                currentField.Y = (int)(ms.Position.Y / offset.Y);
+            
+            return currentField;
+        }
+        
+        
+        
+        #endregion
 
         #region Grid and LevelEditor methods
         /*Calculates the center of each gridelement*/

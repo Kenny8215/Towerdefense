@@ -33,19 +33,26 @@ namespace Towerdefense
         GameManager gameManager = new GameManager();
 
         Texture2D nonroad;
+        Texture2D road1;
+        Texture2D road2;
+        Texture2D road3;
+        Texture2D road4;
+        Texture2D[] roadArray;
+
+        Vector2 highlitedGridElement;
+        Vector2 mousePosition;
+        Vector2 offset;
+        Vector2 highlitedGridIndex;
+
+        Vector2[,] roadTypeAndRotation;
+
+        MouseState previousMouseState;
 
         float pauseAlpha;
         static int amountOfField = 20;
-        Boolean hasDrawnGrid = false;
 
-        Vector2 playerPosition = new Vector2(100, 100);
-        Vector2 enemyPosition = new Vector2(100, 100);
-        Vector2[,] FieldCenterPosition = new Vector2[amountOfField,amountOfField];
-
-        Random random = new Random();
-
-        
-
+        /*Holds the center positions of all GridElements*/
+        Vector2[,] FieldCenterPosition = new Vector2[amountOfField, amountOfField];
         #endregion
 
         #region Initialization
@@ -68,14 +75,46 @@ namespace Towerdefense
         {
             if (content == null)
                 content = new ContentManager(ScreenManager.Game.Services, "Content");
-
+            #region Load Textures
             gameFont = content.Load<SpriteFont>("gamefont");
             nonroad = content.Load<Texture2D>("nonroad");
+            road1 = content.Load<Texture2D>("road1");
+            road2 = content.Load<Texture2D>("road2");
+            road3 = content.Load<Texture2D>("road3");
+            road4 = content.Load<Texture2D>("road4");
 
-            // A real game would probably have more content than this sample, so
-            // it would take longer to load. We simulate that by delaying for a
-            // while, giving you a chance to admire the beautiful loading screen.
-            Thread.Sleep(1000);
+            roadTypeAndRotation = new Vector2[amountOfField, amountOfField];
+            highlitedGridElement = new Vector2(-1, -1);
+
+            /*Load Level in roadTypeAndRotation*/
+            for (int i = 0; i < amountOfField; i++)
+            {
+                for (int j = 0; j < amountOfField; j++)
+                {
+                    roadTypeAndRotation[i, j].X = 0;
+                    roadTypeAndRotation[i, j].Y = 0;
+                }
+            }
+            roadArray = new Texture2D[] { nonroad, road1, road2, road3, road4 };
+            #endregion
+
+            previousMouseState = Mouse.GetState();
+            offset.X = ScreenManager.GraphicsDevice.Viewport.Height / amountOfField;
+            offset.Y = ScreenManager.GraphicsDevice.Viewport.Height / amountOfField;
+
+            //creates the grid
+                FieldCenterPosition = gameManager.createGrid(ScreenManager.GraphicsDevice.Viewport.Height, amountOfField);
+             /*   for (int i = 0; i < amountOfField; i++) {
+                    for (int j = 0; j < amountOfField; j++)
+                    {
+                        System.Console.WriteLine("X :" + FieldCenterPosition[j,i].X + "Y :" + FieldCenterPosition[j,i].Y);
+                    }
+                }*/
+
+                    // A real game would probably have more content than this sample, so
+                    // it would take longer to load. We simulate that by delaying for a
+                    // while, giving you a chance to admire the beautiful loading screen.
+                    Thread.Sleep(1000);
 
             // once the load has finished, we use ResetElapsedTime to tell the game's
             // timing mechanism that we have just finished a very long frame, and that
@@ -137,6 +176,8 @@ namespace Towerdefense
 
             KeyboardState keyboardState = input.CurrentKeyboardStates[playerIndex];
             GamePadState gamePadState = input.CurrentGamePadStates[playerIndex];
+            MouseState mouseState = Mouse.GetState();
+            
 
             // The game pauses either if the user presses the pause button, or if
             // they unplug the active gamepad. This requires us to keep track of
@@ -151,7 +192,11 @@ namespace Towerdefense
             }
             else
             {
-               
+              highlitedGridElement = gameManager.SetCurrentFieldMouse(mouseState,offset,highlitedGridElement);
+         
+               //TODO Handle Input
+
+                previousMouseState = mouseState;
             }
         }
 
@@ -167,6 +212,10 @@ namespace Towerdefense
 
             // Our player and enemy are both actually just text strings.
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
+
+            gameManager.drawGrid(roadTypeAndRotation, FieldCenterPosition, highlitedGridElement, amountOfField,roadArray, content, spriteBatch, ScreenManager.GraphicsDevice);
+
+
 
             // If the game is transitioning on or off, fade it out to black.
             if (TransitionPosition > 0 || pauseAlpha > 0)
