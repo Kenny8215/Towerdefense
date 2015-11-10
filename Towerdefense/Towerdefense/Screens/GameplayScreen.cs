@@ -32,6 +32,10 @@ namespace Towerdefense
         SpriteFont gameFont;
         GameManager gameManager = new GameManager();
 
+        Rectangle fullscreen;
+
+        Texture2D background;
+
         Texture2D nonroad;
         Texture2D road1;
         Texture2D road2;
@@ -75,11 +79,13 @@ namespace Towerdefense
                 content = new ContentManager(ScreenManager.Game.Services, "Content");
             #region Load Textures
             gameFont = content.Load<SpriteFont>("gamefont");
+            background = content.Load<Texture2D>("background");
             nonroad = content.Load<Texture2D>("nonroad");
             road1 = content.Load<Texture2D>("road1");
             road2 = content.Load<Texture2D>("road2");
             road3 = content.Load<Texture2D>("road3");
             road4 = content.Load<Texture2D>("road4");
+
 
             roadTypeAndRotation = new Vector2[amountOfField, amountOfField];
             highlitedGridElement = new Vector2(-1, -1);
@@ -99,6 +105,8 @@ namespace Towerdefense
             previousMouseState = Mouse.GetState();
             offset.X = ScreenManager.GraphicsDevice.Viewport.Height / amountOfField;
             offset.Y = ScreenManager.GraphicsDevice.Viewport.Height / amountOfField;
+
+            fullscreen = new Rectangle(0, 0, ScreenManager.GraphicsDevice.Viewport.Width, ScreenManager.GraphicsDevice.Viewport.Height);
 
             //creates the grid
                 FieldCenterPosition = gameManager.createGrid(ScreenManager.GraphicsDevice.Viewport.Height, amountOfField);
@@ -185,6 +193,7 @@ namespace Towerdefense
             else
             {
               highlitedGridElement = gameManager.SetCurrentFieldMouse(mouseState,offset,highlitedGridElement,true);
+              
          
                //TODO Handle Input
 
@@ -201,10 +210,16 @@ namespace Towerdefense
             // This game has a blue background. Why? Because!
             ScreenManager.GraphicsDevice.Clear(ClearOptions.Target,
                                                Color.CornflowerBlue, 0, 0);
+         
 
+            
             // Our player and enemy are both actually just text strings.
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
 
+            spriteBatch.Begin();
+            spriteBatch.Draw(background, fullscreen,
+                               new Color(TransitionAlpha, TransitionAlpha, TransitionAlpha));
+            spriteBatch.End();
             gameManager.drawGrid(roadTypeAndRotation, FieldCenterPosition, highlitedGridElement, amountOfField,roadArray, content, spriteBatch, ScreenManager.GraphicsDevice);
 
 
