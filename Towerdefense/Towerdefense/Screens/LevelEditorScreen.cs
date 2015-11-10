@@ -32,6 +32,10 @@ namespace Towerdefense
         SpriteFont gameFont;
         GameManager gameManager = new GameManager();
 
+        Rectangle fullscreen;
+
+        Texture2D background;
+
         Texture2D menu;
         Texture2D nonroad;
         Texture2D road1;
@@ -78,6 +82,8 @@ namespace Towerdefense
 
             gameFont = content.Load<SpriteFont>("gamefont");
 
+            background = content.Load<Texture2D>("background");
+
 
             menu = content.Load<Texture2D>("shortcuts");
             nonroad = content.Load<Texture2D>("nonroad");
@@ -97,6 +103,8 @@ namespace Towerdefense
 
                 offset.X = ScreenManager.GraphicsDevice.Viewport.Height / amountOfField;
                 offset.Y = ScreenManager.GraphicsDevice.Viewport.Height / amountOfField;
+
+                fullscreen = new Rectangle(0, 0, ScreenManager.GraphicsDevice.Viewport.Width, ScreenManager.GraphicsDevice.Viewport.Height);
 
             // A real game would probably have more content than this sample, so
             // it would take longer to load. We simulate that by delaying for a
@@ -207,12 +215,13 @@ namespace Towerdefense
         /// </summary>
         public override void Draw(GameTime gameTime)
         {
-            // This game has a blue background. Why? Because!
-            ScreenManager.GraphicsDevice.Clear(ClearOptions.Target,
-                                               Color.CornflowerBlue, 0, 0);
-
             // Our player and enemy are both actually just text strings.
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
+
+            spriteBatch.Begin();
+            spriteBatch.Draw(background, fullscreen,
+                               new Color(TransitionAlpha, TransitionAlpha, TransitionAlpha));
+            spriteBatch.End();
             
             gameManager.drawGrid(roadTypeAndRotation, FieldCenterPosition, highlitedGridElement, amountOfField, textures, content, spriteBatch, ScreenManager.GraphicsDevice);
             
