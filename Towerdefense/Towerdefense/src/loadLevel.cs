@@ -10,14 +10,43 @@ namespace Towerdefense
     {
         public void load(String str)
         {
-           /* var uri = new System.Uri(str);
-            var converted = uri.AbsoluteUri;
+            /* var uri = new System.Uri(str);
+             var converted = uri.AbsoluteUri;
 
-            XmlTextReader read = new XmlTextReader(converted);
+             XmlTextReader read = new XmlTextReader(converted);
 
-            read.ReadToFollowing("wave");
+             read.ReadToFollowing("wave");
 
-            */
+             */
+            System.IO.StreamReader XMLread = new System.IO.StreamReader(@str);
+
+            using (XmlReader reader = XmlReader.Create(XMLread))
+            {
+                    // Parse the file and display each of the nodes.
+                    while (reader.Read())
+                    {
+                        switch (reader.NodeType)
+                        {
+                            case XmlNodeType.Element:
+                                //startelement
+                                break;
+                            case XmlNodeType.Text:
+                                //the text in the element
+                                break;
+                            case XmlNodeType.XmlDeclaration:
+                            case XmlNodeType.ProcessingInstruction:
+                                //no idea
+                                break;
+                            case XmlNodeType.Comment:
+                                //comment
+                                break;
+                            case XmlNodeType.EndElement:
+                                //the end of an element
+                                break;
+                        }
+                    }
+                
+            }
         }
 
         public int[,] getGrid()
