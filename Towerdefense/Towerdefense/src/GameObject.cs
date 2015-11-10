@@ -13,14 +13,46 @@ namespace Towerdefense
         private int ID;
         Texture2D sprite;
 
+        public GameObject()
+        {
+
+        }
+
         public GameObject(Texture2D sprite) {
 
             amountObjects++;
-            ID = amountObjects;
-            this.sprite = sprite;
+            ID1 = amountObjects;
+            this.Sprite = sprite;
         }
-        public int getID(){return this.ID;}
-        public void setSprite(Texture2D sprite) { this.sprite = sprite; }
+
+        public int ID1
+        {
+            get
+            {
+                return ID;
+            }
+
+            set
+            {
+                ID = value;
+            }
+        }
+
+        public Texture2D Sprite
+        {
+            get
+            {
+                return sprite;
+            }
+
+            set
+            {
+                sprite = value;
+            }
+        }
+
+        public int getID(){return this.ID1;}
+        public void setSprite(Texture2D sprite) { this.Sprite = sprite; }
   
     }
 }

@@ -11,11 +11,29 @@ namespace Towerdefense
     {
         private int hitPoints;
 
-        public int getHitPoints(){return this.hitPoints;}
-        public void loseHitPoints(int dmg) { this.hitPoints -= dmg; }
+        public int HitPoints
+        {
+            get
+            {
+                return hitPoints;
+            }
+
+            set
+            {
+                hitPoints = value;
+            }
+        }
+
+        public int getHitPoints(){return this.HitPoints;}
+        public void loseHitPoints(int dmg) { this.HitPoints -= dmg; }
         
+        public DynamicGameObject()
+        {
+
+        }
+
         public DynamicGameObject(Texture2D sprite, int hitPoints) : base(sprite){
-            this.hitPoints = hitPoints;
+            this.HitPoints = hitPoints;
         }
     }
 }
