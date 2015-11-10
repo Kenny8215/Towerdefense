@@ -16,7 +16,7 @@ namespace Towerdefense
         List<Tower> towerList;
 
         /*list of enemywaves*/
-        SortedList<int, List<Enemy>> waveList;
+        SortedList<int, Wave> waveList;
          
         /*actual wave*/
         int actualWave = 0;

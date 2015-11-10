@@ -62,6 +62,7 @@
     <Compile Include="src\loadLevel.cs" />
     <Compile Include="src\Player.cs" />
     <Compile Include="src\Tower.cs" />
+    <Compile Include="src\Wave.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
