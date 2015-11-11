@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<level>
+	<waves>
+		<wave>
+			<count>10</count>
+			<enemy>
+				<name>wolf</name>
+				<hitPoints>100</hitPoints>
+				<movementSpeed>1</movementSpeed>
+				<sprite></sprite>
+				<resistance>ice</resistance>
+				<boss>false</boss>
+				<flying>false</flying>
+			</enemy>
+		</wave>
+		<wave>
+			<count>10000</count>
+			<enemy>
+				<name>fish</name>
+				<hitPoints>10000</hitPoints>
+				<movementSpeed>10000000</movementSpeed>
+				<sprite></sprite>
+				<resistance>ice</resistance>
+				<boss>false</boss>
+				<flying>true</flying>
+			</enemy>
+		</wave>
+	</waves>
+	
+	<grid>
+		<count>30</count>
+		
+		<field>
+			<x>1</x>
+			<y>1</y>
+			<type>turn</type>
+			<rotation>90</rotation>
+		</field>
+		<field>
+			<x>1</x>
+			<y>5</y>
+			<type>start</type>
+			<rotation>90</rotation>
+		</field>
+		<field>
+			<x>1</x>
+			<y>10</y>
+			<type>finish</type>
+			<rotation>90</rotation>
+		</field>
+	</grid>
+</level>
