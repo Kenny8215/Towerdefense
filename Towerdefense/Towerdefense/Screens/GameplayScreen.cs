@@ -43,8 +43,14 @@ namespace Towerdefense
         Texture2D road4;
         Texture2D[] roadArray;
 
+        Texture2D lifeIcon;
+        Texture2D tower1Icon;
+        Texture2D[] menuTextureArray;
+        
+
         Vector2 highlitedGridElement;
         Vector2 offset;
+        Vector2 menuCenterPosition;
 
         Vector2[,] roadTypeAndRotation;
 
@@ -86,6 +92,9 @@ namespace Towerdefense
             road3 = content.Load<Texture2D>("road3");
             road4 = content.Load<Texture2D>("road4");
 
+            lifeIcon = content.Load<Texture2D>("Menu/helmicon");
+            tower1Icon = content.Load<Texture2D>("Menu/tower1");
+            
 
             roadTypeAndRotation = new Vector2[amountOfField, amountOfField];
             highlitedGridElement = new Vector2(-1, -1);
@@ -100,16 +109,22 @@ namespace Towerdefense
                 }
             }
             roadArray = new Texture2D[] { nonroad, road1, road2, road3, road4 };
+
+            menuTextureArray = new Texture2D[] { lifeIcon, tower1Icon };
             #endregion
 
             previousMouseState = Mouse.GetState();
             offset.X = ScreenManager.GraphicsDevice.Viewport.Height / amountOfField;
             offset.Y = ScreenManager.GraphicsDevice.Viewport.Height / amountOfField;
 
+            //creates the grid
+            FieldCenterPosition = gameManager.createGrid(ScreenManager.GraphicsDevice.Viewport.Height, amountOfField);
+           float menuCenterWidth = (ScreenManager.GraphicsDevice.Viewport.Width - FieldCenterPosition[amountOfField-1,amountOfField-1].X) / 2  + FieldCenterPosition[amountOfField-1,amountOfField-1].X + offset.X ;
+            menuCenterPosition = new Vector2(menuCenterWidth,ScreenManager.GraphicsDevice.Viewport.Height / 2);
+
             fullscreen = new Rectangle(0, 0, ScreenManager.GraphicsDevice.Viewport.Width, ScreenManager.GraphicsDevice.Viewport.Height);
 
-            //creates the grid
-                FieldCenterPosition = gameManager.createGrid(ScreenManager.GraphicsDevice.Viewport.Height, amountOfField);
+         
 
                     // A real game would probably have more content than this sample, so
                     // it would take longer to load. We simulate that by delaying for a
@@ -220,6 +235,10 @@ namespace Towerdefense
             spriteBatch.Draw(background, fullscreen,
                                new Color(TransitionAlpha, TransitionAlpha, TransitionAlpha));
             spriteBatch.End();
+
+            gameManager.drawMenu(menuTextureArray, menuCenterPosition, spriteBatch,offset);
+
+            /*Draws the normal grid (has to be replaced with load level*/
             gameManager.drawGrid(roadTypeAndRotation, FieldCenterPosition, highlitedGridElement, amountOfField,roadArray, content, spriteBatch, ScreenManager.GraphicsDevice);
 
 

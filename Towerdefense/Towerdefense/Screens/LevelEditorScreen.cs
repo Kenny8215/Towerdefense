@@ -90,7 +90,7 @@ namespace Towerdefense
             road1 = content.Load<Texture2D>("tiles/road");
             road2 = content.Load<Texture2D>("tiles/road1");
             road3 = content.Load<Texture2D>("tiles/road2");
-            road4 = content.Load<Texture2D>("tiles/road2");
+            road4 = content.Load<Texture2D>("tiles/road3");
             roadTypeAndRotation = new Vector2[amountOfField, amountOfField];
             for (int i = 0; i < amountOfField; i++) {
                 for (int j = 0; j < amountOfField; j++)

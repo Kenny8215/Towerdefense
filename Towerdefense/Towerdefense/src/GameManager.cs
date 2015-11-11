@@ -17,13 +17,13 @@ namespace Towerdefense
 
         /*list of enemywaves*/
         SortedList<int, Wave> waveList;
-         
+
         /*actual wave*/
         int actualWave = 0;
 
         /*LevelObject which contains Content loaded out of an *.xml */
         LoadLevel levelObject;
-#endregion
+        #endregion
 
         public GameManager()
         {
@@ -43,9 +43,10 @@ namespace Towerdefense
 
         }
 
-        #region PlayerInput 
-        
-        public Vector2 SetCurrentFieldMouse(MouseState ms,Vector2 offset,Vector2 currentField,Boolean SetFieldWithMouse ){
+        #region PlayerInput
+
+        public Vector2 SetCurrentFieldMouse(MouseState ms, Vector2 offset, Vector2 currentField, Boolean SetFieldWithMouse)
+        {
 
             if (SetFieldWithMouse)
             {
@@ -54,9 +55,9 @@ namespace Towerdefense
             }
             return currentField;
         }
-        
-        
-        
+
+
+
         #endregion
 
         #region Grid and LevelEditor methods
@@ -86,28 +87,29 @@ namespace Towerdefense
         }
 
         /*Sets the current highlighted GridElement*/
-        public Vector2 SetNewField(KeyboardState ks,KeyboardState ps, Vector2 currentField,int amountOfField) {
-           
-                if (ks.IsKeyDown(Keys.Right) && !ps.IsKeyDown(Keys.Right) && currentField.X < (amountOfField-1))
-                {
-                    currentField.X++;
-                }
+        public Vector2 SetNewField(KeyboardState ks, KeyboardState ps, Vector2 currentField, int amountOfField)
+        {
 
-                if (ks.IsKeyDown(Keys.Left) && !ps.IsKeyDown(Keys.Left) && currentField.X > 0)
-                {
-                     currentField.X--; 
-                }
+            if (ks.IsKeyDown(Keys.Right) && !ps.IsKeyDown(Keys.Right) && currentField.X < (amountOfField - 1))
+            {
+                currentField.X++;
+            }
 
-                if (ks.IsKeyDown(Keys.Up) && !ps.IsKeyDown(Keys.Up) && currentField.Y > 0)
-                {
-                    currentField.Y--; 
-                }
+            if (ks.IsKeyDown(Keys.Left) && !ps.IsKeyDown(Keys.Left) && currentField.X > 0)
+            {
+                currentField.X--;
+            }
 
-                if (ks.IsKeyDown(Keys.Down) && !ps.IsKeyDown(Keys.Down) && currentField.Y < (amountOfField-1))
-                {
-                    currentField.Y++;
-                }
-            
+            if (ks.IsKeyDown(Keys.Up) && !ps.IsKeyDown(Keys.Up) && currentField.Y > 0)
+            {
+                currentField.Y--;
+            }
+
+            if (ks.IsKeyDown(Keys.Down) && !ps.IsKeyDown(Keys.Down) && currentField.Y < (amountOfField - 1))
+            {
+                currentField.Y++;
+            }
+
             return currentField;
         }
 
@@ -131,29 +133,31 @@ namespace Towerdefense
                     }
                     else
                     {
-                        spriteBatch.Draw(texture[(int)roadTypeRotation[i, j].X], center[i, j], null, Color.White, (roadTypeRotation[i, j].Y) * rotation , textureCenter, scale, SpriteEffects.None, 0);
+                        spriteBatch.Draw(texture[(int)roadTypeRotation[i, j].X], center[i, j], null, Color.White, (roadTypeRotation[i, j].Y) * rotation, textureCenter, scale, SpriteEffects.None, 0);
                     }
                 }
             }
             spriteBatch.End();
-    
+
         }
 
         /*Draws the sprites at the center of each gridelement, can be used to initialize the grid with a specific texture,
           * This method is called in the LoadContent method in the GameplayScreen*/
-        public Vector2[,] setRoadTypeAndRotation(KeyboardState ks,KeyboardState ps,Vector2 highlightedGridElement,Vector2[,] roadTypeRotation, Texture2D[] textureArray) {
-          
+        public Vector2[,] setRoadTypeAndRotation(KeyboardState ks, KeyboardState ps, Vector2 highlightedGridElement, Vector2[,] roadTypeRotation, Texture2D[] textureArray)
+        {
+
             /*Sets the Road Type to the next Type when Enter is pressed*/
             if (ks.IsKeyDown(Keys.Enter) && !ps.IsKeyDown(Keys.Enter))
             {
                 roadTypeRotation[(int)highlightedGridElement.X, (int)highlightedGridElement.Y].X++;
-                if (roadTypeRotation[(int)highlightedGridElement.X, (int)highlightedGridElement.Y].X >= textureArray.Length - 1) { roadTypeRotation[(int)highlightedGridElement.X, (int)highlightedGridElement.Y].X = 0; }
+                if (roadTypeRotation[(int)highlightedGridElement.X, (int)highlightedGridElement.Y].X >= textureArray.Length) { roadTypeRotation[(int)highlightedGridElement.X, (int)highlightedGridElement.Y].X = 0; }
             }
 
             /*Rotates the current Road 90 degree*/
-            if(ks.IsKeyDown(Keys.R) && !ps.IsKeyDown(Keys.R)){
-                 roadTypeRotation[(int)highlightedGridElement.X, (int)highlightedGridElement.Y].Y++;
-                if (roadTypeRotation[(int)highlightedGridElement.X, (int)highlightedGridElement.Y].Y >= textureArray.Length - 1) { roadTypeRotation[(int)highlightedGridElement.X, (int)highlightedGridElement.Y].Y = 0; }
+            if (ks.IsKeyDown(Keys.R) && !ps.IsKeyDown(Keys.R))
+            {
+                roadTypeRotation[(int)highlightedGridElement.X, (int)highlightedGridElement.Y].Y++;
+                if (roadTypeRotation[(int)highlightedGridElement.X, (int)highlightedGridElement.Y].Y >= textureArray.Length) { roadTypeRotation[(int)highlightedGridElement.X, (int)highlightedGridElement.Y].Y = 0; }
             }
 
             return roadTypeRotation;
@@ -169,7 +173,38 @@ namespace Towerdefense
 
             return DrawMenu;
         }
-        }
+
         #endregion
+
+        #region Menu
+
+        public void drawMenu(Texture2D[] MenuTextureArray,Vector2 MenuCenterPosition,SpriteBatch spriteBatch,Vector2 offset)
+        {
+            Vector2 Origin;
+            Vector2 centerTemp = MenuCenterPosition; 
+          
+              centerTemp = new Vector2(MenuCenterPosition.X,offset.Y); 
+            spriteBatch.Begin();
+           for(int i = 0; i < MenuTextureArray.Length; i++){
+              
+                Origin = new Vector2(MenuTextureArray[i].Width/2,MenuTextureArray[i].Height/2);
+
+                if(i%2==0){
+                
+            spriteBatch.Draw(MenuTextureArray[i],new Vector2(centerTemp.X + offset.X,centerTemp.Y),null,Color.White,0F,Origin,1F,SpriteEffects.None,1F);
+                }else{
+                   
+                    spriteBatch.Draw(MenuTextureArray[i], new Vector2(centerTemp.X - 2*offset.X, centerTemp.Y), null, Color.White, 0F, Origin, 1F, SpriteEffects.None, 1F);
+                }
+            
+
+               
+            }
+
+                spriteBatch.End();
+        }
+
     }
+    #endregion
+}
 
