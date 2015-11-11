@@ -86,11 +86,11 @@ namespace Towerdefense
 
 
             menu = content.Load<Texture2D>("shortcuts");
-            nonroad = content.Load<Texture2D>("nonroad");
-            road1 = content.Load<Texture2D>("road1");
-            road2 = content.Load<Texture2D>("road2");
-            road3 = content.Load<Texture2D>("road3");
-            road4 = content.Load<Texture2D>("road4");
+            nonroad = content.Load<Texture2D>("tiles/noRoad1");
+            road1 = content.Load<Texture2D>("tiles/road");
+            road2 = content.Load<Texture2D>("tiles/road1");
+            road3 = content.Load<Texture2D>("tiles/road2");
+            road4 = content.Load<Texture2D>("tiles/road2");
             roadTypeAndRotation = new Vector2[amountOfField, amountOfField];
             for (int i = 0; i < amountOfField; i++) {
                 for (int j = 0; j < amountOfField; j++)
