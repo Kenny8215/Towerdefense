@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <level>
 	<waves>
 		<wave>
@@ -7,7 +8,7 @@
 				<hitPoints>100</hitPoints>
 				<movementSpeed>1</movementSpeed>
 				<sprite></sprite>
-				<resitance>ice</resistance>
+				<resistance>ice</resistance>
 				<boss>false</boss>
 				<flying>false</flying>
 			</enemy>
@@ -19,7 +20,7 @@
 				<hitPoints>10000</hitPoints>
 				<movementSpeed>10000000</movementSpeed>
 				<sprite></sprite>
-				<resitance>ice</resistance>
+				<resistance>ice</resistance>
 				<boss>false</boss>
 				<flying>true</flying>
 			</enemy>

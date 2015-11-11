@@ -124,8 +124,3 @@
 /processorParam:TextureFormat=Color
 /build:enemies/wolf.png
 
-#begin level/bsp_lvl.xml
-/importer:XmlImporter
-/processor:PassThroughProcessor
-/build:level/bsp_lvl.xml
-
