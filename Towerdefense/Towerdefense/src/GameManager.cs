@@ -178,29 +178,45 @@ namespace Towerdefense
 
         #region Menu
 
-        public void drawMenu(Texture2D[] MenuTextureArray,Vector2 MenuCenterPosition,SpriteBatch spriteBatch,Vector2 offset)
+        public Vector2[] createMenuGrid(Texture2D[] MenuTextureArray,Vector2 MenuCenterPosition,Vector2 offset)
         {
+            Vector2[] safeMenuPositions = new Vector2[MenuTextureArray.Length];
             Vector2 Origin;
             Vector2 centerTemp = MenuCenterPosition; 
           
               centerTemp = new Vector2(MenuCenterPosition.X,2*offset.Y); 
-            spriteBatch.Begin();
            for(int i = 0; i < MenuTextureArray.Length; i++){
               
                 Origin = new Vector2(MenuTextureArray[i].Width/2,MenuTextureArray[i].Height/2);
 
                 if(i%2==0){
+                    //safe position into safeMenuPosition
+                    safeMenuPositions[i] = new Vector2(centerTemp.X + offset.X,centerTemp.Y);
                 
-            spriteBatch.Draw(MenuTextureArray[i],new Vector2(centerTemp.X + offset.X,centerTemp.Y),null,Color.White,0F,Origin,1F,SpriteEffects.None,1F);
+          //  spriteBatch.Draw(MenuTextureArray[i],,null,Color.White,0F,Origin,1F,SpriteEffects.None,1F);
                 }else{
-                   
-                    spriteBatch.Draw(MenuTextureArray[i], new Vector2(centerTemp.X - 2*offset.X, centerTemp.Y), null, Color.White, 0F, Origin, 1F, SpriteEffects.None, 1F);
+                   safeMenuPositions[i] = new Vector2(centerTemp.X - 2*offset.X, centerTemp.Y);
+                    //spriteBatch.Draw(MenuTextureArray[i], , null, Color.White, 0F, Origin, 1F, SpriteEffects.None, 1F);
                     centerTemp.Y += 2*offset.Y;
                 }
                 
             }
+           return safeMenuPositions;
+        }
 
-                spriteBatch.End();
+        public void drawMenu(SpriteBatch spriteBatch, Vector2[] menuPositionArray, Texture2D[] menuTextureArray)
+        {
+            Vector2 Origin;
+
+            spriteBatch.Begin();
+            for (int i = 0; i < menuTextureArray.Length; i++)
+            {
+
+                Origin = new Vector2(menuTextureArray[i].Width / 2, menuTextureArray[i].Height / 2);
+
+                spriteBatch.Draw(menuTextureArray[i], menuPositionArray[i], null, Color.White, 0F, Origin, 1F, SpriteEffects.None, 1F);
+            }
+            spriteBatch.End();
         }
 
     }

@@ -47,6 +47,7 @@ namespace Towerdefense
         Texture2D tower1Icon;
         Texture2D moneyIcon;
         Texture2D[] menuTextureArray;
+        Vector2[] menuGridCenterArray;
         
 
         Vector2 highlitedGridElement;
@@ -124,6 +125,9 @@ namespace Towerdefense
             FieldCenterPosition = gameManager.createGrid(ScreenManager.GraphicsDevice.Viewport.Height, amountOfField);
            float menuCenterWidth = (ScreenManager.GraphicsDevice.Viewport.Width - FieldCenterPosition[amountOfField-1,amountOfField-1].X) / 2  + FieldCenterPosition[amountOfField-1,amountOfField-1].X + offset.X ;
             menuCenterPosition = new Vector2(menuCenterWidth,ScreenManager.GraphicsDevice.Viewport.Height / 2);
+
+
+            menuGridCenterArray = gameManager.createMenuGrid(menuTextureArray, menuCenterPosition, offset);
 
             fullscreen = new Rectangle(0, 0, ScreenManager.GraphicsDevice.Viewport.Width, ScreenManager.GraphicsDevice.Viewport.Height);
 
@@ -239,7 +243,8 @@ namespace Towerdefense
                                new Color(TransitionAlpha, TransitionAlpha, TransitionAlpha));
             spriteBatch.End();
 
-            gameManager.drawMenu(menuTextureArray, menuCenterPosition, spriteBatch,offset);
+            gameManager.drawMenu(spriteBatch, menuGridCenterArray, menuTextureArray);
+
 
             /*Draws the normal grid (has to be replaced with load level*/
             gameManager.drawGrid(roadTypeAndRotation, FieldCenterPosition, highlitedGridElement, amountOfField,roadArray, content, spriteBatch, ScreenManager.GraphicsDevice);
