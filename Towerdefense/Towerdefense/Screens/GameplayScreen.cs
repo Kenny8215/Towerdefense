@@ -45,6 +45,7 @@ namespace Towerdefense
 
         Texture2D lifeIcon;
         Texture2D tower1Icon;
+        Texture2D moneyIcon;
         Texture2D[] menuTextureArray;
         
 
@@ -92,8 +93,10 @@ namespace Towerdefense
             road3 = content.Load<Texture2D>("road3");
             road4 = content.Load<Texture2D>("road4");
 
-            lifeIcon = content.Load<Texture2D>("Menu/helmicon");
+            lifeIcon = content.Load<Texture2D>("Menu/shieldicon");
+            moneyIcon = content.Load<Texture2D>("Menu/helmicon");
             tower1Icon = content.Load<Texture2D>("Menu/tower1");
+
             
 
             roadTypeAndRotation = new Vector2[amountOfField, amountOfField];
@@ -110,7 +113,7 @@ namespace Towerdefense
             }
             roadArray = new Texture2D[] { nonroad, road1, road2, road3, road4 };
 
-            menuTextureArray = new Texture2D[] { lifeIcon, tower1Icon };
+            menuTextureArray = new Texture2D[] {  lifeIcon, moneyIcon, tower1Icon };
             #endregion
 
             previousMouseState = Mouse.GetState();

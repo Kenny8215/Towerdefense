@@ -183,7 +183,7 @@ namespace Towerdefense
             Vector2 Origin;
             Vector2 centerTemp = MenuCenterPosition; 
           
-              centerTemp = new Vector2(MenuCenterPosition.X,offset.Y); 
+              centerTemp = new Vector2(MenuCenterPosition.X,2*offset.Y); 
             spriteBatch.Begin();
            for(int i = 0; i < MenuTextureArray.Length; i++){
               
@@ -195,10 +195,9 @@ namespace Towerdefense
                 }else{
                    
                     spriteBatch.Draw(MenuTextureArray[i], new Vector2(centerTemp.X - 2*offset.X, centerTemp.Y), null, Color.White, 0F, Origin, 1F, SpriteEffects.None, 1F);
+                    centerTemp.Y += 2*offset.Y;
                 }
-            
-
-               
+                
             }
 
                 spriteBatch.End();
