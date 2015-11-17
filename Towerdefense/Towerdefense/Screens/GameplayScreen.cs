@@ -45,6 +45,9 @@ namespace Towerdefense
 
         Texture2D lifeIcon;
         Texture2D tower1Icon;
+        Texture2D tower2Icon;
+        Texture2D tower3Icon;
+        Texture2D tower4Icon;
         Texture2D moneyIcon;
         Texture2D[] menuTextureArray;
         Vector2[] menuGridCenterArray;
@@ -62,6 +65,8 @@ namespace Towerdefense
         static int amountOfField = 20;
         int highlitedMenuElement;
 
+        Boolean drawTower;
+
         /*Holds the center positions of all GridElements*/
         Vector2[,] FieldCenterPosition = new Vector2[amountOfField, amountOfField];
         #endregion
@@ -78,6 +83,7 @@ namespace Towerdefense
             TransitionOffTime = TimeSpan.FromSeconds(0.5);
 
             previousMouseState = Mouse.GetState();
+            drawTower = false;
         }
 
         /// <summary>
@@ -99,8 +105,12 @@ namespace Towerdefense
             lifeIcon = content.Load<Texture2D>("Menu/shieldicon");
             moneyIcon = content.Load<Texture2D>("Menu/helmicon");
             tower1Icon = content.Load<Texture2D>("Menu/tower1");
+            tower2Icon = content.Load<Texture2D>("Menu/tower1");
+            tower3Icon = content.Load<Texture2D>("Menu/tower1");
+            tower4Icon = content.Load<Texture2D>("Menu/tower1");
+
             roadArray = new Texture2D[] { nonroad, road1, road2, road3, road4 };
-            menuTextureArray = new Texture2D[] {  lifeIcon, moneyIcon, tower1Icon };
+            menuTextureArray = new Texture2D[] {  lifeIcon, moneyIcon, tower1Icon, tower2Icon,tower3Icon,tower4Icon,};
             #endregion    
 
             
@@ -223,6 +233,7 @@ namespace Towerdefense
             {
               highlitedGridElement = gameManager.SetCurrentFieldMouse(mouseState,offset,highlitedGridElement,true);
               highlitedMenuElement = gameManager.SetCurrentMenuField(mouseState,menuRectangle);
+              drawTower = gameManager.TowerToMouse(mouseState,previousMouseState,menuRectangle,drawTower);
              
          
                //TODO Handle Input
@@ -259,6 +270,8 @@ namespace Towerdefense
             /*Draws the normal grid (has to be replaced with load level*/
             gameManager.drawGrid(roadTypeAndRotation, FieldCenterPosition, highlitedGridElement, amountOfField,roadArray, content, spriteBatch, ScreenManager.GraphicsDevice);
 
+            /*Draws The TowerTexture to the Mouseposition when leftclicked*/
+            gameManager.drawTowerToMouse(Mouse.GetState().Position, drawTower, spriteBatch, tower1Icon);
 
 
             // If the game is transitioning on or off, fade it out to black.

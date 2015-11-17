@@ -55,6 +55,33 @@ namespace Towerdefense
             return currentField;
         }
 
+        public Boolean TowerToMouse(MouseState ms, MouseState ps,Rectangle[] menuRectangle,Boolean drawTower) {
+            if (ms.RightButton == ButtonState.Pressed && ps.RightButton == ButtonState.Released) { return false; }
+            if (drawTower == true)
+            {
+                return true;
+            }
+            else
+            {
+                for (int i = 0; i < menuRectangle.Length; i++)
+                    if (ms.LeftButton == ButtonState.Pressed && ps.LeftButton == ButtonState.Released && menuRectangle[i].Contains(ms.Position))
+                    {
+                        return true;
+                    }
+            }
+
+            return false;
+        }
+
+        public void drawTowerToMouse(Point ms,Boolean drawTower,SpriteBatch spriteBatch,Texture2D towerTexture) {
+            Vector2 origin = new Vector2(towerTexture.Width/2,towerTexture.Height/2);
+            Vector2 msV = new Vector2(ms.X,ms.Y);
+            if (drawTower) {
+                spriteBatch.Begin();
+                spriteBatch.Draw(towerTexture, msV , null, null, origin, 0F, null, Color.White, SpriteEffects.None, 1F);
+                spriteBatch.End();
+            }
+        }
         #endregion
 
         #region Grid and LevelEditor methods
