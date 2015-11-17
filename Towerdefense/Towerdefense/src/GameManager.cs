@@ -44,7 +44,6 @@ namespace Towerdefense
         }
 
         #region PlayerInput
-
         public Vector2 SetCurrentFieldMouse(MouseState ms, Vector2 offset, Vector2 currentField, Boolean SetFieldWithMouse)
         {
 
@@ -55,8 +54,6 @@ namespace Towerdefense
             }
             return currentField;
         }
-
-
 
         #endregion
 
@@ -129,7 +126,7 @@ namespace Towerdefense
                 {
                     if (i == highlightIndex.X && j == highlightIndex.Y)
                     {
-                        spriteBatch.Draw(texture[(int)roadTypeRotation[i, j].X], center[i, j], null, new Color(255, 255, 0, 0.5F), (roadTypeRotation[i, j].Y) * rotation, textureCenter, scale, SpriteEffects.None, 0);
+                        spriteBatch.Draw(texture[(int)roadTypeRotation[i, j].X], center[i, j], null, new Color(255, 255, 0, 1F), (roadTypeRotation[i, j].Y) * rotation, textureCenter, scale, SpriteEffects.None, 0);
                     }
                     else
                     {
@@ -178,33 +175,34 @@ namespace Towerdefense
 
         #region Menu
 
-        public Vector2[] createMenuGrid(Texture2D[] MenuTextureArray,Vector2 MenuCenterPosition,Vector2 offset)
+        public Vector2[] createMenuGrid(Texture2D[] MenuTextureArray, Vector2 MenuCenterPosition, Vector2 offset)
         {
             Vector2[] safeMenuPositions = new Vector2[MenuTextureArray.Length];
             Vector2 Origin;
-            Vector2 centerTemp = MenuCenterPosition; 
-          
-              centerTemp = new Vector2(MenuCenterPosition.X,2*offset.Y); 
-           for(int i = 0; i < MenuTextureArray.Length; i++){
-              
-                Origin = new Vector2(MenuTextureArray[i].Width/2,MenuTextureArray[i].Height/2);
+            Vector2 centerTemp = MenuCenterPosition;
 
-                if(i%2==0){
+            centerTemp = new Vector2(MenuCenterPosition.X, 2 * offset.Y);
+            for (int i = 0; i < MenuTextureArray.Length; i++)
+            {
+
+                Origin = new Vector2(MenuTextureArray[i].Width / 2, MenuTextureArray[i].Height / 2);
+
+                if (i % 2 == 0)
+                {
                     //safe position into safeMenuPosition
-                    safeMenuPositions[i] = new Vector2(centerTemp.X + offset.X,centerTemp.Y);
-                
-          //  spriteBatch.Draw(MenuTextureArray[i],,null,Color.White,0F,Origin,1F,SpriteEffects.None,1F);
-                }else{
-                   safeMenuPositions[i] = new Vector2(centerTemp.X - 2*offset.X, centerTemp.Y);
-                    //spriteBatch.Draw(MenuTextureArray[i], , null, Color.White, 0F, Origin, 1F, SpriteEffects.None, 1F);
-                    centerTemp.Y += 2*offset.Y;
+                    safeMenuPositions[i] = new Vector2(centerTemp.X + offset.X, centerTemp.Y);
                 }
-                
+                else
+                {
+                    safeMenuPositions[i] = new Vector2(centerTemp.X - 2 * offset.X, centerTemp.Y);
+                    centerTemp.Y += 2 * offset.Y;
+                }
+
             }
-           return safeMenuPositions;
+            return safeMenuPositions;
         }
 
-        public void drawMenu(SpriteBatch spriteBatch, Vector2[] menuPositionArray, Texture2D[] menuTextureArray)
+        public void drawMenu(SpriteBatch spriteBatch, Vector2[] menuPositionArray, Texture2D[] menuTextureArray, int highlitedMenuElement)
         {
             Vector2 Origin;
 
@@ -213,13 +211,32 @@ namespace Towerdefense
             {
 
                 Origin = new Vector2(menuTextureArray[i].Width / 2, menuTextureArray[i].Height / 2);
+                if (highlitedMenuElement == i)
+                {
+                    spriteBatch.Draw(menuTextureArray[i], menuPositionArray[i], null, new Color(255, 255, 0, 1F), 0F, Origin, 1F, SpriteEffects.None, 1F);
+                }
+                else
+                {
+                    spriteBatch.Draw(menuTextureArray[i], menuPositionArray[i], null, Color.White, 0F, Origin, 1F, SpriteEffects.None, 1F);
+                }
 
-                spriteBatch.Draw(menuTextureArray[i], menuPositionArray[i], null, Color.White, 0F, Origin, 1F, SpriteEffects.None, 1F);
             }
             spriteBatch.End();
         }
 
+        public int SetCurrentMenuField(MouseState ms, Rectangle[] menuRectangle)
+        {
+
+            for (int j = 0; j < menuRectangle.Length; j++)
+            {
+                if (menuRectangle[j].Contains(ms.Position.X, ms.Position.Y))
+                {
+                    return j;
+                }
+            }
+            return -1;
+        }
+        #endregion
     }
-    #endregion
 }
 
