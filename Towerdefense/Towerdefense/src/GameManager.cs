@@ -113,17 +113,26 @@ namespace Towerdefense
         {
           
             if (drawTower && ms.LeftButton == ButtonState.Pressed && ps.LeftButton != ButtonState.Pressed && position.X < amountOfField && position.Y < amountOfField) {
+                foreach (Tower t in towerList)
+                {
+                    if (FieldCenterPosition[(int)position.X, (int)position.Y] == t.Position) { return drawTower = true; ; }
+                } 
+                
                 drawTower = false;
             }
 
             return drawTower ;
-
-          //  return new Tower(towerTexture,range,cost,damage,fireRate,speed,isUpgradeable);
         }
 
         public List<Tower> addPlacedTowerToList(MouseState ms, MouseState ps, Boolean drawTower, List<Tower> towerList, Vector2 position, Texture2D towerTexture, Vector2 [,] FieldCenterPosition, int amountOfField){
+           
             if (drawTower && ms.LeftButton == ButtonState.Pressed && ps.LeftButton != ButtonState.Pressed && position.X < amountOfField && position.Y < amountOfField)
             {
+                foreach (Tower t in towerList)
+                {
+                    if (FieldCenterPosition[(int)position.X, (int)position.Y] == t.Position) { return towerList; }
+                }
+
                 towerList.Add(new Tower(towerTexture, FieldCenterPosition[(int)position.X, (int)position.Y]));
             }
 
