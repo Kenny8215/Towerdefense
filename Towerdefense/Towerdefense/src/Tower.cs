@@ -27,9 +27,12 @@ namespace Towerdefense
         /*Tower can be upgraded*/
         private Boolean IsUpgradeable;
 
+        /*Towerposition*/
+        private Vector2 position;
+
         /*Constructor*/
-        public Tower(Texture2D sprite,int range, int cost, int damage, int fireRate, int speed, Boolean isUpgradeable) : base(sprite) {
-            
+        public Tower(Texture2D sprite,Vector2 position,int range, int cost, int damage, int fireRate, int speed, Boolean isUpgradeable) : base(sprite) {
+            this.position = position;
             this.range = range;
             this.cost = cost;
             this.damage = damage;

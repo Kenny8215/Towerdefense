@@ -19,7 +19,7 @@ namespace Towerdefense
         SortedList<int, Wave> waveList;
 
         /*actual wave*/
-        int actualWave = 0;
+        int actualWave;
 
         /*LevelObject which contains Content loaded out of an *.xml */
         LoadLevel levelObject;
@@ -37,13 +37,14 @@ namespace Towerdefense
 
         }
 
-
         public void updateEnemys()
         {
 
         }
 
         #region PlayerInput
+
+        /*Calculates where the mouse is and returns a Vector2 (the index of the current gridelement) */
         public Vector2 SetCurrentFieldMouse(MouseState ms, Vector2 offset, Vector2 currentField, Boolean SetFieldWithMouse)
         {
 
@@ -55,6 +56,7 @@ namespace Towerdefense
             return currentField;
         }
 
+        /*Checks if a TowerIcon has been clicked - returns true when a TowerIcon has been clicked*/
         public Boolean TowerToMouse(MouseState ms, MouseState ps,Rectangle[] menuRectangle,Boolean drawTower) {
             if (ms.RightButton == ButtonState.Pressed && ps.RightButton == ButtonState.Released) { return false; }
             if (drawTower == true)
@@ -63,7 +65,7 @@ namespace Towerdefense
             }
             else
             {
-                for (int i = 0; i < menuRectangle.Length; i++)
+                for (int i = 2; i < menuRectangle.Length; i++)
                     if (ms.LeftButton == ButtonState.Pressed && ps.LeftButton == ButtonState.Released && menuRectangle[i].Contains(ms.Position))
                     {
                         return true;
@@ -73,6 +75,7 @@ namespace Towerdefense
             return false;
         }
 
+        /*Draws the tower to the Mouse when drawTower is true the texture of the tower will be drawn to the mouseposition*/
         public void drawTowerToMouse(Point ms,Boolean drawTower,SpriteBatch spriteBatch,Texture2D towerTexture,int amountOfFields,GraphicsDevice graphicsDevice) {
             float scale = (float)graphicsDevice.Viewport.Height / (amountOfFields * towerTexture.Height);
             Vector2 origin = new Vector2(towerTexture.Width/2,towerTexture.Height/2);
@@ -82,6 +85,21 @@ namespace Towerdefense
                 spriteBatch.Draw(towerTexture, msV, null, Color.White, 0F, origin, scale, SpriteEffects.None, 1F);
                 spriteBatch.End();
             }
+        }
+
+        /*Places the tower on the grid*/
+        public Tower placeTower(MouseState ms, MouseState ps, Boolean drawTower, Vector2 position, Texture2D towerTexture, Vector2[,] FieldCenterPosition, int amountOfField)
+        {
+            if (drawTower && ms.LeftButton == ButtonState.Pressed && ps.LeftButton != ButtonState.Pressed && position.X < amountOfField && position.Y < amountOfField) {
+
+              
+                drawTower = false;
+
+                return new Tower(towerTexture, FieldCenterPosition[(int)position.X - 1, (int)position.Y - 1], 0, 0, 0, 0, 0, false);
+            }
+            return null;
+
+          //  return new Tower(towerTexture,range,cost,damage,fireRate,speed,isUpgradeable);
         }
         #endregion
 
@@ -188,6 +206,7 @@ namespace Towerdefense
             return roadTypeRotation;
         }
 
+        /*Checks if the LevelEditorMenu should be drawn or not*/
         public Boolean LevelEditorMenu(MouseState ms, Boolean DrawMenu)
         {
 
@@ -203,6 +222,7 @@ namespace Towerdefense
 
         #region Menu
 
+        /*Creates the grid of the MenuIcons returns the origin (center) of each MenuElement*/
         public Vector2[] createMenuGrid(Texture2D[] MenuTextureArray, Vector2 MenuCenterPosition, Vector2 offset)
         {
             Vector2[] safeMenuPositions = new Vector2[MenuTextureArray.Length];
@@ -230,6 +250,7 @@ namespace Towerdefense
             return safeMenuPositions;
         }
 
+        /*Draws all menu textures at the center of each MenuElement which where calculated in the createMenuGrid function*/
         public void drawMenu(SpriteBatch spriteBatch, Vector2[] menuPositionArray, Texture2D[] menuTextureArray, int highlitedMenuElement)
         {
             Vector2 Origin;
@@ -252,6 +273,7 @@ namespace Towerdefense
             spriteBatch.End();
         }
 
+        /*Sets the current MenuElement*/
         public int SetCurrentMenuField(MouseState ms, Rectangle[] menuRectangle)
         {
 

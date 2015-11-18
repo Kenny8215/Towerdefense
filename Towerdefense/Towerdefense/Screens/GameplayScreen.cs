@@ -53,7 +53,7 @@ namespace Towerdefense
         Vector2[] menuGridCenterArray;
         Rectangle[] menuRectangle;
 
-        Vector2 highlitedGridElement;
+        Vector2 highlightedGridElement;
         Vector2 offset;
         Vector2 menuCenterPosition;
 
@@ -138,7 +138,7 @@ namespace Towerdefense
 
 
             roadTypeAndRotation = new Vector2[amountOfField, amountOfField];
-            highlitedGridElement = new Vector2(-1, -1);
+            highlightedGridElement = new Vector2(-1, -1);
 
             /*Load Level in roadTypeAndRotation*/
             for (int i = 0; i < amountOfField; i++)
@@ -231,10 +231,10 @@ namespace Towerdefense
             }
             else
             {
-              highlitedGridElement = gameManager.SetCurrentFieldMouse(mouseState,offset,highlitedGridElement,true);
+              highlightedGridElement = gameManager.SetCurrentFieldMouse(mouseState,offset,highlightedGridElement,true);
               highlitedMenuElement = gameManager.SetCurrentMenuField(mouseState,menuRectangle);
               drawTower = gameManager.TowerToMouse(mouseState,previousMouseState,menuRectangle,drawTower);
-             
+              gameManager.placeTower(mouseState, previousMouseState, drawTower, highlightedGridElement, tower1Icon, FieldCenterPosition, amountOfField);
          
                //TODO Handle Input
 
@@ -268,7 +268,7 @@ namespace Towerdefense
 
 
             /*Draws the normal grid (has to be replaced with load level*/
-            gameManager.drawGrid(roadTypeAndRotation, FieldCenterPosition, highlitedGridElement, amountOfField,roadArray, content, spriteBatch, ScreenManager.GraphicsDevice);
+            gameManager.drawGrid(roadTypeAndRotation, FieldCenterPosition, highlightedGridElement, amountOfField,roadArray, content, spriteBatch, ScreenManager.GraphicsDevice);
 
             /*Draws The TowerTexture to the Mouseposition when leftclicked*/
             gameManager.drawTowerToMouse(Mouse.GetState().Position, drawTower, spriteBatch, tower1Icon,amountOfField,ScreenManager.GraphicsDevice);
