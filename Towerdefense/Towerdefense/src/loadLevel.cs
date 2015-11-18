@@ -18,7 +18,7 @@ namespace Towerdefense
 
         public void load(String str)
         {
-            System.IO.Stream stream = TitleContainer.OpenStream(str);
+         /*   System.IO.Stream stream = TitleContainer.OpenStream(str);
 
             XDocument doc = XDocument.Load(stream);
 
@@ -50,6 +50,7 @@ namespace Towerdefense
                     }).ToList();
 
             grid_count = Convert.ToInt32(doc.Element("grid").Element("count").Value);
+          * */
         }
 
         public List<Field> getGrid()
