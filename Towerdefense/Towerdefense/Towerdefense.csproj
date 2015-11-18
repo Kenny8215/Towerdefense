@@ -39,6 +39,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Screens\LevelEditorScreen.cs" />
+    <Compile Include="Screens\LevelPickScreen.cs" />
     <Compile Include="src\DynamicGameObject.cs" />
     <Compile Include="src\Enemy.cs" />
     <Compile Include="src\Field.cs" />

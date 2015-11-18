@@ -28,25 +28,25 @@
 		</waves>
 		
 		<grid>
-			<count>30</count>
+			<count>10</count>
 			
 			<field>
 				<x>1</x>
 				<y>1</y>
 				<type>turn</type>
-				<rotation>90</rotation>
+				<rotation>2</rotation>
 			</field>
 			<field>
 				<x>1</x>
 				<y>5</y>
 				<type>start</type>
-				<rotation>90</rotation>
+				<rotation>2</rotation>
 			</field>
 			<field>
 				<x>1</x>
 				<y>10</y>
 				<type>finish</type>
-				<rotation>90</rotation>
+				<rotation>2</rotation>
 			</field>
 		</grid>
 	</level>
