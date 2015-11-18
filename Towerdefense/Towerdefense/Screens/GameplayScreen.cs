@@ -14,6 +14,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 #endregion
 
 
@@ -27,7 +28,6 @@ namespace Towerdefense
     class GameplayScreen : GameScreen
     {
         #region Fields
-
         ContentManager content;
         SpriteFont gameFont;
         GameManager gameManager = new GameManager();
@@ -59,6 +59,8 @@ namespace Towerdefense
 
         Vector2[,] roadTypeAndRotation;
 
+        List<Tower> towerList;
+
         MouseState previousMouseState;
 
         float pauseAlpha;
@@ -84,6 +86,7 @@ namespace Towerdefense
 
             previousMouseState = Mouse.GetState();
             drawTower = false;
+            towerList = new List<Tower>();
         }
 
         /// <summary>
@@ -139,6 +142,7 @@ namespace Towerdefense
 
             roadTypeAndRotation = new Vector2[amountOfField, amountOfField];
             highlightedGridElement = new Vector2(-1, -1);
+            towerList = gameManager.TowerList;
 
             /*Load Level in roadTypeAndRotation*/
             for (int i = 0; i < amountOfField; i++)
@@ -194,7 +198,6 @@ namespace Towerdefense
 
             if (IsActive)
             {
-
                 // TODO: this game isn't very fun! You could probably improve
                 // it by inserting something more interesting in this space :-)
             }
@@ -234,9 +237,11 @@ namespace Towerdefense
               highlightedGridElement = gameManager.SetCurrentFieldMouse(mouseState,offset,highlightedGridElement,true);
               highlitedMenuElement = gameManager.SetCurrentMenuField(mouseState,menuRectangle);
               drawTower = gameManager.TowerToMouse(mouseState,previousMouseState,menuRectangle,drawTower);
-              gameManager.placeTower(mouseState, previousMouseState, drawTower, highlightedGridElement, tower1Icon, FieldCenterPosition, amountOfField);
-         
-               //TODO Handle Input
+             towerList = gameManager.addPlacedTowerToList(mouseState, previousMouseState, drawTower, towerList, highlightedGridElement, tower1Icon, FieldCenterPosition, amountOfField);
+              drawTower =  gameManager.placeTower(mouseState, previousMouseState, drawTower, towerList, highlightedGridElement, tower1Icon, FieldCenterPosition, amountOfField);
+              System.Console.WriteLine(towerList.Count);
+               
+                //TODO Handle Input
 
                 previousMouseState = mouseState;
             }
@@ -273,6 +278,8 @@ namespace Towerdefense
             /*Draws The TowerTexture to the Mouseposition when leftclicked*/
             gameManager.drawTowerToMouse(Mouse.GetState().Position, drawTower, spriteBatch, tower1Icon,amountOfField,ScreenManager.GraphicsDevice);
 
+            /*Draws All towers in the grid*/
+            gameManager.drawTowers(towerList,spriteBatch,ScreenManager.GraphicsDevice,amountOfField);
 
             // If the game is transitioning on or off, fade it out to black.
             if (TransitionPosition > 0 || pauseAlpha > 0)

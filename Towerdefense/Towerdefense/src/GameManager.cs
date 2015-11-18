@@ -25,11 +25,19 @@ namespace Towerdefense
         LoadLevel levelObject;
         #endregion
 
+        #region setter and getter
+         public List<Tower> TowerList {
+             get { return towerList; }
+             set { this.towerList = towerList; }
+        }
+        #endregion
+
         public GameManager()
         {
             levelObject = new LoadLevel();
             levelObject.load("./level_1.xml");
             waveList = levelObject.getWaves();
+            towerList = new List<Tower>();
         }
 
         public void draw()
@@ -40,6 +48,18 @@ namespace Towerdefense
         public void updateEnemys()
         {
 
+        }
+
+        public void drawTowers(List<Tower> towerList,SpriteBatch spriteBatch,GraphicsDevice graphicsDevice,int amountOfFields) {
+            
+            spriteBatch.Begin();
+            foreach (Tower t in towerList) {
+                float scale = (float)graphicsDevice.Viewport.Height / (amountOfFields * t.Sprite.Height );
+                Console.WriteLine(t.Position);
+                Console.WriteLine(t.Sprite);
+                spriteBatch.Draw(t.Sprite, t.Position,null, null,new Vector2(t.Sprite.Width/2, t.Sprite.Height/2),0F, new Vector2 (scale,scale) ,Color.White, SpriteEffects.None, 0);
+            }
+            spriteBatch.End();
         }
 
         #region PlayerInput
@@ -88,18 +108,26 @@ namespace Towerdefense
         }
 
         /*Places the tower on the grid*/
-        public Tower placeTower(MouseState ms, MouseState ps, Boolean drawTower, Vector2 position, Texture2D towerTexture, Vector2[,] FieldCenterPosition, int amountOfField)
+        public Boolean placeTower(MouseState ms, MouseState ps, Boolean drawTower, List<Tower> towerList, Vector2 position, Texture2D towerTexture, Vector2[,] FieldCenterPosition, int amountOfField)
         {
+          
             if (drawTower && ms.LeftButton == ButtonState.Pressed && ps.LeftButton != ButtonState.Pressed && position.X < amountOfField && position.Y < amountOfField) {
-
-              
                 drawTower = false;
-
-                return new Tower(towerTexture, FieldCenterPosition[(int)position.X - 1, (int)position.Y - 1], 0, 0, 0, 0, 0, false);
             }
-            return null;
+
+            return drawTower ;
 
           //  return new Tower(towerTexture,range,cost,damage,fireRate,speed,isUpgradeable);
+        }
+
+        public List<Tower> addPlacedTowerToList(MouseState ms, MouseState ps, Boolean drawTower, List<Tower> towerList, Vector2 position, Texture2D towerTexture, Vector2 [,] FieldCenterPosition, int amountOfField){
+            if (drawTower && ms.LeftButton == ButtonState.Pressed && ps.LeftButton != ButtonState.Pressed && position.X < amountOfField && position.Y < amountOfField)
+            {
+                towerList.Add(new Tower(towerTexture, FieldCenterPosition[(int)position.X, (int)position.Y]));
+            }
+          
+
+         return towerList;
         }
         #endregion
 
