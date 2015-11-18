@@ -16,7 +16,7 @@ namespace Towerdefense
         List<Tower> towerList;
 
         /*list of enemywaves*/
-        SortedList<int, Wave> waveList;
+        List<Wave> waveList;
 
         /*actual wave*/
         int actualWave;
@@ -28,7 +28,7 @@ namespace Towerdefense
         public GameManager()
         {
             levelObject = new LoadLevel();
-            levelObject.load("./level_1.xml");
+            levelObject.load("Content\\level\\bsp_level.xml");
             waveList = levelObject.getWaves();
         }
 
