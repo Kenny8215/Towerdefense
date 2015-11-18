@@ -102,13 +102,14 @@ namespace Towerdefense
             previousMouseState = Mouse.GetState();
             drawTower = false;
             towerList = new List<Tower>();
-
+            menuOffset = new Vector2(30,30);
             levelObject = new LoadLevel();
             levelObject.load("Content\\level\\"+v);
             waveList = levelObject.getWaves();
             grid = levelObject.getGrid();
             amountOfField = levelObject.getGridCount();
             FieldCenterPosition = new Vector2[amountOfField, amountOfField];
+           
         }
 
         /// <summary>
@@ -146,10 +147,10 @@ namespace Towerdefense
 
             //creates the grid
             FieldCenterPosition = gameManager.createGrid(ScreenManager.GraphicsDevice.Viewport.Height, amountOfField);
-            float menuCenterWidth = (ScreenManager.GraphicsDevice.Viewport.Width - FieldCenterPosition[amountOfField - 1, amountOfField - 1].X) / 2 + FieldCenterPosition[amountOfField - 1, amountOfField - 1].X + offset.X;
+            float menuCenterWidth = (ScreenManager.GraphicsDevice.Viewport.Width - FieldCenterPosition[amountOfField-1, amountOfField-1].X) / 2 + FieldCenterPosition[amountOfField - 1, amountOfField - 1].X;
             menuCenterPosition = new Vector2(menuCenterWidth, ScreenManager.GraphicsDevice.Viewport.Height / 2);
 
-            menuGridCenterArray = gameManager.createMenuGrid(menuTextureArray, menuCenterPosition, menuOffset);
+            menuGridCenterArray = gameManager.createMenuGrid(menuTextureArray, menuCenterPosition, new Vector2(30,30));
 
             fullscreen = new Rectangle(0, 0, ScreenManager.GraphicsDevice.Viewport.Width, ScreenManager.GraphicsDevice.Viewport.Height);
 

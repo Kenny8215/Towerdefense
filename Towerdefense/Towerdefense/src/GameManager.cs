@@ -209,7 +209,7 @@ namespace Towerdefense
                 {
                     if (i == highlightIndex.X && j == highlightIndex.Y && roadTypeRotation[i, j].X != 0)
                     {
-                        spriteBatch.Draw(texture[(int)roadTypeRotation[i, j].X], center[i, j], null, new Color(255, 0, 0, 0.5F), (roadTypeRotation[i, j].Y) * rotation, textureCenter, scale, SpriteEffects.None, 0);
+                        spriteBatch.Draw(texture[(int)roadTypeRotation[i, j].X], center[i, j], null, new Color(255, 0, 0, 1F), (roadTypeRotation[i, j].Y) * rotation, textureCenter, scale, SpriteEffects.None, 0);
                     } else if (i == highlightIndex.X && j == highlightIndex.Y)
                     {
                         spriteBatch.Draw(texture[(int)roadTypeRotation[i, j].X], center[i, j], null, new Color(255, 255, 0, 1F), (roadTypeRotation[i, j].Y) * rotation, textureCenter, scale, SpriteEffects.None, 0);
@@ -274,11 +274,11 @@ namespace Towerdefense
                 if (i % 2 == 0)
                 {
                     //safe position into safeMenuPosition
-                    safeMenuPositions[i] = new Vector2(centerTemp.X + offset.X, centerTemp.Y);
+                    safeMenuPositions[i] = new Vector2(centerTemp.X + 2* offset.X, centerTemp.Y);
                 }
                 else
                 {
-                    safeMenuPositions[i] = new Vector2(centerTemp.X - 2 * offset.X, centerTemp.Y);
+                    safeMenuPositions[i] = new Vector2(centerTemp.X -  offset.X, centerTemp.Y);
                     centerTemp.Y += 2 * offset.Y;
                 }
 
