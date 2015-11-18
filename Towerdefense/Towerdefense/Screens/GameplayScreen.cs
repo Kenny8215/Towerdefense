@@ -99,11 +99,11 @@ namespace Towerdefense
             #region Load Textures
             gameFont = content.Load<SpriteFont>("gamefont");
             background = content.Load<Texture2D>("background");
-            nonroad = content.Load<Texture2D>("nonroad");
-            road1 = content.Load<Texture2D>("road1");
-            road2 = content.Load<Texture2D>("road2");
-            road3 = content.Load<Texture2D>("road3");
-            road4 = content.Load<Texture2D>("road4");
+            nonroad = content.Load<Texture2D>("tiles/noRoad1");
+            road1 = content.Load<Texture2D>("tiles/road");
+            road2 = content.Load<Texture2D>("tiles/road1");
+            road3 = content.Load<Texture2D>("tiles/road2");
+            road4 = content.Load<Texture2D>("tiles/road3");
 
             lifeIcon = content.Load<Texture2D>("Menu/shieldicon");
             moneyIcon = content.Load<Texture2D>("Menu/helmicon");
