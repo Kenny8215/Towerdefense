@@ -271,7 +271,7 @@ namespace Towerdefense
             gameManager.drawGrid(roadTypeAndRotation, FieldCenterPosition, highlitedGridElement, amountOfField,roadArray, content, spriteBatch, ScreenManager.GraphicsDevice);
 
             /*Draws The TowerTexture to the Mouseposition when leftclicked*/
-            gameManager.drawTowerToMouse(Mouse.GetState().Position, drawTower, spriteBatch, tower1Icon);
+            gameManager.drawTowerToMouse(Mouse.GetState().Position, drawTower, spriteBatch, tower1Icon,amountOfField,ScreenManager.GraphicsDevice);
 
 
             // If the game is transitioning on or off, fade it out to black.

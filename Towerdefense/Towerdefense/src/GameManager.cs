@@ -73,12 +73,13 @@ namespace Towerdefense
             return false;
         }
 
-        public void drawTowerToMouse(Point ms,Boolean drawTower,SpriteBatch spriteBatch,Texture2D towerTexture) {
+        public void drawTowerToMouse(Point ms,Boolean drawTower,SpriteBatch spriteBatch,Texture2D towerTexture,int amountOfFields,GraphicsDevice graphicsDevice) {
+            float scale = (float)graphicsDevice.Viewport.Height / (amountOfFields * towerTexture.Height);
             Vector2 origin = new Vector2(towerTexture.Width/2,towerTexture.Height/2);
             Vector2 msV = new Vector2(ms.X,ms.Y);
             if (drawTower) {
                 spriteBatch.Begin();
-                spriteBatch.Draw(towerTexture, msV , null, null, origin, 0F, null, Color.White, SpriteEffects.None, 1F);
+                spriteBatch.Draw(towerTexture, msV, null, Color.White, 0F, origin, scale, SpriteEffects.None, 1F);
                 spriteBatch.End();
             }
         }
