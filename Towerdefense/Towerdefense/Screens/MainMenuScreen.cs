@@ -57,8 +57,11 @@ namespace Towerdefense
         /// </summary>
         void PlayGameMenuEntrySelected(object sender, PlayerIndexEventArgs e)
         {
-            LoadingScreen.Load(ScreenManager, true, e.PlayerIndex,
-                               new GameplayScreen());
+            /*LoadingScreen.Load(ScreenManager, true, e.PlayerIndex,
+                               new GameplayScreen());*/
+
+            LoadingScreen.Load(ScreenManager, false, e.PlayerIndex,
+                               new LevelPickScreen());
         }
 
         void LevelEditorMenuEntrySelected(object sender, PlayerIndexEventArgs e) {

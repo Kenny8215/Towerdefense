@@ -65,13 +65,16 @@ namespace Towerdefense
         MouseState previousMouseState;
 
         float pauseAlpha;
-        static int amountOfField = 20;
+        int amountOfField;
         int highlitedMenuElement;
 
         Boolean drawTower;
 
         /*Holds the center positions of all GridElements*/
-        Vector2[,] FieldCenterPosition = new Vector2[amountOfField, amountOfField];
+        Vector2[,] FieldCenterPosition;
+        private LoadLevel levelObject;
+        private List<Wave> waveList;
+        private List<Field> grid;
         #endregion
 
         #region Initialization
@@ -89,6 +92,23 @@ namespace Towerdefense
             drawTower = false;
             menuOffset = new Vector2(30,30);
             towerList = new List<Tower>();
+        }
+
+        public GameplayScreen(string v)
+        {
+            TransitionOnTime = TimeSpan.FromSeconds(1.5);
+            TransitionOffTime = TimeSpan.FromSeconds(0.5);
+
+            previousMouseState = Mouse.GetState();
+            drawTower = false;
+            towerList = new List<Tower>();
+
+            levelObject = new LoadLevel();
+            levelObject.load("Content\\level\\"+v);
+            waveList = levelObject.getWaves();
+            grid = levelObject.getGrid();
+            amountOfField = levelObject.getGridCount();
+            FieldCenterPosition = new Vector2[amountOfField, amountOfField];
         }
 
         /// <summary>
@@ -153,6 +173,43 @@ namespace Towerdefense
                 {
                     roadTypeAndRotation[i, j].X = 0;
                     roadTypeAndRotation[i, j].Y = 0;
+                }
+            }
+
+            foreach(Field f in grid)
+            {
+                switch (f.Type)
+                {
+                    case "straight":
+                        roadTypeAndRotation[f.X - 1, f.Y - 1].X = 1;
+                        roadTypeAndRotation[f.X - 1, f.Y - 1].Y = 0;
+                        break;
+
+                    case "turn":
+                        roadTypeAndRotation[f.X - 1, f.Y - 1].X = 2;
+                        roadTypeAndRotation[f.X - 1, f.Y - 1].Y = 0;
+                        break;
+
+                    case "crossing":
+                        roadTypeAndRotation[f.X - 1, f.Y - 1].X = 3;
+                        roadTypeAndRotation[f.X - 1, f.Y - 1].Y = 0;
+                        break;
+
+                    case "t-crossing":
+                        roadTypeAndRotation[f.X - 1, f.Y - 1].X = 4;
+                        roadTypeAndRotation[f.X - 1, f.Y - 1].Y = 0;
+                        break;
+
+                    case "start":
+                        roadTypeAndRotation[f.X - 1, f.Y - 1].X = 0;
+                        roadTypeAndRotation[f.X - 1, f.Y - 1].Y = 0;
+                        break;
+
+                    case "finish":
+                        roadTypeAndRotation[f.X - 1, f.Y - 1].X = 0;
+                        roadTypeAndRotation[f.X - 1, f.Y - 1].Y = 0;
+                        break;
+                    
                 }
             }
 

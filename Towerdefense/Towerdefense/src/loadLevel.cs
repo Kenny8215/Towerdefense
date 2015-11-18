@@ -18,7 +18,7 @@ namespace Towerdefense
 
         public void load(String str)
         {
-            System.IO.Stream stream = TitleContainer.OpenStream(str);
+            System.IO.Stream stream = TitleContainer.OpenStream(str); //create stream for reading the xml file
 
             XDocument doc = XDocument.Load(stream);
 
@@ -29,8 +29,8 @@ namespace Towerdefense
             waves = (from wave in doc.Descendants("wave")
                      select new Wave()
                      {
-                         Count = Convert.ToInt32(wave.Element("count").Value),
-                         Enemy = (from e in wave.Descendants("enemy") select new Enemy()
+                         Count = Convert.ToInt32(wave.Element("count").Value),//read out size of the wave
+                         Enemy = (from e in wave.Descendants("enemy") select new Enemy() //read out all enemys of a wave
                          {
                              HitPoints = Convert.ToInt32(e.Element("hitPoints").Value),
                              MovementSpeed = Convert.ToInt32(e.Element("movementSpeed").Value),
@@ -43,14 +43,14 @@ namespace Towerdefense
             grid = (from field in doc.Descendants("field")
                     select new Field()
                     {
-                        X = Convert.ToInt32(field.Element("x").Value),
+                        X = Convert.ToInt32(field.Element("x").Value), //read out all the fields
                         Y = Convert.ToInt32(field.Element("y").Value),
                         Type = field.Element("type").Value,
                         Rotation = Convert.ToInt32(field.Element("rotation").Value)
                     }).ToList();
 
             XElement g = doc.Descendants("grid").ElementAt(0);
-            grid_count = Convert.ToInt32(g.Element("count").Value);
+            grid_count = Convert.ToInt32(g.Element("count").Value);//read out size of the field
           
         }
 
