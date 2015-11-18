@@ -18,7 +18,7 @@ namespace Towerdefense
 
         public void load(String str)
         {
-         /*   System.IO.Stream stream = TitleContainer.OpenStream(str);
+            System.IO.Stream stream = TitleContainer.OpenStream(str);
 
             XDocument doc = XDocument.Load(stream);
 
@@ -44,13 +44,14 @@ namespace Towerdefense
                     select new Field()
                     {
                         X = Convert.ToInt32(field.Element("x").Value),
-                        Y = Convert.ToInt32(field.Element("Y").Value),
+                        Y = Convert.ToInt32(field.Element("y").Value),
                         Type = field.Element("type").Value,
                         Rotation = Convert.ToInt32(field.Element("rotation").Value)
                     }).ToList();
 
-            grid_count = Convert.ToInt32(doc.Element("grid").Element("count").Value);
-          * */
+            XElement g = doc.Descendants("grid").ElementAt(0);
+            grid_count = Convert.ToInt32(g.Element("count").Value);
+          
         }
 
         public List<Field> getGrid()

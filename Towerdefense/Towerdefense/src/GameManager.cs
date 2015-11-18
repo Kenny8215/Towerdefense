@@ -35,7 +35,7 @@ namespace Towerdefense
         public GameManager()
         {
             levelObject = new LoadLevel();
-            levelObject.load("Content\\level\\bsp_level.xml");
+            levelObject.load("Content\\level\\bsp_lvl.xml");
             waveList = levelObject.getWaves();
             towerList = new List<Tower>();
         }

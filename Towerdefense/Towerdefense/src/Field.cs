@@ -12,6 +12,7 @@ namespace Towerdefense
         string type;
         int rotation;
 
+
         public int X
         {
             get
