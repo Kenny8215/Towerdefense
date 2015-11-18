@@ -124,9 +124,10 @@ namespace Towerdefense
             return drawTower ;
         }
 
-        public List<Tower> addPlacedTowerToList(MouseState ms, MouseState ps, Boolean drawTower, List<Tower> towerList, Vector2 position, Texture2D towerTexture, Vector2 [,] FieldCenterPosition, int amountOfField){
-           
-            if (drawTower && ms.LeftButton == ButtonState.Pressed && ps.LeftButton != ButtonState.Pressed && position.X < amountOfField && position.Y < amountOfField)
+        public List<Tower> addPlacedTowerToList(MouseState ms, MouseState ps, Boolean drawTower, List<Tower> towerList, Vector2 position, Texture2D towerTexture, Vector2[,] FieldCenterPosition, int amountOfField, Vector2[,] roadTypeRotation, Vector2 highlightedGridElement)
+        {
+
+            if (drawTower && ms.LeftButton == ButtonState.Pressed && ps.LeftButton != ButtonState.Pressed && position.X < amountOfField && position.Y < amountOfField && roadTypeRotation[(int)highlightedGridElement.X, (int)highlightedGridElement.Y].X == 0)
             {
                 foreach (Tower t in towerList)
                 {
@@ -206,7 +207,10 @@ namespace Towerdefense
             {
                 for (int j = 0; j < center.GetLength(1); j++)
                 {
-                    if (i == highlightIndex.X && j == highlightIndex.Y)
+                    if (i == highlightIndex.X && j == highlightIndex.Y && roadTypeRotation[i, j].X != 0)
+                    {
+                        spriteBatch.Draw(texture[(int)roadTypeRotation[i, j].X], center[i, j], null, new Color(255, 0, 0, 0.5F), (roadTypeRotation[i, j].Y) * rotation, textureCenter, scale, SpriteEffects.None, 0);
+                    } else if (i == highlightIndex.X && j == highlightIndex.Y)
                     {
                         spriteBatch.Draw(texture[(int)roadTypeRotation[i, j].X], center[i, j], null, new Color(255, 255, 0, 1F), (roadTypeRotation[i, j].Y) * rotation, textureCenter, scale, SpriteEffects.None, 0);
                     }
@@ -243,8 +247,6 @@ namespace Towerdefense
         /*Checks if the LevelEditorMenu should be drawn or not*/
         public Boolean LevelEditorMenu(MouseState ms, Boolean DrawMenu)
         {
-
-
             if (DrawMenu == true && ms.MiddleButton == ButtonState.Pressed) { DrawMenu = false; }
 
             if (ms.RightButton == ButtonState.Pressed) { DrawMenu = true; }
@@ -323,3 +325,4 @@ namespace Towerdefense
     }
 }
 
+    

@@ -221,15 +221,15 @@ namespace Towerdefense
             spriteBatch.Begin();
             spriteBatch.Draw(background, fullscreen,
                                new Color(TransitionAlpha, TransitionAlpha, TransitionAlpha));
+            gameManager.drawGrid(roadTypeAndRotation, FieldCenterPosition, highlitedGridElement, amountOfField, textures, content, spriteBatch, ScreenManager.GraphicsDevice);
+
+            if (DrawMenu)
+            {
+                spriteBatch.Draw(menu, mousePosition, null, Color.White, 0F, new Vector2(menu.Width / 2, menu.Height / 2), 1F, SpriteEffects.None, 1);
+            }
             spriteBatch.End();
             
-            gameManager.drawGrid(roadTypeAndRotation, FieldCenterPosition, highlitedGridElement, amountOfField, textures, content, spriteBatch, ScreenManager.GraphicsDevice);
-            
-            if (DrawMenu) {
-                spriteBatch.Begin();
-                spriteBatch.Draw(menu, mousePosition, null, Color.White, 0F, new Vector2(menu.Width/2,menu.Height/2),1F, SpriteEffects.None, 1);
-                spriteBatch.End();
-            }
+
             
             // If the game is transitioning on or off, fade it out to black.
             if (TransitionPosition > 0 || pauseAlpha > 0)

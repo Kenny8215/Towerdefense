@@ -56,6 +56,7 @@ namespace Towerdefense
         Vector2 highlightedGridElement;
         Vector2 offset;
         Vector2 menuCenterPosition;
+        Vector2 menuOffset;
 
         Vector2[,] roadTypeAndRotation;
 
@@ -86,6 +87,7 @@ namespace Towerdefense
 
             previousMouseState = Mouse.GetState();
             drawTower = false;
+            menuOffset = new Vector2(30,30);
             towerList = new List<Tower>();
         }
 
@@ -127,7 +129,7 @@ namespace Towerdefense
             float menuCenterWidth = (ScreenManager.GraphicsDevice.Viewport.Width - FieldCenterPosition[amountOfField - 1, amountOfField - 1].X) / 2 + FieldCenterPosition[amountOfField - 1, amountOfField - 1].X + offset.X;
             menuCenterPosition = new Vector2(menuCenterWidth, ScreenManager.GraphicsDevice.Viewport.Height / 2);
 
-            menuGridCenterArray = gameManager.createMenuGrid(menuTextureArray, menuCenterPosition, offset);
+            menuGridCenterArray = gameManager.createMenuGrid(menuTextureArray, menuCenterPosition, menuOffset);
 
             fullscreen = new Rectangle(0, 0, ScreenManager.GraphicsDevice.Viewport.Width, ScreenManager.GraphicsDevice.Viewport.Height);
 
@@ -237,7 +239,7 @@ namespace Towerdefense
               highlightedGridElement = gameManager.SetCurrentFieldMouse(mouseState,offset,highlightedGridElement,true);
               highlitedMenuElement = gameManager.SetCurrentMenuField(mouseState,menuRectangle);
               drawTower = gameManager.TowerToMouse(mouseState,previousMouseState,menuRectangle,drawTower);
-             towerList = gameManager.addPlacedTowerToList(mouseState, previousMouseState, drawTower, towerList, highlightedGridElement, tower1Icon, FieldCenterPosition, amountOfField);
+             towerList = gameManager.addPlacedTowerToList(mouseState, previousMouseState, drawTower, towerList, highlightedGridElement, tower1Icon, FieldCenterPosition, amountOfField,roadTypeAndRotation,highlightedGridElement);
               drawTower =  gameManager.placeTower(mouseState, previousMouseState, drawTower, towerList, highlightedGridElement, tower1Icon, FieldCenterPosition, amountOfField);
               System.Console.WriteLine(towerList.Count);
                
