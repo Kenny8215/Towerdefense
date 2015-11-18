@@ -51,15 +51,18 @@ namespace Towerdefense
         }
 
         public void drawTowers(List<Tower> towerList,SpriteBatch spriteBatch,GraphicsDevice graphicsDevice,int amountOfFields) {
-            
-            spriteBatch.Begin();
-            foreach (Tower t in towerList) {
-                float scale = (float)graphicsDevice.Viewport.Height / (amountOfFields * t.Sprite.Height );
-                Console.WriteLine(t.Position);
-                Console.WriteLine(t.Sprite);
-                spriteBatch.Draw(t.Sprite, t.Position,null, null,new Vector2(t.Sprite.Width/2, t.Sprite.Height/2),0F, new Vector2 (scale,scale) ,Color.White, SpriteEffects.None, 0);
+            if (towerList.Count == 0) {  }
+            else
+            {
+                float scale = (float)graphicsDevice.Viewport.Height / (amountOfFields * towerList[0].Sprite.Height);
+                Vector2 scalev = new Vector2(scale, scale);
+                Vector2 origin = new Vector2(towerList[0].Sprite.Width / 2, towerList[0].Sprite.Height / 2);
+                foreach (Tower t in towerList)
+                {
+
+                    spriteBatch.Draw(t.Sprite, t.Position, null, null, origin, 0F, scalev, Color.White, SpriteEffects.None, 0);
+                }
             }
-            spriteBatch.End();
         }
 
         #region PlayerInput
@@ -101,9 +104,7 @@ namespace Towerdefense
             Vector2 origin = new Vector2(towerTexture.Width/2,towerTexture.Height/2);
             Vector2 msV = new Vector2(ms.X,ms.Y);
             if (drawTower) {
-                spriteBatch.Begin();
                 spriteBatch.Draw(towerTexture, msV, null, Color.White, 0F, origin, scale, SpriteEffects.None, 1F);
-                spriteBatch.End();
             }
         }
 
@@ -125,7 +126,6 @@ namespace Towerdefense
             {
                 towerList.Add(new Tower(towerTexture, FieldCenterPosition[(int)position.X, (int)position.Y]));
             }
-          
 
          return towerList;
         }
@@ -193,7 +193,6 @@ namespace Towerdefense
             Vector2 textureCenter = new Vector2(texture[0].Width / 2, texture[0].Height / 2);
             float scale = (float)graphicsDevice.Viewport.Height / (amountOfFields * texture[0].Height);
 
-            spriteBatch.Begin();
             for (int i = 0; i < center.GetLength(0); i++)
             {
                 for (int j = 0; j < center.GetLength(1); j++)
@@ -208,8 +207,6 @@ namespace Towerdefense
                     }
                 }
             }
-            spriteBatch.End();
-
         }
 
         /*Draws the sprites at the center of each gridelement, can be used to initialize the grid with a specific texture,
@@ -282,12 +279,12 @@ namespace Towerdefense
         public void drawMenu(SpriteBatch spriteBatch, Vector2[] menuPositionArray, Texture2D[] menuTextureArray, int highlitedMenuElement)
         {
             Vector2 Origin;
+            Origin = new Vector2(menuTextureArray[0].Width / 2, menuTextureArray[0].Height / 2);
 
-            spriteBatch.Begin();
             for (int i = 0; i < menuTextureArray.Length; i++)
             {
 
-                Origin = new Vector2(menuTextureArray[i].Width / 2, menuTextureArray[i].Height / 2);
+               
                 if (highlitedMenuElement == i)
                 {
                     spriteBatch.Draw(menuTextureArray[i], menuPositionArray[i], null, new Color(255, 255, 0, 1F), 0F, Origin, 1F, SpriteEffects.None, 1F);
@@ -298,7 +295,6 @@ namespace Towerdefense
                 }
 
             }
-            spriteBatch.End();
         }
 
         /*Sets the current MenuElement*/

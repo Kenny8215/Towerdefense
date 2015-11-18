@@ -265,22 +265,22 @@ namespace Towerdefense
             spriteBatch.Begin();
             spriteBatch.Draw(background, fullscreen,
                                new Color(TransitionAlpha, TransitionAlpha, TransitionAlpha));
-            spriteBatch.End();
-
 
             /*Draws the Menu*/
-           gameManager.drawMenu(spriteBatch, menuGridCenterArray, menuTextureArray,highlitedMenuElement);
+            gameManager.drawMenu(spriteBatch, menuGridCenterArray, menuTextureArray, highlitedMenuElement);
 
 
             /*Draws the normal grid (has to be replaced with load level*/
-            gameManager.drawGrid(roadTypeAndRotation, FieldCenterPosition, highlightedGridElement, amountOfField,roadArray, content, spriteBatch, ScreenManager.GraphicsDevice);
+            gameManager.drawGrid(roadTypeAndRotation, FieldCenterPosition, highlightedGridElement, amountOfField, roadArray, content, spriteBatch, ScreenManager.GraphicsDevice);
 
-            /*Draws The TowerTexture to the Mouseposition when leftclicked*/
-            gameManager.drawTowerToMouse(Mouse.GetState().Position, drawTower, spriteBatch, tower1Icon,amountOfField,ScreenManager.GraphicsDevice);
 
             /*Draws All towers in the grid*/
-            gameManager.drawTowers(towerList,spriteBatch,ScreenManager.GraphicsDevice,amountOfField);
+            gameManager.drawTowers(towerList, spriteBatch, ScreenManager.GraphicsDevice, amountOfField);
 
+            /*Draws The TowerTexture to the Mouseposition when leftclicked*/
+            gameManager.drawTowerToMouse(Mouse.GetState().Position, drawTower, spriteBatch, tower1Icon, amountOfField, ScreenManager.GraphicsDevice);
+
+            spriteBatch.End();
             // If the game is transitioning on or off, fade it out to black.
             if (TransitionPosition > 0 || pauseAlpha > 0)
             {
