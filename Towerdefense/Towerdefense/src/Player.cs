@@ -24,7 +24,8 @@ namespace Towerdefense
         }
 
         public String[] getPlayerInfo(){
-        
+            playerInfo[1] = goldAmount.ToString();
+            playerInfo[0] = HitPoints.ToString();
             return this.playerInfo;
         }
 

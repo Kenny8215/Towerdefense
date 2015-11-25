@@ -124,17 +124,18 @@ namespace Towerdefense
             return drawTower ;
         }
 
-        public List<Tower> addPlacedTowerToList(MouseState ms, MouseState ps, Boolean drawTower, List<Tower> towerList, Vector2 position, Texture2D towerTexture, Vector2[,] FieldCenterPosition, int amountOfField, Vector2[,] roadTypeRotation, Vector2 highlightedGridElement)
+        public List<Tower> addPlacedTowerToList(MouseState ms, MouseState ps, Boolean drawTower, List<Tower> towerList, Vector2 position, Texture2D towerTexture, Vector2[,] FieldCenterPosition, int amountOfField, Vector2[,] roadTypeRotation, Vector2 highlightedGridElement,Player player)
         {
-
+            if(player.getGold() >= 50) {
             if (drawTower && ms.LeftButton == ButtonState.Pressed && ps.LeftButton != ButtonState.Pressed && position.X < amountOfField && position.Y < amountOfField && roadTypeRotation[(int)highlightedGridElement.X, (int)highlightedGridElement.Y].X == 0)
             {
                 foreach (Tower t in towerList)
                 {
                     if (FieldCenterPosition[(int)position.X, (int)position.Y] == t.Position) { return towerList; }
                 }
-
+                player.setGold(player.getGold() - 50);
                 towerList.Add(new Tower(towerTexture, FieldCenterPosition[(int)position.X, (int)position.Y]));
+            }
             }
 
          return towerList;
