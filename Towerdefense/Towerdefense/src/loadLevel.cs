@@ -45,7 +45,7 @@ namespace Towerdefense
                     {
                         X = Convert.ToInt32(field.Element("x").Value), //read out all the fields
                         Y = Convert.ToInt32(field.Element("y").Value),
-                        Type = field.Element("type").Value,
+                        Type = Convert.ToInt32(field.Element("type").Value),
                         Rotation = Convert.ToInt32(field.Element("rotation").Value)
                     }).ToList();
 

@@ -33,19 +33,19 @@
 			<field>
 				<x>1</x>
 				<y>1</y>
-				<type>turn</type>
+				<type>2</type>
 				<rotation>2</rotation>
 			</field>
 			<field>
 				<x>1</x>
 				<y>5</y>
-				<type>start</type>
+				<type>2</type>
 				<rotation>2</rotation>
 			</field>
 			<field>
 				<x>1</x>
 				<y>10</y>
-				<type>finish</type>
+				<type>4</type>
 				<rotation>2</rotation>
 			</field>
 		</grid>

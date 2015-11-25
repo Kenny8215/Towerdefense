@@ -57,6 +57,9 @@ namespace Towerdefense
 
         Vector2[,] roadTypeAndRotation;
         Vector2[,] FieldCenterPosition = new Vector2[amountOfField,amountOfField];
+
+
+        SaveLevel saveLevel = new SaveLevel();
         #endregion
 
         #region Initialization
@@ -85,7 +88,7 @@ namespace Towerdefense
             background = content.Load<Texture2D>("background");
 
 
-            menu = content.Load<Texture2D>("shortcuts");
+            //menu = content.Load<Texture2D>("shortcuts");
             nonroad = content.Load<Texture2D>("tiles/noRoad1");
             road1 = content.Load<Texture2D>("tiles/road");
             road2 = content.Load<Texture2D>("tiles/road1");
@@ -196,19 +199,30 @@ namespace Towerdefense
                 gameManager.SetCurrentFieldMouse(ms, offset, highlitedGridElement, setWithMouse);
 
                 // Sets the new field if the user pressed left,right,up or down
-                highlitedGridElement = gameManager.SetNewField(keyboardState, lastKeyboardState, highlitedGridElement,amountOfField);
+                highlitedGridElement = gameManager.SetNewField(keyboardState, lastKeyboardState, highlitedGridElement, amountOfField);
 
                 //Sets the new roadType when the user Presses Enter also Rotates the texture 90 degree when R is pressed
-              roadTypeAndRotation = gameManager.setRoadTypeAndRotation(keyboardState,lastKeyboardState,highlitedGridElement,roadTypeAndRotation,textures);
-                
+                roadTypeAndRotation = gameManager.setRoadTypeAndRotation(keyboardState, lastKeyboardState, highlitedGridElement, roadTypeAndRotation, textures);
+
                 /*Menu*/
-                
-            DrawMenu =  gameManager.LevelEditorMenu(Mouse.GetState(),DrawMenu);
-            if (Mouse.GetState().RightButton == ButtonState.Pressed){mousePosition = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
-            }
-            prevMouseState = Mouse.GetState();
+
+                DrawMenu = gameManager.LevelEditorMenu(Mouse.GetState(), DrawMenu);
+                if (Mouse.GetState().RightButton == ButtonState.Pressed)
+                {
+                    mousePosition = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
+                }
+                prevMouseState = Mouse.GetState();
+
+                if (keyboardState.IsKeyDown(Keys.S)&&!lastKeyboardState.IsKeyDown(Keys.S))
+                {
+                    saveLevel.save(roadTypeAndRotation);
+                }
+                lastKeyboardState = keyboardState;
             }
         }
+
+                
+        
 
         /// <summary>
         /// Draws the gameplay screen.

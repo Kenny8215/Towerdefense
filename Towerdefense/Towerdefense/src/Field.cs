@@ -9,7 +9,7 @@ namespace Towerdefense
     {
         int x;
         int y;
-        string type;
+        int type;
         int rotation;
 
 
@@ -39,7 +39,7 @@ namespace Towerdefense
             }
         }
 
-        public string Type
+        public int Type
         {
             get
             {

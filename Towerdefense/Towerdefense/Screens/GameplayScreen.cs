@@ -106,12 +106,12 @@ namespace Towerdefense
             drawTower = false;
             towerList = new List<Tower>();
             levelObject = new LoadLevel();
-            levelObject.load("Content\\level\\"+v);
+            levelObject.load("Content\\level\\" + v);
             waveList = levelObject.getWaves();
             grid = levelObject.getGrid();
             amountOfField = levelObject.getGridCount();
             FieldCenterPosition = new Vector2[amountOfField, amountOfField];
-           
+
         }
 
         /// <summary>
@@ -138,7 +138,7 @@ namespace Towerdefense
             tower4Icon = content.Load<Texture2D>("Menu/tower1");
 
             roadArray = new Texture2D[] { nonroad, road1, road2, road3, road4 };
-            menuTextureArray = new Texture2D[] {  lifeIcon, moneyIcon, tower1Icon, tower2Icon,tower3Icon,tower4Icon,};
+            menuTextureArray = new Texture2D[] { lifeIcon, moneyIcon, tower1Icon, tower2Icon, tower3Icon, tower4Icon, };
             #endregion    
 
             arial = content.Load<SpriteFont>("Arial");
@@ -149,10 +149,10 @@ namespace Towerdefense
 
             //creates the grid
             FieldCenterPosition = gameManager.createGrid(ScreenManager.GraphicsDevice.Viewport.Height, amountOfField);
-            float menuCenterWidth = (ScreenManager.GraphicsDevice.Viewport.Width - FieldCenterPosition[amountOfField-1, amountOfField-1].X) / 2 + FieldCenterPosition[amountOfField - 1, amountOfField - 1].X;
+            float menuCenterWidth = (ScreenManager.GraphicsDevice.Viewport.Width - FieldCenterPosition[amountOfField - 1, amountOfField - 1].X) / 2 + FieldCenterPosition[amountOfField - 1, amountOfField - 1].X;
             menuCenterPosition = new Vector2(menuCenterWidth, ScreenManager.GraphicsDevice.Viewport.Height / 2);
 
-            menuGridCenterArray = gameManager.createMenuGrid(menuTextureArray, menuCenterPosition, new Vector2(30,30));
+            menuGridCenterArray = gameManager.createMenuGrid(menuTextureArray, menuCenterPosition, new Vector2(30, 30));
 
             fullscreen = new Rectangle(0, 0, ScreenManager.GraphicsDevice.Viewport.Width, ScreenManager.GraphicsDevice.Viewport.Height);
 
@@ -179,47 +179,16 @@ namespace Towerdefense
                 }
             }
 
-            foreach(Field f in grid)
+            foreach (Field f in grid)
             {
-                switch (f.Type)
-                {
-                    case "straight":
-                        roadTypeAndRotation[f.X - 1, f.Y - 1].X = 1;
-                        roadTypeAndRotation[f.X - 1, f.Y - 1].Y = 0;
-                        break;
-
-                    case "turn":
-                        roadTypeAndRotation[f.X - 1, f.Y - 1].X = 2;
-                        roadTypeAndRotation[f.X - 1, f.Y - 1].Y = 0;
-                        break;
-
-                    case "crossing":
-                        roadTypeAndRotation[f.X - 1, f.Y - 1].X = 3;
-                        roadTypeAndRotation[f.X - 1, f.Y - 1].Y = 0;
-                        break;
-
-                    case "t-crossing":
-                        roadTypeAndRotation[f.X - 1, f.Y - 1].X = 4;
-                        roadTypeAndRotation[f.X - 1, f.Y - 1].Y = 0;
-                        break;
-
-                    case "start":
-                        roadTypeAndRotation[f.X - 1, f.Y - 1].X = 0;
-                        roadTypeAndRotation[f.X - 1, f.Y - 1].Y = 0;
-                        break;
-
-                    case "finish":
-                        roadTypeAndRotation[f.X - 1, f.Y - 1].X = 0;
-                        roadTypeAndRotation[f.X - 1, f.Y - 1].Y = 0;
-                        break;
-                    
-                }
+                roadTypeAndRotation[f.X - 1, f.Y - 1].X = f.Type;
+                roadTypeAndRotation[f.X - 1, f.Y - 1].Y = f.Rotation;
             }
 
-                    // A real game would probably have more content than this sample, so
-                    // it would take longer to load. We simulate that by delaying for a
-                    // while, giving you a chance to admire the beautiful loading screen.
-                    Thread.Sleep(1000);
+            // A real game would probably have more content than this sample, so
+            // it would take longer to load. We simulate that by delaying for a
+            // while, giving you a chance to admire the beautiful loading screen.
+            Thread.Sleep(1000);
 
             // once the load has finished, we use ResetElapsedTime to tell the game's
             // timing mechanism that we have just finished a very long frame, and that
@@ -281,7 +250,7 @@ namespace Towerdefense
             KeyboardState keyboardState = input.CurrentKeyboardStates[playerIndex];
             GamePadState gamePadState = input.CurrentGamePadStates[playerIndex];
             MouseState mouseState = Mouse.GetState();
-            
+
 
             // The game pauses either if the user presses the pause button, or if
             // they unplug the active gamepad. This requires us to keep track of
@@ -296,12 +265,12 @@ namespace Towerdefense
             }
             else
             {
-              highlightedGridElement = gameManager.SetCurrentFieldMouse(mouseState,offset,highlightedGridElement,true);
-              highlitedMenuElement = gameManager.SetCurrentMenuField(mouseState,menuRectangle);
-              drawTower = gameManager.TowerToMouse(mouseState,previousMouseState,menuRectangle,drawTower);
-             towerList = gameManager.addPlacedTowerToList(mouseState, previousMouseState, drawTower, towerList, highlightedGridElement, tower1Icon, FieldCenterPosition, amountOfField,roadTypeAndRotation,highlightedGridElement);
-              drawTower =  gameManager.placeTower(mouseState, previousMouseState, drawTower, towerList, highlightedGridElement, tower1Icon, FieldCenterPosition, amountOfField);
-               
+                highlightedGridElement = gameManager.SetCurrentFieldMouse(mouseState, offset, highlightedGridElement, true);
+                highlitedMenuElement = gameManager.SetCurrentMenuField(mouseState, menuRectangle);
+                drawTower = gameManager.TowerToMouse(mouseState, previousMouseState, menuRectangle, drawTower);
+                towerList = gameManager.addPlacedTowerToList(mouseState, previousMouseState, drawTower, towerList, highlightedGridElement, tower1Icon, FieldCenterPosition, amountOfField, roadTypeAndRotation, highlightedGridElement);
+                drawTower = gameManager.placeTower(mouseState, previousMouseState, drawTower, towerList, highlightedGridElement, tower1Icon, FieldCenterPosition, amountOfField);
+
                 //TODO Handle Input
 
                 previousMouseState = mouseState;
@@ -317,9 +286,9 @@ namespace Towerdefense
             // This game has a blue background. Why? Because!
             ScreenManager.GraphicsDevice.Clear(ClearOptions.Target,
                                                Color.CornflowerBlue, 0, 0);
-         
 
-            
+
+
             // Our player and enemy are both actually just text strings.
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
 
@@ -328,7 +297,7 @@ namespace Towerdefense
                                new Color(TransitionAlpha, TransitionAlpha, TransitionAlpha));
 
             /*Draws the Menu*/
-            gameManager.drawMenu(spriteBatch, menuGridCenterArray, menuTextureArray, highlitedMenuElement,arial,player);
+            gameManager.drawMenu(spriteBatch, menuGridCenterArray, menuTextureArray, highlitedMenuElement, arial, player);
 
 
             /*Draws the normal grid (has to be replaced with load level*/
