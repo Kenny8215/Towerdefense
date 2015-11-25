@@ -265,7 +265,7 @@ namespace Towerdefense
             Vector2 Origin;
             Vector2 centerTemp = MenuCenterPosition;
 
-            centerTemp = new Vector2(MenuCenterPosition.X, 2 * offset.Y);
+            centerTemp = new Vector2(MenuCenterPosition.X + offset.X, 3 * offset.Y);
             for (int i = 0; i < MenuTextureArray.Length; i++)
             {
 
@@ -290,7 +290,7 @@ namespace Towerdefense
         public void drawMenu(SpriteBatch spriteBatch, Vector2[] menuPositionArray, Texture2D[] menuTextureArray, int highlitedMenuElement)
         {
             Vector2 Origin;
-            Origin = new Vector2(menuTextureArray[0].Width / 2, menuTextureArray[0].Height / 2);
+            Origin = new Vector2(menuTextureArray[0].Width , menuTextureArray[0].Height);
 
             for (int i = 0; i < menuTextureArray.Length; i++)
             {
