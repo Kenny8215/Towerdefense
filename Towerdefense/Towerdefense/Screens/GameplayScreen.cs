@@ -52,6 +52,7 @@ namespace Towerdefense
         Texture2D tower3Icon;
         Texture2D tower4Icon;
         Texture2D moneyIcon;
+        Texture2D enemy1;
 
         SpriteFont arial;
 
@@ -142,6 +143,8 @@ namespace Towerdefense
 
             roadArray = new Texture2D[] { nonroad, nonroad1, road1, road2, road3, road4 };
             menuTextureArray = new Texture2D[] {  lifeIcon, moneyIcon, tower1Icon, tower2Icon,tower3Icon,tower4Icon,};
+
+            enemy1 = content.Load<Texture2D>("enemies/wolf");
             #endregion    
 
             arial = content.Load<SpriteFont>("Arial");
@@ -166,8 +169,7 @@ namespace Towerdefense
             {
                 menuRectangle[i] = new Rectangle((int)(menuGridCenterArray[i].X - offset.X), (int)(menuGridCenterArray[i].Y - offset.Y), menuTextureArray[i].Width, menuTextureArray[i].Height);
             }
-
-
+            
             roadTypeAndRotation = new Vector2[amountOfField, amountOfField];
             highlightedGridElement = new Vector2(-1, -1);
             towerList = gameManager.TowerList;
@@ -355,6 +357,7 @@ namespace Towerdefense
             /*Draws The TowerTexture to the Mouseposition when leftclicked*/
             gameManager.drawTowerToMouse(Mouse.GetState().Position, drawTower, spriteBatch, tower1Icon, amountOfField, ScreenManager.GraphicsDevice);
 
+            gameManager.spawnEnemies(enemy1,waveList, spriteBatch);
             spriteBatch.End();
             // If the game is transitioning on or off, fade it out to black.
             if (TransitionPosition > 0 || pauseAlpha > 0)

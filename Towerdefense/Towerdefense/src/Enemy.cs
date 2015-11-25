@@ -128,12 +128,15 @@ namespace Towerdefense
         }
         #endregion
 
-        public Enemy():base()
+        public Enemy()
+            : base()
         {
 
         }
 
-        public Enemy(Texture2D sprite, int hitPoints, Vector2 position, int walkDistance, int rotation, float movementSpeed, string resistance, Boolean isBoss, Boolean isFlying) : base(sprite, hitPoints) {
+        public Enemy(Texture2D sprite, int hitPoints, Vector2 position, int walkDistance, int rotation, float movementSpeed, string resistance, Boolean isBoss, Boolean isFlying)
+            : base(sprite, hitPoints)
+        {
 
             this.sprite = sprite;
             this.HitPoints = hitPoints;
@@ -144,6 +147,13 @@ namespace Towerdefense
             this.Resistance = resistance;
             this.IsBoss = isBoss;
             this.IsFlying = isFlying;
+        }
+
+        public void drawEnemy(Texture2D enemy,SpriteBatch spriteBatch,Vector2 startPosition) {
+
+            Vector2 textCent = new Vector2(enemy.Bounds.Center.X,enemy.Bounds.Center.Y);
+
+            spriteBatch.Draw(enemy,startPosition,null,null,textCent,0F,new Vector2(0.2F,0.2F),Color.White,SpriteEffects.None,1F);
         }
     }
 }

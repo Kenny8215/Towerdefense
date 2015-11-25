@@ -38,6 +38,7 @@ namespace Towerdefense
 
         Texture2D menu;
         Texture2D nonroad;
+        Texture2D nonroad1;
         Texture2D road1;
         Texture2D road2;
         Texture2D road3;
@@ -47,7 +48,7 @@ namespace Towerdefense
         MouseState prevMouseState;
 
         float pauseAlpha;
-        static int amountOfField = 20;
+        static int amountOfField = 10;
         Boolean hasDrawnGrid = false;
         Boolean DrawMenu = false;
         Boolean setWithMouse = false;
@@ -87,6 +88,7 @@ namespace Towerdefense
 
             menu = content.Load<Texture2D>("shortcuts");
             nonroad = content.Load<Texture2D>("tiles/noRoad1");
+            nonroad1 = content.Load<Texture2D>("tiles/noRoad1");
             road1 = content.Load<Texture2D>("tiles/road");
             road2 = content.Load<Texture2D>("tiles/road1");
             road3 = content.Load<Texture2D>("tiles/road2");
@@ -99,7 +101,7 @@ namespace Towerdefense
                     roadTypeAndRotation[i,j].Y = 0;
                 }
             }
-                textures = new Texture2D[] { nonroad, road1, road2, road3, road4 };
+                textures = new Texture2D[] { nonroad, nonroad1, road1, road2, road3, road4 };
 
                 offset.X = ScreenManager.GraphicsDevice.Viewport.Height / amountOfField;
                 offset.Y = ScreenManager.GraphicsDevice.Viewport.Height / amountOfField;

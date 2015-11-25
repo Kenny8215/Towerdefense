@@ -231,6 +231,7 @@ namespace Towerdefense
             /*Sets the Road Type to the next Type when Enter is pressed*/
             if (ks.IsKeyDown(Keys.Enter) && !ps.IsKeyDown(Keys.Enter))
             {
+                if (roadTypeRotation[(int)highlightedGridElement.X, (int)highlightedGridElement.Y].X == 0) { roadTypeRotation[(int)highlightedGridElement.X, (int)highlightedGridElement.Y].X++; }
                 roadTypeRotation[(int)highlightedGridElement.X, (int)highlightedGridElement.Y].X++;
                 if (roadTypeRotation[(int)highlightedGridElement.X, (int)highlightedGridElement.Y].X >= textureArray.Length) { roadTypeRotation[(int)highlightedGridElement.X, (int)highlightedGridElement.Y].X = 0; }
             }
@@ -333,6 +334,20 @@ namespace Towerdefense
             return -1;
         }
         #endregion
+
+
+#region Enemies 
+        public void spawnEnemies(Texture2D enemy,List<Wave> waveList,SpriteBatch spriteBatch) {
+           foreach(Wave w in waveList){
+           for (int i = 0; i < 2; i++) {
+               
+                w.Enemy.drawEnemy(enemy,spriteBatch,new Vector2(30,30));
+            }
+           }
+            
+           
+        }
+#endregion
     }
 }
 
