@@ -182,3 +182,9 @@
 #begin level/bsp_lvl.xml
 /copy:level/bsp_lvl.xml
 
+#begin Arial.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:TextureFormat=Compressed
+/build:Arial.spritefont
+

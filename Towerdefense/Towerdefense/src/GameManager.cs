@@ -287,22 +287,32 @@ namespace Towerdefense
         }
 
         /*Draws all menu textures at the center of each MenuElement which where calculated in the createMenuGrid function*/
-        public void drawMenu(SpriteBatch spriteBatch, Vector2[] menuPositionArray, Texture2D[] menuTextureArray, int highlitedMenuElement)
+        public void drawMenu(SpriteBatch spriteBatch, Vector2[] menuPositionArray, Texture2D[] menuTextureArray, int highlitedMenuElement,SpriteFont spriteFont,Player player)
         {
             Vector2 Origin;
+            String[] playerInfoArray = player.getPlayerInfo();
             Origin = new Vector2(menuTextureArray[0].Width , menuTextureArray[0].Height);
+            Color color = Color.OrangeRed ;
+            Vector2 stringSize;
 
             for (int i = 0; i < menuTextureArray.Length; i++)
             {
-
-               
                 if (highlitedMenuElement == i)
                 {
                     spriteBatch.Draw(menuTextureArray[i], menuPositionArray[i], null, new Color(255, 255, 0, 1F), 0F, Origin, 1F, SpriteEffects.None, 1F);
+                    if (i < playerInfoArray.Length ) {
+                       stringSize.X =  spriteFont.MeasureString(playerInfoArray[i]).X / 4;
+                       stringSize.Y = spriteFont.MeasureString(playerInfoArray[i]).Y / 4;
+                        spriteBatch.DrawString(spriteFont, playerInfoArray[i], menuPositionArray[i]-stringSize, color, 0F, Origin, 0.5F, SpriteEffects.None, 0F);
+                    }
                 }
                 else
                 {
                     spriteBatch.Draw(menuTextureArray[i], menuPositionArray[i], null, Color.White, 0F, Origin, 1F, SpriteEffects.None, 1F);
+                    if (i < playerInfoArray.Length) {
+                        stringSize.X = spriteFont.MeasureString(playerInfoArray[i]).X / 4;
+                        stringSize.Y = spriteFont.MeasureString(playerInfoArray[i]).Y / 4;
+                        spriteBatch.DrawString(spriteFont, playerInfoArray[i], menuPositionArray[i] - stringSize, color, 0F,Origin, 0.5F, SpriteEffects.None, 0F); }
                 }
 
             }

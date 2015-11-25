@@ -32,6 +32,8 @@ namespace Towerdefense
         SpriteFont gameFont;
         GameManager gameManager = new GameManager();
 
+        Player player = new Player(null, 20, 200, 0);
+
         Rectangle fullscreen;
 
         Texture2D background;
@@ -49,6 +51,9 @@ namespace Towerdefense
         Texture2D tower3Icon;
         Texture2D tower4Icon;
         Texture2D moneyIcon;
+
+        SpriteFont arial;
+
         Texture2D[] menuTextureArray;
         Vector2[] menuGridCenterArray;
         Rectangle[] menuRectangle;
@@ -56,7 +61,6 @@ namespace Towerdefense
         Vector2 highlightedGridElement;
         Vector2 offset;
         Vector2 menuCenterPosition;
-        Vector2 menuOffset;
 
         Vector2[,] roadTypeAndRotation;
 
@@ -90,7 +94,6 @@ namespace Towerdefense
 
             previousMouseState = Mouse.GetState();
             drawTower = false;
-            menuOffset = new Vector2(30,30);
             towerList = new List<Tower>();
         }
 
@@ -102,7 +105,6 @@ namespace Towerdefense
             previousMouseState = Mouse.GetState();
             drawTower = false;
             towerList = new List<Tower>();
-            menuOffset = new Vector2(30,30);
             levelObject = new LoadLevel();
             levelObject.load("Content\\level\\"+v);
             waveList = levelObject.getWaves();
@@ -139,7 +141,7 @@ namespace Towerdefense
             menuTextureArray = new Texture2D[] {  lifeIcon, moneyIcon, tower1Icon, tower2Icon,tower3Icon,tower4Icon,};
             #endregion    
 
-            
+            arial = content.Load<SpriteFont>("Arial");
 
 
             offset.X = ScreenManager.GraphicsDevice.Viewport.Height / amountOfField;
@@ -299,7 +301,6 @@ namespace Towerdefense
               drawTower = gameManager.TowerToMouse(mouseState,previousMouseState,menuRectangle,drawTower);
              towerList = gameManager.addPlacedTowerToList(mouseState, previousMouseState, drawTower, towerList, highlightedGridElement, tower1Icon, FieldCenterPosition, amountOfField,roadTypeAndRotation,highlightedGridElement);
               drawTower =  gameManager.placeTower(mouseState, previousMouseState, drawTower, towerList, highlightedGridElement, tower1Icon, FieldCenterPosition, amountOfField);
-              System.Console.WriteLine(towerList.Count);
                
                 //TODO Handle Input
 
@@ -327,7 +328,7 @@ namespace Towerdefense
                                new Color(TransitionAlpha, TransitionAlpha, TransitionAlpha));
 
             /*Draws the Menu*/
-            gameManager.drawMenu(spriteBatch, menuGridCenterArray, menuTextureArray, highlitedMenuElement);
+            gameManager.drawMenu(spriteBatch, menuGridCenterArray, menuTextureArray, highlitedMenuElement,arial,player);
 
 
             /*Draws the normal grid (has to be replaced with load level*/

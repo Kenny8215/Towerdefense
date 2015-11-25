@@ -9,6 +9,7 @@ namespace Towerdefense
 {
     class Player : DynamicGameObject
     {
+        private String[] playerInfo;
         private int goldAmount;
         private int score;
 
@@ -19,7 +20,12 @@ namespace Towerdefense
 
             this.goldAmount = goldAmount;
             this.score = score;
+            playerInfo = new String[] {hitPoints.ToString(),goldAmount.ToString()};
+        }
+
+        public String[] getPlayerInfo(){
         
+            return this.playerInfo;
         }
 
     }
