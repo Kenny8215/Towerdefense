@@ -52,7 +52,6 @@ namespace Towerdefense
         Texture2D tower3Icon;
         Texture2D tower4Icon;
         Texture2D moneyIcon;
-        Texture2D enemy1;
 
         SpriteFont arial;
 
@@ -141,10 +140,13 @@ namespace Towerdefense
             tower3Icon = content.Load<Texture2D>("Menu/tower1");
             tower4Icon = content.Load<Texture2D>("Menu/tower1");
 
+<<<<<<< HEAD
+            roadArray = new Texture2D[] { nonroad, road1, road2, road3, road4 };
+            menuTextureArray = new Texture2D[] { lifeIcon, moneyIcon, tower1Icon, tower2Icon, tower3Icon, tower4Icon, };
+=======
             roadArray = new Texture2D[] { nonroad, nonroad1, road1, road2, road3, road4 };
             menuTextureArray = new Texture2D[] {  lifeIcon, moneyIcon, tower1Icon, tower2Icon,tower3Icon,tower4Icon,};
-
-            enemy1 = content.Load<Texture2D>("enemies/wolf");
+>>>>>>> 4709cebfbb3e39f37b16771d9c97b3c5b2fd97e8
             #endregion    
 
             arial = content.Load<SpriteFont>("Arial");
@@ -169,7 +171,8 @@ namespace Towerdefense
             {
                 menuRectangle[i] = new Rectangle((int)(menuGridCenterArray[i].X - offset.X), (int)(menuGridCenterArray[i].Y - offset.Y), menuTextureArray[i].Width, menuTextureArray[i].Height);
             }
-            
+
+
             roadTypeAndRotation = new Vector2[amountOfField, amountOfField];
             highlightedGridElement = new Vector2(-1, -1);
             towerList = gameManager.TowerList;
@@ -270,6 +273,13 @@ namespace Towerdefense
             }
             else
             {
+<<<<<<< HEAD
+                highlightedGridElement = gameManager.SetCurrentFieldMouse(mouseState, offset, highlightedGridElement, true);
+                highlitedMenuElement = gameManager.SetCurrentMenuField(mouseState, menuRectangle);
+                drawTower = gameManager.TowerToMouse(mouseState, previousMouseState, menuRectangle, drawTower);
+                towerList = gameManager.addPlacedTowerToList(mouseState, previousMouseState, drawTower, towerList, highlightedGridElement, tower1Icon, FieldCenterPosition, amountOfField, roadTypeAndRotation, highlightedGridElement);
+                drawTower = gameManager.placeTower(mouseState, previousMouseState, drawTower, towerList, highlightedGridElement, tower1Icon, FieldCenterPosition, amountOfField);
+=======
               highlightedGridElement = gameManager.SetCurrentFieldMouse(mouseState,offset,highlightedGridElement,true);
               highlitedMenuElement = gameManager.SetCurrentMenuField(mouseState,menuRectangle);
               drawTower = gameManager.TowerToMouse(mouseState,previousMouseState,menuRectangle,drawTower);
@@ -286,6 +296,7 @@ namespace Towerdefense
                
 
 
+>>>>>>> 4709cebfbb3e39f37b16771d9c97b3c5b2fd97e8
 
                 //TODO Handle Input
 
@@ -326,7 +337,6 @@ namespace Towerdefense
             /*Draws The TowerTexture to the Mouseposition when leftclicked*/
             gameManager.drawTowerToMouse(Mouse.GetState().Position, drawTower, spriteBatch, tower1Icon, amountOfField, ScreenManager.GraphicsDevice);
 
-            gameManager.spawnEnemies(enemy1,waveList, spriteBatch);
             spriteBatch.End();
             // If the game is transitioning on or off, fade it out to black.
             if (TransitionPosition > 0 || pauseAlpha > 0)
