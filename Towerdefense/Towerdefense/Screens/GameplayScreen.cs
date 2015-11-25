@@ -39,6 +39,7 @@ namespace Towerdefense
         Texture2D background;
 
         Texture2D nonroad;
+        Texture2D nonroad1;
         Texture2D road1;
         Texture2D road2;
         Texture2D road3;
@@ -71,6 +72,7 @@ namespace Towerdefense
         float pauseAlpha;
         int amountOfField;
         int highlitedMenuElement;
+        int towerAmount;
 
         Boolean drawTower;
 
@@ -125,6 +127,7 @@ namespace Towerdefense
             gameFont = content.Load<SpriteFont>("gamefont");
             background = content.Load<Texture2D>("background");
             nonroad = content.Load<Texture2D>("tiles/noRoad1");
+            nonroad1 = content.Load <Texture2D>("tiles/noRoad1");
             road1 = content.Load<Texture2D>("tiles/road");
             road2 = content.Load<Texture2D>("tiles/road1");
             road3 = content.Load<Texture2D>("tiles/road2");
@@ -137,7 +140,7 @@ namespace Towerdefense
             tower3Icon = content.Load<Texture2D>("Menu/tower1");
             tower4Icon = content.Load<Texture2D>("Menu/tower1");
 
-            roadArray = new Texture2D[] { nonroad, road1, road2, road3, road4 };
+            roadArray = new Texture2D[] { nonroad, nonroad1, road1, road2, road3, road4 };
             menuTextureArray = new Texture2D[] {  lifeIcon, moneyIcon, tower1Icon, tower2Icon,tower3Icon,tower4Icon,};
             #endregion    
 
@@ -299,9 +302,20 @@ namespace Towerdefense
               highlightedGridElement = gameManager.SetCurrentFieldMouse(mouseState,offset,highlightedGridElement,true);
               highlitedMenuElement = gameManager.SetCurrentMenuField(mouseState,menuRectangle);
               drawTower = gameManager.TowerToMouse(mouseState,previousMouseState,menuRectangle,drawTower);
-             towerList = gameManager.addPlacedTowerToList(mouseState, previousMouseState, drawTower, towerList, highlightedGridElement, tower1Icon, FieldCenterPosition, amountOfField,roadTypeAndRotation,highlightedGridElement);
-              drawTower =  gameManager.placeTower(mouseState, previousMouseState, drawTower, towerList, highlightedGridElement, tower1Icon, FieldCenterPosition, amountOfField);
+
+             towerAmount = towerList.Count;
+             towerList = gameManager.addPlacedTowerToList(mouseState, previousMouseState, drawTower, towerList, highlightedGridElement, tower1Icon, FieldCenterPosition, amountOfField,roadTypeAndRotation,highlightedGridElement,player);
+
+             if (towerAmount != towerList.Count)
+             {
+                 roadTypeAndRotation[(int) highlightedGridElement.X,(int) highlightedGridElement.Y].X = 1;
+             }
+                // roadTypeAndRotation[ towerList[towerAmount].Position.X] , towerList[towerAmount].Position.Y ] = 1;  }
+                drawTower =  gameManager.placeTower(mouseState, previousMouseState, drawTower, towerList, highlightedGridElement, tower1Icon, FieldCenterPosition, amountOfField);
                
+
+
+
                 //TODO Handle Input
 
                 previousMouseState = mouseState;
