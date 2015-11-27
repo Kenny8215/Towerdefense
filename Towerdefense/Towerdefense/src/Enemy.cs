@@ -155,5 +155,74 @@ namespace Towerdefense
 
             spriteBatch.Draw(enemy,startPosition,null,null,textCent,0F,new Vector2(0.2F,0.2F),Color.White,SpriteEffects.None,1F);
         }
+
+        public Vector2 moveEnemy(Vector2[,] roadTypeAndRotation,Vector2 currentEnemyField,float speedFactor,int amountOfField) {
+            int roadType = 0; int rotation = 0;
+
+            if (currentEnemyField.X < amountOfField && currentEnemyField.Y < amountOfField)
+            {
+                roadType = (int)roadTypeAndRotation[(int)currentEnemyField.X, (int)currentEnemyField.Y].X;
+                rotation = (int)roadTypeAndRotation[(int)currentEnemyField.X, (int)currentEnemyField.Y].Y;
+            }
+            switch (roadType) {
+                case 0:
+                    /*roadTypeAndRotation.X= 0 is a nonroad field*/
+                    break;
+
+                case 1:
+                    /*roadTypeAndRotation.X= 1 is a nonroad field*/
+                    break;
+                case 2:
+                    moveStraight(speedFactor, rotation);
+                    break;
+                case 3:
+                    moveCurve(speedFactor,rotation);
+                    break;
+                case 4:
+                    /*move4WayRoad*/
+                    break;
+                case 5:
+                    /*move3WayRoad*/
+                    break;
+            }
+
+            return this.position;
+        }
+
+        #region movement
+        public void moveStraight(float speedFactor, int rotation)
+        {
+            if (rotation == 0 || rotation == 2)
+            {
+                this.position.Y += speedFactor * this.movementSpeed;
+            }
+            else { this.position.X += speedFactor * this.movementSpeed; }
+        }
+
+        public void moveCurve(float speedFactor, int rotation) { 
+            //todo bis zum Mittelpunkt gehen, rotieren bis zum ende des Feldes gehen
+        }
+
+        public int  turn90(int rotation) {
+            switch (rotation){
+           case 0: return 90;
+           case 1: return 90;
+           case 2: return -90;
+           case 3: return -90;
+           default: return 0;
+        }
+            }
+        #endregion 
+        
+        public Vector2 currentEnemyField(Vector2 offset)
+    {
+        Vector2 currentField;
+            currentField.X = (int)(this.position.X / offset.X);
+            currentField.Y = (int)(this.position.Y / offset.Y);
+        return currentField;
     }
+    }
+
+
+
 }

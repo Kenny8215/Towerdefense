@@ -58,6 +58,7 @@ namespace Towerdefense
 
         Texture2D[] menuTextureArray;
         Vector2[] menuGridCenterArray;
+        Vector2[] currentEnemyPosition = new Vector2[2];
         Rectangle[] menuRectangle;
 
         Vector2 highlightedGridElement;
@@ -186,8 +187,8 @@ namespace Towerdefense
 
             foreach (Field f in grid)
             {
-                roadTypeAndRotation[f.X - 1, f.Y - 1].X = f.Type;
-                roadTypeAndRotation[f.X - 1, f.Y - 1].Y = f.Rotation;
+                roadTypeAndRotation[f.X , f.Y ].X = f.Type;
+                roadTypeAndRotation[f.X , f.Y ].Y = f.Rotation;
             }
 
             // A real game would probably have more content than this sample, so
@@ -234,6 +235,7 @@ namespace Towerdefense
 
             if (IsActive)
             {
+              currentEnemyPosition =  gameManager.updateEnemies(waveList, roadTypeAndRotation, offset,amountOfField);
                 // TODO: this game isn't very fun! You could probably improve
                 // it by inserting something more interesting in this space :-)
             }
@@ -326,7 +328,7 @@ namespace Towerdefense
             /*Draws The TowerTexture to the Mouseposition when leftclicked*/
             gameManager.drawTowerToMouse(Mouse.GetState().Position, drawTower, spriteBatch, tower1Icon, amountOfField, ScreenManager.GraphicsDevice);
 
-            gameManager.spawnEnemies(enemy1,waveList, spriteBatch);
+            gameManager.drawEnemies(enemy1, waveList, spriteBatch,currentEnemyPosition);
             spriteBatch.End();
             // If the game is transitioning on or off, fade it out to black.
             if (TransitionPosition > 0 || pauseAlpha > 0)

@@ -241,7 +241,8 @@ namespace Towerdefense
 
             if (DrawMenu)
             {
-                spriteBatch.Draw(menu, mousePosition, null, Color.White, 0F, new Vector2(menu.Width / 2, menu.Height / 2), 1F, SpriteEffects.None, 1);
+                /*sinnloses zeug : Menu geht nicht*/
+                //spriteBatch.Draw(menu, mousePosition, null, Color.White, 0F, new Vector2(menu.Width / 2, menu.Height / 2), 1F, SpriteEffects.None, 1);
             }
             spriteBatch.End();
             

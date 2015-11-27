@@ -26,9 +26,10 @@ namespace Towerdefense
         #endregion
 
         #region setter and getter
-         public List<Tower> TowerList {
-             get { return towerList; }
-             set { this.towerList = towerList; }
+        public List<Tower> TowerList
+        {
+            get { return towerList; }
+            set { this.towerList = towerList; }
         }
         #endregion
 
@@ -50,8 +51,9 @@ namespace Towerdefense
 
         }
 
-        public void drawTowers(List<Tower> towerList,SpriteBatch spriteBatch,GraphicsDevice graphicsDevice,int amountOfFields) {
-            if (towerList.Count == 0) {  }
+        public void drawTowers(List<Tower> towerList, SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, int amountOfFields)
+        {
+            if (towerList.Count == 0) { }
             else
             {
                 float scale = (float)graphicsDevice.Viewport.Height / (amountOfFields * towerList[0].Sprite.Height);
@@ -80,7 +82,8 @@ namespace Towerdefense
         }
 
         /*Checks if a TowerIcon has been clicked - returns true when a TowerIcon has been clicked*/
-        public Boolean TowerToMouse(MouseState ms, MouseState ps,Rectangle[] menuRectangle,Boolean drawTower) {
+        public Boolean TowerToMouse(MouseState ms, MouseState ps, Rectangle[] menuRectangle, Boolean drawTower)
+        {
             if (ms.RightButton == ButtonState.Pressed && ps.RightButton == ButtonState.Released) { return false; }
             if (drawTower == true)
             {
@@ -99,11 +102,13 @@ namespace Towerdefense
         }
 
         /*Draws the tower to the Mouse when drawTower is true the texture of the tower will be drawn to the mouseposition*/
-        public void drawTowerToMouse(Point ms,Boolean drawTower,SpriteBatch spriteBatch,Texture2D towerTexture,int amountOfFields,GraphicsDevice graphicsDevice) {
+        public void drawTowerToMouse(Point ms, Boolean drawTower, SpriteBatch spriteBatch, Texture2D towerTexture, int amountOfFields, GraphicsDevice graphicsDevice)
+        {
             float scale = (float)graphicsDevice.Viewport.Height / (amountOfFields * towerTexture.Height);
-            Vector2 origin = new Vector2(towerTexture.Width/2,towerTexture.Height/2);
-            Vector2 msV = new Vector2(ms.X,ms.Y);
-            if (drawTower) {
+            Vector2 origin = new Vector2(towerTexture.Width / 2, towerTexture.Height / 2);
+            Vector2 msV = new Vector2(ms.X, ms.Y);
+            if (drawTower)
+            {
                 spriteBatch.Draw(towerTexture, msV, null, Color.White, 0F, origin, scale, SpriteEffects.None, 1F);
             }
         }
@@ -111,34 +116,36 @@ namespace Towerdefense
         /*Places the tower on the grid*/
         public Boolean placeTower(MouseState ms, MouseState ps, Boolean drawTower, List<Tower> towerList, Vector2 position, Texture2D towerTexture, Vector2[,] FieldCenterPosition, int amountOfField)
         {
-          
-            if (drawTower && ms.LeftButton == ButtonState.Pressed && ps.LeftButton != ButtonState.Pressed && position.X < amountOfField && position.Y < amountOfField) {
-                foreach (Tower t in towerList)
-                {
-                    if (FieldCenterPosition[(int)position.X, (int)position.Y] == t.Position) { return drawTower = true; ; }
-                } 
-                
-                drawTower = false;
-            }
 
-            return drawTower ;
-        }
-
-        public List<Tower> addPlacedTowerToList(MouseState ms, MouseState ps, Boolean drawTower, List<Tower> towerList, Vector2 position, Texture2D towerTexture, Vector2[,] FieldCenterPosition, int amountOfField, Vector2[,] roadTypeRotation, Vector2 highlightedGridElement,Player player)
-        {
-            if(player.getGold() >= 50) {
-            if (drawTower && ms.LeftButton == ButtonState.Pressed && ps.LeftButton != ButtonState.Pressed && position.X < amountOfField && position.Y < amountOfField && roadTypeRotation[(int)highlightedGridElement.X, (int)highlightedGridElement.Y].X == 0)
+            if (drawTower && ms.LeftButton == ButtonState.Pressed && ps.LeftButton != ButtonState.Pressed && position.X < amountOfField && position.Y < amountOfField)
             {
                 foreach (Tower t in towerList)
                 {
-                    if (FieldCenterPosition[(int)position.X, (int)position.Y] == t.Position) { return towerList; }
+                    if (FieldCenterPosition[(int)position.X, (int)position.Y] == t.Position) { return drawTower = true; ; }
                 }
-                player.setGold(player.getGold() - 50);
-                towerList.Add(new Tower(towerTexture, FieldCenterPosition[(int)position.X, (int)position.Y]));
-            }
+
+                drawTower = false;
             }
 
-         return towerList;
+            return drawTower;
+        }
+
+        public List<Tower> addPlacedTowerToList(MouseState ms, MouseState ps, Boolean drawTower, List<Tower> towerList, Vector2 position, Texture2D towerTexture, Vector2[,] FieldCenterPosition, int amountOfField, Vector2[,] roadTypeRotation, Vector2 highlightedGridElement, Player player)
+        {
+            if (player.getGold() >= 50)
+            {
+                if (drawTower && ms.LeftButton == ButtonState.Pressed && ps.LeftButton != ButtonState.Pressed && position.X < amountOfField && position.Y < amountOfField && roadTypeRotation[(int)highlightedGridElement.X, (int)highlightedGridElement.Y].X == 0)
+                {
+                    foreach (Tower t in towerList)
+                    {
+                        if (FieldCenterPosition[(int)position.X, (int)position.Y] == t.Position) { return towerList; }
+                    }
+                    player.setGold(player.getGold() - 50);
+                    towerList.Add(new Tower(towerTexture, FieldCenterPosition[(int)position.X, (int)position.Y]));
+                }
+            }
+
+            return towerList;
         }
         #endregion
 
@@ -211,7 +218,8 @@ namespace Towerdefense
                     if (i == highlightIndex.X && j == highlightIndex.Y && roadTypeRotation[i, j].X != 0)
                     {
                         spriteBatch.Draw(texture[(int)roadTypeRotation[i, j].X], center[i, j], null, new Color(255, 0, 0, 1F), (roadTypeRotation[i, j].Y) * rotation, textureCenter, scale, SpriteEffects.None, 0);
-                    } else if (i == highlightIndex.X && j == highlightIndex.Y)
+                    }
+                    else if (i == highlightIndex.X && j == highlightIndex.Y)
                     {
                         spriteBatch.Draw(texture[(int)roadTypeRotation[i, j].X], center[i, j], null, new Color(255, 255, 0, 1F), (roadTypeRotation[i, j].Y) * rotation, textureCenter, scale, SpriteEffects.None, 0);
                     }
@@ -250,7 +258,6 @@ namespace Towerdefense
         public Boolean LevelEditorMenu(MouseState ms, Boolean DrawMenu)
         {
             if (DrawMenu == true && ms.MiddleButton == ButtonState.Pressed) { DrawMenu = false; }
-
             if (ms.RightButton == ButtonState.Pressed) { DrawMenu = true; }
 
             return DrawMenu;
@@ -276,11 +283,11 @@ namespace Towerdefense
                 if (i % 2 == 0)
                 {
                     //safe position into safeMenuPosition
-                    safeMenuPositions[i] = new Vector2(centerTemp.X + 2* offset.X, centerTemp.Y);
+                    safeMenuPositions[i] = new Vector2(centerTemp.X + 2 * offset.X, centerTemp.Y);
                 }
                 else
                 {
-                    safeMenuPositions[i] = new Vector2(centerTemp.X -  offset.X, centerTemp.Y);
+                    safeMenuPositions[i] = new Vector2(centerTemp.X - offset.X, centerTemp.Y);
                     centerTemp.Y += 2 * offset.Y;
                 }
 
@@ -289,12 +296,12 @@ namespace Towerdefense
         }
 
         /*Draws all menu textures at the center of each MenuElement which where calculated in the createMenuGrid function*/
-        public void drawMenu(SpriteBatch spriteBatch, Vector2[] menuPositionArray, Texture2D[] menuTextureArray, int highlitedMenuElement,SpriteFont spriteFont,Player player)
+        public void drawMenu(SpriteBatch spriteBatch, Vector2[] menuPositionArray, Texture2D[] menuTextureArray, int highlitedMenuElement, SpriteFont spriteFont, Player player)
         {
             Vector2 Origin;
             String[] playerInfoArray = player.getPlayerInfo();
-            Origin = new Vector2(menuTextureArray[0].Width , menuTextureArray[0].Height);
-            Color color = Color.OrangeRed ;
+            Origin = new Vector2(menuTextureArray[0].Width, menuTextureArray[0].Height);
+            Color color = Color.OrangeRed;
             Vector2 stringSize;
 
             for (int i = 0; i < menuTextureArray.Length; i++)
@@ -302,19 +309,22 @@ namespace Towerdefense
                 if (highlitedMenuElement == i)
                 {
                     spriteBatch.Draw(menuTextureArray[i], menuPositionArray[i], null, new Color(255, 255, 0, 1F), 0F, Origin, 1F, SpriteEffects.None, 1F);
-                    if (i < playerInfoArray.Length ) {
-                       stringSize.X =  spriteFont.MeasureString(playerInfoArray[i]).X / 4;
-                       stringSize.Y = spriteFont.MeasureString(playerInfoArray[i]).Y / 4;
-                        spriteBatch.DrawString(spriteFont, playerInfoArray[i], menuPositionArray[i]-stringSize, color, 0F, Origin, 0.5F, SpriteEffects.None, 0F);
+                    if (i < playerInfoArray.Length)
+                    {
+                        stringSize.X = spriteFont.MeasureString(playerInfoArray[i]).X / 4;
+                        stringSize.Y = spriteFont.MeasureString(playerInfoArray[i]).Y / 4;
+                        spriteBatch.DrawString(spriteFont, playerInfoArray[i], menuPositionArray[i] - stringSize, color, 0F, Origin, 0.5F, SpriteEffects.None, 0F);
                     }
                 }
                 else
                 {
                     spriteBatch.Draw(menuTextureArray[i], menuPositionArray[i], null, Color.White, 0F, Origin, 1F, SpriteEffects.None, 1F);
-                    if (i < playerInfoArray.Length) {
+                    if (i < playerInfoArray.Length)
+                    {
                         stringSize.X = spriteFont.MeasureString(playerInfoArray[i]).X / 4;
                         stringSize.Y = spriteFont.MeasureString(playerInfoArray[i]).Y / 4;
-                        spriteBatch.DrawString(spriteFont, playerInfoArray[i], menuPositionArray[i] - stringSize, color, 0F,Origin, 0.5F, SpriteEffects.None, 0F); }
+                        spriteBatch.DrawString(spriteFont, playerInfoArray[i], menuPositionArray[i] - stringSize, color, 0F, Origin, 0.5F, SpriteEffects.None, 0F);
+                    }
                 }
 
             }
@@ -336,19 +346,40 @@ namespace Towerdefense
         #endregion
 
 
-#region Enemies 
-        public void spawnEnemies(Texture2D enemy,List<Wave> waveList,SpriteBatch spriteBatch) {
-           foreach(Wave w in waveList){
-           for (int i = 0; i < 2; i++) {
-               
-                w.Enemy.drawEnemy(enemy,spriteBatch,new Vector2(30,30));
+        #region Enemies
+        public void drawEnemies(Texture2D enemy, List<Wave> waveList, SpriteBatch spriteBatch, Vector2[] currentPosition)
+        {
+
+            foreach (Wave w in waveList)
+            {
+                for (int i = 0; i < 2; i++)
+                {
+
+                    //replace new Vector2(30,30) with Enemy.position
+                    w.Enemy.drawEnemy(enemy, spriteBatch, currentPosition[i]);
+
+                }
             }
-           }
-            
-           
         }
-#endregion
+
+        public Vector2[] updateEnemies(List<Wave> waveList, Vector2[,] roadTypeAndRotation, Vector2 offset, int amountOfField)
+        {
+            Vector2[] currentPosition = new Vector2[2]; ;
+            Vector2 currentField;
+            foreach (Wave w in waveList)
+            {
+                for (int i = 0; i < 2; i++)
+                {
+
+                    currentField = w.Enemy.currentEnemyField(offset);
+                    currentPosition[i].X = w.Enemy.moveEnemy(roadTypeAndRotation, currentField, 0.03F,amountOfField).X + offset.X / 2;
+                    currentPosition[i].Y = w.Enemy.moveEnemy(roadTypeAndRotation, currentField, 0.03F,amountOfField).Y;
+                }
+            }
+            return currentPosition;
+        }
     }
 }
+#endregion
 
     
