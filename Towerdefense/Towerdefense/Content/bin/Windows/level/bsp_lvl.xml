@@ -36,55 +36,55 @@
     <field>
       <x>0</x>
       <y>1</y>
-      <type>2</type>
+      <type>3</type>
       <rotation>0</rotation>
     </field>
     <field>
       <x>0</x>
       <y>2</y>
-      <type>2</type>
+      <type>0</type>
       <rotation>0</rotation>
     </field>
     <field>
       <x>0</x>
       <y>3</y>
-      <type>2</type>
+      <type>3</type>
       <rotation>0</rotation>
     </field>
     <field>
       <x>0</x>
       <y>4</y>
-      <type>2</type>
+      <type>0</type>
       <rotation>0</rotation>
     </field>
     <field>
       <x>0</x>
       <y>5</y>
-      <type>2</type>
+      <type>0</type>
       <rotation>0</rotation>
     </field>
     <field>
       <x>0</x>
       <y>6</y>
-      <type>2</type>
+      <type>0</type>
       <rotation>0</rotation>
     </field>
     <field>
       <x>0</x>
       <y>7</y>
-      <type>2</type>
+      <type>0</type>
       <rotation>0</rotation>
     </field>
     <field>
       <x>0</x>
       <y>8</y>
-      <type>2</type>
+      <type>0</type>
       <rotation>0</rotation>
     </field>
     <field>
       <x>0</x>
       <y>9</y>
-      <type>2</type>
+      <type>0</type>
       <rotation>0</rotation>
     </field>
     <field>
@@ -96,20 +96,20 @@
     <field>
       <x>1</x>
       <y>1</y>
-      <type>0</type>
-      <rotation>0</rotation>
+      <type>3</type>
+      <rotation>2</rotation>
     </field>
     <field>
       <x>1</x>
       <y>2</y>
-      <type>0</type>
+      <type>2</type>
       <rotation>0</rotation>
     </field>
     <field>
       <x>1</x>
       <y>3</y>
-      <type>0</type>
-      <rotation>0</rotation>
+      <type>3</type>
+      <rotation>3</rotation>
     </field>
     <field>
       <x>1</x>
@@ -216,7 +216,7 @@
     <field>
       <x>3</x>
       <y>1</y>
-      <type>0</type>
+      <type>3</type>
       <rotation>0</rotation>
     </field>
     <field>
@@ -228,8 +228,8 @@
     <field>
       <x>3</x>
       <y>3</y>
-      <type>0</type>
-      <rotation>0</rotation>
+      <type>3</type>
+      <rotation>1</rotation>
     </field>
     <field>
       <x>3</x>
@@ -240,8 +240,8 @@
     <field>
       <x>3</x>
       <y>5</y>
-      <type>0</type>
-      <rotation>0</rotation>
+      <type>3</type>
+      <rotation>2</rotation>
     </field>
     <field>
       <x>3</x>
@@ -258,8 +258,8 @@
     <field>
       <x>3</x>
       <y>8</y>
-      <type>0</type>
-      <rotation>0</rotation>
+      <type>3</type>
+      <rotation>3</rotation>
     </field>
     <field>
       <x>3</x>

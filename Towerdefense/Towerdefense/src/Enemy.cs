@@ -149,22 +149,27 @@ namespace Towerdefense
             this.IsFlying = isFlying;
         }
 
-        public void drawEnemy(Texture2D enemy,SpriteBatch spriteBatch,Vector2 startPosition) {
+        public void drawEnemy(Texture2D enemy, SpriteBatch spriteBatch, Vector2 startPosition)
+        {
 
-            Vector2 textCent = new Vector2(enemy.Bounds.Center.X,enemy.Bounds.Center.Y);
+            Vector2 textCent = new Vector2(enemy.Bounds.Center.X, enemy.Bounds.Center.Y);
 
-            spriteBatch.Draw(enemy,startPosition,null,null,textCent,0F,new Vector2(0.2F,0.2F),Color.White,SpriteEffects.None,1F);
+            spriteBatch.Draw(enemy, startPosition, null, null, textCent, 0F, new Vector2(0.2F, 0.2F), Color.White, SpriteEffects.None, 1F);
         }
 
-        public Vector2 moveEnemy(Vector2[,] roadTypeAndRotation,Vector2 currentEnemyField,float speedFactor,int amountOfField) {
+        public Vector2 moveEnemy(Vector2[,] roadTypeAndRotation, Vector2 currentEnemyField, float speedFactor, int amountOfField,Vector2[,] FieldCenterPosition,Vector2 offset)
+        {
             int roadType = 0; int rotation = 0;
+            Vector2 centerPosition = Vector2.Zero;
 
             if (currentEnemyField.X < amountOfField && currentEnemyField.Y < amountOfField)
             {
                 roadType = (int)roadTypeAndRotation[(int)currentEnemyField.X, (int)currentEnemyField.Y].X;
                 rotation = (int)roadTypeAndRotation[(int)currentEnemyField.X, (int)currentEnemyField.Y].Y;
-            }
-            switch (roadType) {
+                centerPosition = FieldCenterPosition[(int) currentEnemyField.X,(int)currentEnemyField.Y] ;
+            }else{return this.position;}
+            switch (roadType)
+            {
                 case 0:
                     /*roadTypeAndRotation.X= 0 is a nonroad field*/
                     break;
@@ -176,7 +181,7 @@ namespace Towerdefense
                     moveStraight(speedFactor, rotation);
                     break;
                 case 3:
-                    moveCurve(speedFactor,rotation);
+                    moveCurve(speedFactor, rotation,centerPosition,offset);
                     break;
                 case 4:
                     /*move4WayRoad*/
@@ -192,35 +197,75 @@ namespace Towerdefense
         #region movement
         public void moveStraight(float speedFactor, int rotation)
         {
-            if (rotation == 0 || rotation == 2)
+            if (rotation == 0)
             {
                 this.position.Y += speedFactor * this.movementSpeed;
             }
-            else { this.position.X += speedFactor * this.movementSpeed; }
+            else if (rotation == 2) { 
+                this.position.Y -= speedFactor * this.movementSpeed; }
+            else if(rotation == 1) { this.position.X += speedFactor * this.movementSpeed; }
+            else{this.position.X -= speedFactor * this.movementSpeed;}
         }
 
-        public void moveCurve(float speedFactor, int rotation) { 
+        public void moveCurve(float speedFactor, int roadRotation, Vector2 centerPosition,Vector2 offset)
+        {
+
+            centerPosition -= new Vector2(offset.X,0);
+            switch (roadRotation)
+            {
+
+                case 0:
+                    //Y+ bis midcenterposition Y+ bis Ende
+                    if (this.position.Y < centerPosition.Y)
+                    {
+                        this.position.Y+= speedFactor * this.movementSpeed;
+                    }
+                    else if (this.position.Y >= centerPosition.Y) { this.position.X += speedFactor * this.movementSpeed; }
+                    break;
+                case 1:
+                    //X- bis mcp Y+ bis ende
+                    if (this.position.X > centerPosition.X)
+                    {
+                        this.position.X -= speedFactor * this.movementSpeed;
+                    }
+                    else if (this.position.Y <= centerPosition.Y) { this.position.Y += speedFactor * this.movementSpeed; }
+                  
+                    break;
+                case 2:
+                    //X+ bis mcp Y+ bis ende
+                    if (this.position.X < centerPosition.X) { this.position.X += speedFactor * this.movementSpeed; } else { this.position.Y += speedFactor * this.movementSpeed; }
+                    break;
+                case 3:
+                    //Y+ bis mcp X-- bis ende
+                    if (this.position.Y <= centerPosition.Y) { this.position.Y += speedFactor * this.movementSpeed; }
+                    else { this.position.X--; }
+                    break;
+
+
+            }
             //todo bis zum Mittelpunkt gehen, rotieren bis zum ende des Feldes gehen
         }
 
-        public int  turn90(int rotation) {
-            switch (rotation){
-           case 0: return 90;
-           case 1: return 90;
-           case 2: return -90;
-           case 3: return -90;
-           default: return 0;
-        }
+        public int turn90(int rotation)
+        {
+            switch (rotation)
+            {
+                case 0: return 90;
+                case 1: return 90;
+                case 2: return -90;
+                case 3: return -90;
+                default: return 0;
             }
-        #endregion 
-        
+        }
+        #endregion
+
         public Vector2 currentEnemyField(Vector2 offset)
-    {
-        Vector2 currentField;
+        {
+            Vector2 currentField;
             currentField.X = (int)(this.position.X / offset.X);
             currentField.Y = (int)(this.position.Y / offset.Y);
-        return currentField;
-    }
+            return currentField;
+        }
     }
 
 

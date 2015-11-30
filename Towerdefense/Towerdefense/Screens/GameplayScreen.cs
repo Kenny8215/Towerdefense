@@ -235,7 +235,7 @@ namespace Towerdefense
 
             if (IsActive)
             {
-              currentEnemyPosition =  gameManager.updateEnemies(waveList, roadTypeAndRotation, offset,amountOfField);
+              currentEnemyPosition =  gameManager.updateEnemies(waveList, roadTypeAndRotation, offset,amountOfField,FieldCenterPosition);
                 // TODO: this game isn't very fun! You could probably improve
                 // it by inserting something more interesting in this space :-)
             }

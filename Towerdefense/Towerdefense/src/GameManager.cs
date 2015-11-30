@@ -362,7 +362,7 @@ namespace Towerdefense
             }
         }
 
-        public Vector2[] updateEnemies(List<Wave> waveList, Vector2[,] roadTypeAndRotation, Vector2 offset, int amountOfField)
+        public Vector2[] updateEnemies(List<Wave> waveList, Vector2[,] roadTypeAndRotation, Vector2 offset, int amountOfField,Vector2[,] FieldCenterPosition)
         {
             Vector2[] currentPosition = new Vector2[2]; ;
             Vector2 currentField;
@@ -372,8 +372,8 @@ namespace Towerdefense
                 {
 
                     currentField = w.Enemy.currentEnemyField(offset);
-                    currentPosition[i].X = w.Enemy.moveEnemy(roadTypeAndRotation, currentField, 0.03F,amountOfField).X + offset.X / 2;
-                    currentPosition[i].Y = w.Enemy.moveEnemy(roadTypeAndRotation, currentField, 0.03F,amountOfField).Y;
+                    currentPosition[i].X = w.Enemy.moveEnemy(roadTypeAndRotation, currentField, 0.03F,amountOfField,FieldCenterPosition,offset).X + offset.X / 2;
+                    currentPosition[i].Y = w.Enemy.moveEnemy(roadTypeAndRotation, currentField, 0.03F,amountOfField,FieldCenterPosition,offset).Y;
                 }
             }
             return currentPosition;
