@@ -14,6 +14,8 @@ namespace Towerdefense
 
         private List<Field> grid = null;
 
+        private List<Tower> tower = null;
+
         int grid_count;
 
         public void load(String str)
@@ -35,8 +37,9 @@ namespace Towerdefense
                              HitPoints = Convert.ToInt32(e.Element("hitPoints").Value),
                              MovementSpeed = Convert.ToInt32(e.Element("movementSpeed").Value),
                              Resistance = e.Element("resistance").Value,
-                             IsBoss=Convert.ToBoolean(e.Element("boss").Value),
-                             IsFlying=Convert.ToBoolean(e.Element("flying").Value)                             
+                             IsBoss = Convert.ToBoolean(e.Element("boss").Value),
+                             IsFlying = Convert.ToBoolean(e.Element("flying").Value),
+                             SpritePath = "enemies/wolf"                           
                          }).ToList()[0]
                      }).ToList();
 
@@ -48,6 +51,18 @@ namespace Towerdefense
                         Type = Convert.ToInt32(field.Element("type").Value),
                         Rotation = Convert.ToInt32(field.Element("rotation").Value)
                     }).ToList();
+
+            tower = (from tower in doc.Descendants("tower")
+                     select new Tower()
+                     {
+                         Range = Convert.ToInt32(tower.Element("range").Value),
+                         Cost = Convert.ToInt32(tower.Element("cost").Value),
+                         Damage = Convert.ToInt32(tower.Element("damage").Value),
+                         FireRate = Convert.ToInt32(tower.Element("rate").Value),
+                         Speed = Convert.ToInt32(tower.Element("speed").Value),
+                         IsUpgradeable = Convert.ToBoolean(tower.Element("upgrade").Value),
+                         SpritePath = "Menu/tower1"
+                     }).ToList();
 
             XElement g = doc.Descendants("grid").ElementAt(0);
             grid_count = Convert.ToInt32(g.Element("count").Value);//read out size of the field
@@ -64,6 +79,11 @@ namespace Towerdefense
 
             return waves;            
 
+        }
+
+        public List<Tower> getTower()
+        {
+            return tower;
         }
 
         public int getGridCount()

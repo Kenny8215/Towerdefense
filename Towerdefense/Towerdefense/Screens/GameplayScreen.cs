@@ -83,6 +83,7 @@ namespace Towerdefense
         private LoadLevel levelObject;
         private List<Wave> waveList;
         private List<Field> grid;
+        private List<Tower> tower;
         #endregion
 
         #region Initialization
@@ -113,6 +114,7 @@ namespace Towerdefense
             levelObject.load("Content\\level\\" + v);
             waveList = levelObject.getWaves();
             grid = levelObject.getGrid();
+            tower = levelObject.getTower();
             amountOfField = levelObject.getGridCount();
             FieldCenterPosition = new Vector2[amountOfField, amountOfField];
 
@@ -126,6 +128,16 @@ namespace Towerdefense
             if (content == null)
                 content = new ContentManager(ScreenManager.Game.Services, "Content");
             #region Load Textures
+            foreach(Wave w in waveList)
+            {
+                w.Enemy.Sprite = content.Load<Texture2D>(w.Enemy.SpritePath);
+            }
+
+            foreach (Tower t in tower)
+            {
+                t.Sprite = content.Load<Texture2D>(t.SpritePath);
+            }
+
             gameFont = content.Load<SpriteFont>("gamefont");
             background = content.Load<Texture2D>("background");
             nonroad = content.Load<Texture2D>("tiles/noRoad1");

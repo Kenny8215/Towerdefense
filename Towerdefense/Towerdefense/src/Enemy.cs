@@ -11,6 +11,7 @@ namespace Towerdefense
     {
         #region Fields
         Texture2D sprite;
+        string spritePath;
 
         private int hitPoints;
         private Vector2 position;
@@ -124,6 +125,19 @@ namespace Towerdefense
             set
             {
                 isFlying = value;
+            }
+        }
+
+        public string SpritePath
+        {
+            get
+            {
+                return spritePath;
+            }
+
+            set
+            {
+                spritePath = value;
             }
         }
         #endregion

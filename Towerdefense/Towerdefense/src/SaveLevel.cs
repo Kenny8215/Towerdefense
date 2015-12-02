@@ -93,6 +93,39 @@ namespace Towerdefense
 
             myRoot.AppendChild(grid);
 
+            XmlNode tower = doc.CreateElement("tower");
+
+            XmlNode tow = doc.CreateElement("tow");
+            
+
+            XmlNode range = doc.CreateElement("range");
+            range.InnerText = "5";
+            tow.AppendChild(range);
+
+            XmlNode cost = doc.CreateElement("cost");
+            cost.InnerText = "50";
+            tow.AppendChild(cost);
+
+            XmlNode damge = doc.CreateElement("damage");
+            damge.InnerText = "5";
+            tow.AppendChild(damge);
+
+            XmlNode firerate = doc.CreateElement("rate");
+            firerate.InnerText = "5";
+            tow.AppendChild(firerate);
+
+            XmlNode speed = doc.CreateElement("speed");
+            speed.InnerText = "5";
+            tow.AppendChild(speed);
+
+            XmlNode isUpgradeable = doc.CreateElement("upgrade");
+            isUpgradeable.InnerText = "false";
+            tow.AppendChild(isUpgradeable);
+
+            tower.AppendChild(tow);
+
+            myRoot.AppendChild(tower);
+
             doc.Save(@desktopPath+"/custom_lvl.xml");
         }
 
