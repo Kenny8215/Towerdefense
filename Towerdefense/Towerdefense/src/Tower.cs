@@ -10,6 +10,10 @@ namespace Towerdefense
     class Tower : GameObject
     {
         #region Field
+
+        Texture2D sprite;
+        string spritePath;
+
         /*Towerrange*/
         private int range;
 
@@ -129,7 +133,33 @@ namespace Towerdefense
             }
         }
 
-        #endregion  
+        public string SpritePath
+        {
+            get
+            {
+                return spritePath;
+            }
+
+            set
+            {
+                spritePath = value;
+            }
+        }
+
+        public Texture2D Sprite1
+        {
+            get
+            {
+                return sprite;
+            }
+
+            set
+            {
+                sprite = value;
+            }
+        }
+
+        #endregion
 
         /*Constructor*/
         public Tower(Texture2D sprite,Vector2 position,int range, int cost, int damage, int fireRate, int speed, Boolean isUpgradeable) : base(sprite) {
@@ -145,6 +175,11 @@ namespace Towerdefense
         /*Testconstructor*/
         public Tower(Texture2D sprite, Vector2 position) : base(sprite) {
             this.position = position;
+        }
+
+        public Tower()
+        {
+
         }
         
         public Vector2 SearchClosestEnemy(){
