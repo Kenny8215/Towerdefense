@@ -311,6 +311,7 @@ namespace Towerdefense
                     spriteBatch.Draw(menuTextureArray[i], menuPositionArray[i], null, new Color(255, 255, 0, 1F), 0F, Origin, 1F, SpriteEffects.None, 1F);
                     if (i < playerInfoArray.Length)
                     {
+                       
                         stringSize.X = spriteFont.MeasureString(playerInfoArray[i]).X / 4;
                         stringSize.Y = spriteFont.MeasureString(playerInfoArray[i]).Y / 4;
                         spriteBatch.DrawString(spriteFont, playerInfoArray[i], menuPositionArray[i] - stringSize, color, 0F, Origin, 0.5F, SpriteEffects.None, 0F);
@@ -372,7 +373,7 @@ namespace Towerdefense
                 {
 
                     currentField = w.Enemy.currentEnemyField(offset);
-                    currentPosition[i].X = w.Enemy.moveEnemy(roadTypeAndRotation, currentField, 0.03F,amountOfField,FieldCenterPosition,offset).X + offset.X / 2;
+                    currentPosition[i].X = w.Enemy.moveEnemy(roadTypeAndRotation, currentField, 0.03F,amountOfField,FieldCenterPosition,offset).X;
                     currentPosition[i].Y = w.Enemy.moveEnemy(roadTypeAndRotation, currentField, 0.03F,amountOfField,FieldCenterPosition,offset).Y;
                 }
             }

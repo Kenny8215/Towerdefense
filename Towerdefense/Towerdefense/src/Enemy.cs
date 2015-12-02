@@ -14,6 +14,7 @@ namespace Towerdefense
 
         private int hitPoints;
         private Vector2 position;
+        private Vector2 lastCenterPosition;
 
         private int walkDistance;
         private int rotation;
@@ -22,6 +23,7 @@ namespace Towerdefense
 
         private Boolean isBoss;
         private Boolean isFlying;
+        private Boolean hasTurned;
 
         public int HitPoints
         {
@@ -131,7 +133,9 @@ namespace Towerdefense
         public Enemy()
             : base()
         {
-
+            this.Rotation = 0;
+            this.lastCenterPosition = new Vector2(-1, -1);
+            this.position = new Vector2(30, 0);
         }
 
         public Enemy(Texture2D sprite, int hitPoints, Vector2 position, int walkDistance, int rotation, float movementSpeed, string resistance, Boolean isBoss, Boolean isFlying)
@@ -154,8 +158,9 @@ namespace Towerdefense
 
             Vector2 textCent = new Vector2(enemy.Bounds.Center.X, enemy.Bounds.Center.Y);
 
-            spriteBatch.Draw(enemy, startPosition, null, null, textCent, 0F, new Vector2(0.2F, 0.2F), Color.White, SpriteEffects.None, 1F);
+            spriteBatch.Draw(enemy, startPosition, null, null, textCent, rotInRad(), new Vector2(0.2F, 0.2F), Color.White, SpriteEffects.None, 1F);
         }
+        
 
         public Vector2 moveEnemy(Vector2[,] roadTypeAndRotation, Vector2 currentEnemyField, float speedFactor, int amountOfField,Vector2[,] FieldCenterPosition,Vector2 offset)
         {
@@ -190,74 +195,82 @@ namespace Towerdefense
                     /*move3WayRoad*/
                     break;
             }
-
             return this.position;
         }
 
         #region movement
-        public void moveStraight(float speedFactor, int rotation)
+        public void moveStraight(float speedFactor, int roadRotation)
         {
-            if (rotation == 0)
-            {
-                this.position.Y += speedFactor * this.movementSpeed;
-            }
-            else if (rotation == 2) { 
-                this.position.Y -= speedFactor * this.movementSpeed; }
-            else if(rotation == 1) { this.position.X += speedFactor * this.movementSpeed; }
-            else{this.position.X -= speedFactor * this.movementSpeed;}
+            float mv = speedFactor * this.movementSpeed;
+            if (this.Rotation == 0) { this.position.Y += mv; }
+            else if (this.Rotation == 90) { this.position.X -= mv; }
+            else if (this.Rotation == 180) { this.position.Y -= mv; }
+            else if (this.Rotation == 270) { this.position.X += mv; }
+           
         }
 
         public void moveCurve(float speedFactor, int roadRotation, Vector2 centerPosition,Vector2 offset)
         {
+            if(this.lastCenterPosition != centerPosition){this.lastCenterPosition = centerPosition; hasTurned = false;}
+            float mv = speedFactor * this.movementSpeed;
+             int entryZeroY = 0 + roadRotation * 90;
+             int outZeroX = 270 + roadRotation * 90;
+             int entryZeroX = 90 + 90 * roadRotation;
+             int outZeroY = 180 + 90 * roadRotation;
 
-            centerPosition -= new Vector2(offset.X,0);
-            switch (roadRotation)
-            {
+             if (entryZeroY >= 360 || outZeroX >= 360 || entryZeroX >= 360 || outZeroY >= 360) {
+                entryZeroY = (int) normalizeDegree(entryZeroY);
+                entryZeroX = (int) normalizeDegree(entryZeroX);
+                outZeroY = (int) normalizeDegree(outZeroY);
+                outZeroX = (int) normalizeDegree(outZeroX); 
+             }
 
-                case 0:
-                    //Y+ bis midcenterposition Y+ bis Ende
-                    if (this.position.Y < centerPosition.Y)
-                    {
-                        this.position.Y+= speedFactor * this.movementSpeed;
-                    }
-                    else if (this.position.Y >= centerPosition.Y) { this.position.X += speedFactor * this.movementSpeed; }
-                    break;
-                case 1:
-                    //X- bis mcp Y+ bis ende
-                    if (this.position.X > centerPosition.X)
-                    {
-                        this.position.X -= speedFactor * this.movementSpeed;
-                    }
-                    else if (this.position.Y <= centerPosition.Y) { this.position.Y += speedFactor * this.movementSpeed; }
-                  
-                    break;
-                case 2:
-                    //X+ bis mcp Y+ bis ende
-                    if (this.position.X < centerPosition.X) { this.position.X += speedFactor * this.movementSpeed; } else { this.position.Y += speedFactor * this.movementSpeed; }
-                    break;
-                case 3:
-                    //Y+ bis mcp X-- bis ende
-                    if (this.position.Y <= centerPosition.Y) { this.position.Y += speedFactor * this.movementSpeed; }
-                    else { this.position.X--; }
-                    break;
+             if (this.Rotation == 0) { this.position.Y += mv; }
+             else if (this.Rotation == 90) { this.position.X -= mv; }
+             else if (this.Rotation == 180) { this.position.Y -= mv; }
+             else if (this.Rotation == 270)
+             {
+                 this.position.X += mv;
+             }
 
-
+            if(!hasTurned){
+                 if(this.Rotation == entryZeroY && ( (this.Rotation == 0 && this.Position.Y >= centerPosition.Y) || (this.Rotation == 90 && this.Position.X <= centerPosition.X) || (this.Rotation == 180 && this.Position.Y <= centerPosition.Y) || (this.Rotation == 270 && this.Position.X >= centerPosition.X ))){
+                this.Rotation = outZeroX;
+                     hasTurned = true;
+             }
+             else if (this.Rotation == entryZeroX && ( (this.Rotation == 0 && this.Position.Y >= centerPosition.Y) || (this.Rotation == 90 && this.Position.X <= centerPosition.X) || (this.Rotation == 180 && this.Position.Y <= centerPosition.Y) || (this.Rotation == 270 && this.Position.X >= centerPosition.X))) {
+                 this.rotation = outZeroY;
+                 hasTurned = true;
+             }
             }
-            //todo bis zum Mittelpunkt gehen, rotieren bis zum ende des Feldes gehen
+                 //todo bis zum Mittelpunkt gehen, rotieren bis zum ende des Feldes gehen
+             
+                 
         }
 
-        public int turn90(int rotation)
+    public float normalizeDegree(float degree){
+        degree = degree / 360;
+
+        if (degree > 1)
         {
-            switch (rotation)
-            {
-                case 0: return 90;
-                case 1: return 90;
-                case 2: return -90;
-                case 3: return -90;
-                default: return 0;
+            degree -= 1;
             }
-        }
+
+        degree *= 360;
+        return degree;
+    }
         #endregion
+
+        public float rotInRad() { 
+            switch (this.Rotation) {
+                case 90:
+                    return 1.5708F;
+                case 180:
+                    return 3.14159F;
+                case 270:
+                    return 4.71239F;
+                default: return 0F;
+        } }
 
         public Vector2 currentEnemyField(Vector2 offset)
         {
