@@ -33,12 +33,23 @@ namespace Towerdefense
         /*Tower can be upgraded*/
         private Boolean isUpgradeable;
 
+        /*Towers Level*/
+        private int level;
+
         /*Towerposition*/
         private Vector2 position;
 
         #endregion  
 
         #region Setter and Getter
+        public int Level {
+            get {
+                return this.level;
+            }
+            set {
+                this.Level = level;
+            }
+        }
         public Texture2D RangeCircle{
             get {
                 return this.rangeCircle;
@@ -187,7 +198,8 @@ namespace Towerdefense
         public Tower(Texture2D sprite,Texture2D rangeCircle , Vector2 position) : base(sprite) {
             this.position = position;
             this.rangeCircle = rangeCircle;
-            this.range = 175; 
+            this.range = 175;
+            this.level = 1;
         }
 
         public Tower() { }

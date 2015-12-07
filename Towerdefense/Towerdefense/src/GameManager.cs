@@ -46,6 +46,8 @@ namespace Towerdefense
         #region Towers
         public void drawTowers(List<Tower> towerList, SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, int amountOfFields)
         {
+            Vector2 tmp;
+
             if (towerList.Count == 0) { }
             else
             {
@@ -54,8 +56,10 @@ namespace Towerdefense
                 Vector2 origin = new Vector2(towerList[0].Sprite.Width / 2, towerList[0].Sprite.Height / 2);
                 foreach (Tower t in towerList)
                 {
-
-                    spriteBatch.Draw(t.Sprite, t.Position, null, null, origin, 0F, scalev, Color.White, SpriteEffects.None, 0);
+                    tmp = scalev;
+                    tmp.X = scalev.X * (0.5F + 0.1F * t.Level);
+                    tmp.Y = scalev.Y * (0.5F + 0.1F * t.Level);
+                    spriteBatch.Draw(t.Sprite, t.Position, null, null, origin, 0F, tmp, Color.White, SpriteEffects.None, 0);
                     spriteBatch.Draw(t.RangeCircle, t.Position, null, null, new Vector2(t.RangeCircle.Width / 2, t.RangeCircle.Height / 2), 0F, new Vector2(t.Range * 0.001F, t.Range * 0.001F), Color.White, SpriteEffects.None, 0);
                 }
             }
