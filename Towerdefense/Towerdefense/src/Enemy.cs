@@ -191,7 +191,7 @@ namespace Towerdefense
             int roadType = 0; int rotation = 0;
             Vector2 centerPosition = Vector2.Zero;
 
-            if (currentEnemyField.X < amountOfField && currentEnemyField.Y < amountOfField)
+            if ((currentEnemyField.X > -1 && currentEnemyField.Y > -1) && (currentEnemyField.X < amountOfField && currentEnemyField.Y < amountOfField))
             {
                 roadType = (int)roadTypeAndRotation[(int)currentEnemyField.X, (int)currentEnemyField.Y].X;
                 rotation = (int)roadTypeAndRotation[(int)currentEnemyField.X, (int)currentEnemyField.Y].Y;
@@ -294,13 +294,13 @@ namespace Towerdefense
             Random x = new Random();
             int rand = x.Next(-1,2);
             this.Rotation += 90 * rand;
+
                      hasTurned = true;
             }
                  }
         }
 
         public void move3WayRoad(float speedFactor,int roadRotation, Vector2 centerPosition) {
- 
         }
 
     public float normalizeDegree(float degree){
