@@ -26,6 +26,11 @@ namespace Towerdefense
         private bool isFlying;
         private bool hasTurned;
 
+        public Enemy cloneMe()
+        {
+            return new Enemy(this.sprite, this.spritePath, this.hitPoints, this.position, this.walkDistance, this.rotation, this.movementSpeed, this.resistance, this.isBoss, this.isFlying);
+        }
+
         #region Setter and Getter
         public int HitPoints
         {

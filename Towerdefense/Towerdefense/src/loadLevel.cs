@@ -76,8 +76,8 @@ namespace Towerdefense
             }
           
         }
-#endregion
-
+        #endregion
+        #region Setter and Getter
         public List<Field> getGrid()
         {
             return grid;
