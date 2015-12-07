@@ -7,10 +7,13 @@ namespace Towerdefense
 {
     class Wave
     {
+        #region Fields
         List<Enemy> listEnemy;
         Enemy enemy;
         int count;
+        #endregion
 
+        #region setter and getter
         internal Enemy Enemy
         {
             get
@@ -50,5 +53,7 @@ namespace Towerdefense
                 listEnemy.Add(enemy.cloneMe());
             }
         }
+
+        #endregion
     }
 }

@@ -29,10 +29,11 @@ namespace Towerdefense
         public List<Tower> TowerList
         {
             get { return towerList; }
-            set { this.towerList = towerList; }
+            set { this.TowerList = towerList; }
         }
         #endregion
 
+        #region Constructor
         public GameManager()
         {
             levelObject = new LoadLevel();
@@ -40,17 +41,9 @@ namespace Towerdefense
             waveList = levelObject.getWaves();
             towerList = new List<Tower>();
         }
+        #endregion
 
-        public void draw()
-        {
-
-        }
-
-        public void updateEnemys()
-        {
-
-        }
-
+        #region Towers
         public void drawTowers(List<Tower> towerList, SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, int amountOfFields)
         {
             if (towerList.Count == 0) { }
@@ -63,9 +56,11 @@ namespace Towerdefense
                 {
 
                     spriteBatch.Draw(t.Sprite, t.Position, null, null, origin, 0F, scalev, Color.White, SpriteEffects.None, 0);
+                    spriteBatch.Draw(t.RangeCircle, t.Position, null, null, new Vector2(t.RangeCircle.Width / 2, t.RangeCircle.Height / 2), 0F, new Vector2(t.Range * 0.001F, t.Range * 0.001F), Color.White, SpriteEffects.None, 0);
                 }
             }
         }
+        #endregion
 
         #region PlayerInput
 
@@ -130,7 +125,7 @@ namespace Towerdefense
             return drawTower;
         }
 
-        public List<Tower> addPlacedTowerToList(MouseState ms, MouseState ps, Boolean drawTower, List<Tower> towerList, Vector2 position, Texture2D towerTexture, Vector2[,] FieldCenterPosition, int amountOfField, Vector2[,] roadTypeRotation, Vector2 highlightedGridElement, Player player)
+        public List<Tower> addPlacedTowerToList(MouseState ms, MouseState ps, Boolean drawTower, List<Tower> towerList, Vector2 position, Texture2D towerTexture, Vector2[,] FieldCenterPosition, int amountOfField, Vector2[,] roadTypeRotation, Vector2 highlightedGridElement, Player player,Texture2D rangeCircle)
         {
             if (player.getGold() >= 50)
             {
@@ -141,7 +136,7 @@ namespace Towerdefense
                         if (FieldCenterPosition[(int)position.X, (int)position.Y] == t.Position) { return towerList; }
                     }
                     player.setGold(player.getGold() - 50);
-                    towerList.Add(new Tower(towerTexture, FieldCenterPosition[(int)position.X, (int)position.Y]));
+                    towerList.Add(new Tower(towerTexture, rangeCircle, FieldCenterPosition[(int)position.X, (int)position.Y]));
                 }
             }
 
@@ -345,7 +340,6 @@ namespace Towerdefense
             return -1;
         }
         #endregion
-
 
         #region Enemies
         public void drawEnemies(List<Enemy> list ,SpriteBatch spriteBatch)

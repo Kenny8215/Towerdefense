@@ -26,11 +26,7 @@ namespace Towerdefense
         private bool isFlying;
         private bool hasTurned;
 
-        public Enemy cloneMe()
-        {
-            return new Enemy(this.sprite, this.spritePath, this.hitPoints, this.position, this.walkDistance, this.rotation, this.movementSpeed,this.resistance, this.isBoss, this.isFlying);
-        }
-
+        #region Setter and Getter
         public int HitPoints
         {
             get
@@ -149,6 +145,7 @@ namespace Towerdefense
         }
         #endregion
 
+        #region Constructors
         public Enemy()
             : base()
         {
@@ -172,6 +169,7 @@ namespace Towerdefense
             this.IsFlying = isFlying;
             this.spritePath = spritePath;
         }
+#endregion
 
         public void drawEnemy(SpriteBatch spriteBatch)
         {
@@ -180,8 +178,9 @@ namespace Towerdefense
 
             spriteBatch.Draw(this.Sprite, this.position, null, null, textCent, rotInRad(), new Vector2(0.2F, 0.2F), Color.White, SpriteEffects.None, 1F);
         }
-        
+        #endregion 
 
+        #region update
         public Vector2 moveEnemy(Vector2[,] roadTypeAndRotation, Vector2 currentEnemyField, float speedFactor, int amountOfField,Vector2[,] FieldCenterPosition,Vector2 offset)
         {
             int roadType = 0; int rotation = 0;
@@ -217,16 +216,18 @@ namespace Towerdefense
             }
             return this.position;
         }
+#endregion 
 
         #region movement
         public void moveStraight(float speedFactor, int roadRotation)
         {
             float mv = speedFactor * this.movementSpeed;
+            if (this.Rotation >= 360) { this.Rotation = (int) normalizeDegree(this.Rotation); }
             if (this.Rotation == 0) { this.position.Y += mv; }
             else if (this.Rotation == 90) { this.position.X -= mv; }
             else if (this.Rotation == 180) { this.position.Y -= mv; }
             else if (this.Rotation == 270) { this.position.X += mv; }
-           
+
         }
 
         public void moveCurve(float speedFactor, int roadRotation, Vector2 centerPosition,Vector2 offset)
@@ -240,11 +241,12 @@ namespace Towerdefense
              int entryZeroX = 90 + 90 * roadRotation;
              int outZeroY = 180 + 90 * roadRotation;
 
-             if (entryZeroY >= 360 || outZeroX >= 360 || entryZeroX >= 360 || outZeroY >= 360) {
+             if (entryZeroY >= 360 || outZeroX >= 360 || entryZeroX >= 360 || outZeroY >= 360 || this.Rotation >= 360) {
                 entryZeroY = (int) normalizeDegree(entryZeroY);
                 entryZeroX = (int) normalizeDegree(entryZeroX);
                 outZeroY = (int) normalizeDegree(outZeroY);
-                outZeroX = (int) normalizeDegree(outZeroX); 
+                outZeroX = (int) normalizeDegree(outZeroX);
+                this.Rotation = (int)normalizeDegree(this.Rotation);
              }
 
              if (this.Rotation == 0) { this.position.Y += mv; }
@@ -283,7 +285,8 @@ namespace Towerdefense
     }
         #endregion
 
-        public float rotInRad() { 
+        #region helpFunctions
+    public float rotInRad() { 
             switch (this.Rotation) {
                 case 90:
                     return 1.5708F;
@@ -294,13 +297,15 @@ namespace Towerdefense
                 default: return 0F;
         } }
 
-        public Vector2 currentEnemyField(Vector2 offset)
-        {
-            Vector2 currentField;
-            currentField.X = (int)(this.position.X / offset.X);
-            currentField.Y = (int)(this.position.Y / offset.Y);
-            return currentField;
-        }
+    public Vector2 currentEnemyField(Vector2 offset)
+    {
+        Vector2 currentField;
+        currentField.X = (int)(this.position.X / offset.X);
+        currentField.Y = (int)(this.position.Y / offset.Y);
+        return currentField;
+    }
+    #endregion
+    
     }
 
 

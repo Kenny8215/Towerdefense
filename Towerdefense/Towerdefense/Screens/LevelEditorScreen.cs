@@ -192,6 +192,7 @@ namespace Towerdefense
             }
             else
             {
+                #region Grid
                 //creates the grid
                 if (hasDrawnGrid == false)
                 {
@@ -205,7 +206,9 @@ namespace Towerdefense
 
                 //Sets the new roadType when the user Presses Enter also Rotates the texture 90 degree when R is pressed
                 roadTypeAndRotation = gameManager.setRoadTypeAndRotation(keyboardState, lastKeyboardState, highlitedGridElement, roadTypeAndRotation, textures);
+                #endregion
 
+                #region Menu
                 /*Menu*/
 
                 DrawMenu = gameManager.LevelEditorMenu(Mouse.GetState(), DrawMenu);
@@ -219,8 +222,11 @@ namespace Towerdefense
                 {
                     saveLevel.save(roadTypeAndRotation);
                 }
+                #endregion
+
                 lastKeyboardState = keyboardState;
             }
+
         }
 
                 

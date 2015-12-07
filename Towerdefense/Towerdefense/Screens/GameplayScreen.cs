@@ -53,6 +53,7 @@ namespace Towerdefense
         Texture2D tower4Icon;
         Texture2D moneyIcon;
         Texture2D enemy1;
+        Texture2D rangeCircle;
 
         SpriteFont arial;
 
@@ -72,6 +73,7 @@ namespace Towerdefense
         MouseState previousMouseState;
 
         float pauseAlpha;
+        float menuCenterWidth;
         int amountOfField;
         int highlitedMenuElement;
         int towerAmount;
@@ -103,6 +105,7 @@ namespace Towerdefense
         /// <summary>
         /// Constructor.
         /// </summary>
+        #region Constructors
         public GameplayScreen()
         {
             TransitionOnTime = TimeSpan.FromSeconds(1.5);
@@ -134,7 +137,7 @@ namespace Towerdefense
             timeLaps = 0;
 
         }
-
+        #endregion
         /// <summary>
         /// Load graphics content for the game.
         /// </summary>
@@ -143,6 +146,10 @@ namespace Towerdefense
             if (content == null)
                 content = new ContentManager(ScreenManager.Game.Services, "Content");
             #region Load Textures
+            foreach (Wave w in waveList)
+            {
+                w.Enemy.Sprite = content.Load<Texture2D>(w.Enemy.SpritePath);
+            }
 
             foreach (Tower t in tower)
             {
@@ -152,7 +159,7 @@ namespace Towerdefense
             gameFont = content.Load<SpriteFont>("gamefont");
             background = content.Load<Texture2D>("background");
             nonroad = content.Load<Texture2D>("tiles/noRoad1");
-            nonroad1 = content.Load <Texture2D>("tiles/noRoad1");
+            nonroad1 = content.Load<Texture2D>("tiles/noRoad1");
             road1 = content.Load<Texture2D>("tiles/road");
             road2 = content.Load<Texture2D>("tiles/road1");
             road3 = content.Load<Texture2D>("tiles/road2");
@@ -164,9 +171,10 @@ namespace Towerdefense
             tower2Icon = content.Load<Texture2D>("Menu/tower1");
             tower3Icon = content.Load<Texture2D>("Menu/tower1");
             tower4Icon = content.Load<Texture2D>("Menu/tower1");
+            rangeCircle = content.Load<Texture2D>("rangeCircle");
 
             roadArray = new Texture2D[] { nonroad, nonroad1, road1, road2, road3, road4 };
-            menuTextureArray = new Texture2D[] {  lifeIcon, moneyIcon, tower1Icon, tower2Icon,tower3Icon,tower4Icon,};
+            menuTextureArray = new Texture2D[] { lifeIcon, moneyIcon, tower1Icon, tower2Icon, tower3Icon, tower4Icon, };
 
             foreach(Wave w in waveList)
             {
@@ -177,33 +185,44 @@ namespace Towerdefense
             }
             #endregion    
 
+            #region Fonts
             arial = content.Load<SpriteFont>("Arial");
+            #endregion
 
-
+            #region Preparing the Grid
+            //sidelength of each field
             offset.X = ScreenManager.GraphicsDevice.Viewport.Height / amountOfField;
             offset.Y = ScreenManager.GraphicsDevice.Viewport.Height / amountOfField;
 
-            //creates the grid
+            //creates the grid and saves the Centerpositions of each gridelement in FieldCenterPosition
             FieldCenterPosition = gameManager.createGrid(ScreenManager.GraphicsDevice.Viewport.Height, amountOfField);
-            float menuCenterWidth = (ScreenManager.GraphicsDevice.Viewport.Width - FieldCenterPosition[amountOfField - 1, amountOfField - 1].X) / 2 + FieldCenterPosition[amountOfField - 1, amountOfField - 1].X;
+
+            roadTypeAndRotation = new Vector2[amountOfField, amountOfField];
+            highlightedGridElement = new Vector2(-1, -1);
+            #endregion
+
+            #region Menu
+            menuCenterWidth = (ScreenManager.GraphicsDevice.Viewport.Width - FieldCenterPosition[amountOfField - 1, amountOfField - 1].X) / 2 + FieldCenterPosition[amountOfField - 1, amountOfField - 1].X;
             menuCenterPosition = new Vector2(menuCenterWidth, ScreenManager.GraphicsDevice.Viewport.Height / 2);
-
             menuGridCenterArray = gameManager.createMenuGrid(menuTextureArray, menuCenterPosition, new Vector2(30, 30));
-
-            fullscreen = new Rectangle(0, 0, ScreenManager.GraphicsDevice.Viewport.Width, ScreenManager.GraphicsDevice.Viewport.Height);
-
-
             menuRectangle = new Rectangle[menuTextureArray.Length];
 
             for (int i = 0; i < menuTextureArray.Length; i++)
             {
                 menuRectangle[i] = new Rectangle((int)(menuGridCenterArray[i].X - offset.X), (int)(menuGridCenterArray[i].Y - offset.Y), menuTextureArray[i].Width, menuTextureArray[i].Height);
             }
-            
-            roadTypeAndRotation = new Vector2[amountOfField, amountOfField];
-            highlightedGridElement = new Vector2(-1, -1);
-            towerList = gameManager.TowerList;
 
+            #endregion
+
+            #region Tower
+            towerList = gameManager.TowerList;
+            #endregion
+
+            #region fullscreen
+            fullscreen = new Rectangle(0, 0, ScreenManager.GraphicsDevice.Viewport.Width, ScreenManager.GraphicsDevice.Viewport.Height);
+            #endregion
+
+            #region Loadlevel
             /*Load Level in roadTypeAndRotation*/
             for (int i = 0; i < amountOfField; i++)
             {
@@ -216,9 +235,10 @@ namespace Towerdefense
 
             foreach (Field f in grid)
             {
-                roadTypeAndRotation[f.X , f.Y ].X = f.Type;
-                roadTypeAndRotation[f.X , f.Y ].Y = f.Rotation;
+                roadTypeAndRotation[f.X, f.Y].X = f.Type;
+                roadTypeAndRotation[f.X, f.Y].Y = f.Rotation;
             }
+            #endregion
 
             // A real game would probably have more content than this sample, so
             // it would take longer to load. We simulate that by delaying for a
@@ -343,20 +363,20 @@ namespace Towerdefense
             }
             else
             {
-              highlightedGridElement = gameManager.SetCurrentFieldMouse(mouseState,offset,highlightedGridElement,true);
-              highlitedMenuElement = gameManager.SetCurrentMenuField(mouseState,menuRectangle);
-              drawTower = gameManager.TowerToMouse(mouseState,previousMouseState,menuRectangle,drawTower);
+                highlightedGridElement = gameManager.SetCurrentFieldMouse(mouseState, offset, highlightedGridElement, true);
+                highlitedMenuElement = gameManager.SetCurrentMenuField(mouseState, menuRectangle);
+                drawTower = gameManager.TowerToMouse(mouseState, previousMouseState, menuRectangle, drawTower);
 
-             towerAmount = towerList.Count;
-             towerList = gameManager.addPlacedTowerToList(mouseState, previousMouseState, drawTower, towerList, highlightedGridElement, tower1Icon, FieldCenterPosition, amountOfField,roadTypeAndRotation,highlightedGridElement,player);
+                towerAmount = towerList.Count;
+                towerList = gameManager.addPlacedTowerToList(mouseState, previousMouseState, drawTower, towerList, highlightedGridElement, tower1Icon, FieldCenterPosition, amountOfField, roadTypeAndRotation, highlightedGridElement, player, rangeCircle);
 
-             if (towerAmount != towerList.Count)
-             {
-                 roadTypeAndRotation[(int) highlightedGridElement.X,(int) highlightedGridElement.Y].X = 1;
-             }
+                if (towerAmount != towerList.Count)
+                {
+                    roadTypeAndRotation[(int)highlightedGridElement.X, (int)highlightedGridElement.Y].X = 1;
+                }
                 // roadTypeAndRotation[ towerList[towerAmount].Position.X] , towerList[towerAmount].Position.Y ] = 1;  }
-                drawTower =  gameManager.placeTower(mouseState, previousMouseState, drawTower, towerList, highlightedGridElement, tower1Icon, FieldCenterPosition, amountOfField);
-               
+                drawTower = gameManager.placeTower(mouseState, previousMouseState, drawTower, towerList, highlightedGridElement, tower1Icon, FieldCenterPosition, amountOfField);
+
 
 
 
