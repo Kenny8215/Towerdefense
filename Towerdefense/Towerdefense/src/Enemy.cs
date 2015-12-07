@@ -286,6 +286,10 @@ namespace Towerdefense
             }
 
         degree *= 360;
+            if (degree == 360)
+            {
+                degree = 0;
+            }
         return degree;
     }
         #endregion

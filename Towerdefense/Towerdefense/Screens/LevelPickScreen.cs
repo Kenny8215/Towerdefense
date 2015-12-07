@@ -33,7 +33,7 @@ namespace Towerdefense
 
             // Hook up menu event handlers.
             Level1MenuEntry.Selected += Level1MenuEntrySelected;
-            //exitMenuEntry.Selected += OnBack;
+            exitMenuEntry.Selected += OnBack;
 
             // Add entries to the menu.
             MenuEntries.Add(Level1MenuEntry);
@@ -58,9 +58,9 @@ namespace Towerdefense
         /// <summary>
         /// When the user cancels the main menu, ask if they want to exit the sample.
         /// </summary>
-        void OnBack(PlayerIndex playerIndex)
+        void OnBack(object sender, PlayerIndexEventArgs e)
         {
-            LoadingScreen.Load(ScreenManager, true, playerIndex, new MainMenuScreen());
+            LoadingScreen.Load(ScreenManager, true, e.PlayerIndex, new MainMenuScreen());
         }
 
 
