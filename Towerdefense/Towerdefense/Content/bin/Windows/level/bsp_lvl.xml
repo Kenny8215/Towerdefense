@@ -6,7 +6,7 @@
         <name>wolf</name>
         <hitPoints>100</hitPoints>
         <movementSpeed>1</movementSpeed>
-        <sprite>enemies/wolf</sprite>
+        <sprite>pfad</sprite>
         <resistance>ice</resistance>
         <boss>False</boss>
         <flying>False</flying>
@@ -18,7 +18,7 @@
         <name>fish</name>
         <hitPoints>1000</hitPoints>
         <movementSpeed>10</movementSpeed>
-        <sprite>enemies/wolf</sprite>
+        <sprite>pfad</sprite>
         <resistance>ice</resistance>
         <boss>False</boss>
         <flying>True</flying>
@@ -36,19 +36,19 @@
     <field>
       <x>0</x>
       <y>1</y>
-      <type>3</type>
+      <type>2</type>
       <rotation>0</rotation>
     </field>
     <field>
       <x>0</x>
       <y>2</y>
-      <type>0</type>
+      <type>3</type>
       <rotation>0</rotation>
     </field>
     <field>
       <x>0</x>
       <y>3</y>
-      <type>3</type>
+      <type>0</type>
       <rotation>0</rotation>
     </field>
     <field>
@@ -96,20 +96,20 @@
     <field>
       <x>1</x>
       <y>1</y>
-      <type>3</type>
-      <rotation>2</rotation>
+      <type>0</type>
+      <rotation>0</rotation>
     </field>
     <field>
       <x>1</x>
       <y>2</y>
       <type>2</type>
-      <rotation>0</rotation>
+      <rotation>1</rotation>
     </field>
     <field>
       <x>1</x>
       <y>3</y>
-      <type>3</type>
-      <rotation>3</rotation>
+      <type>0</type>
+      <rotation>0</rotation>
     </field>
     <field>
       <x>1</x>
@@ -150,88 +150,88 @@
     <field>
       <x>2</x>
       <y>0</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>2</x>
-      <y>1</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>2</x>
-      <y>2</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>2</x>
-      <y>3</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>2</x>
-      <y>4</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>2</x>
-      <y>5</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>2</x>
-      <y>6</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>2</x>
-      <y>7</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>2</x>
-      <y>8</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>2</x>
-      <y>9</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>3</x>
-      <y>0</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>3</x>
-      <y>1</y>
-      <type>3</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>3</x>
-      <y>2</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>3</x>
-      <y>3</y>
       <type>3</type>
       <rotation>1</rotation>
     </field>
     <field>
+      <x>2</x>
+      <y>1</y>
+      <type>2</type>
+      <rotation>0</rotation>
+    </field>
+    <field>
+      <x>2</x>
+      <y>2</y>
+      <type>4</type>
+      <rotation>1</rotation>
+    </field>
+    <field>
+      <x>2</x>
+      <y>3</y>
+      <type>2</type>
+      <rotation>0</rotation>
+    </field>
+    <field>
+      <x>2</x>
+      <y>4</y>
+      <type>2</type>
+      <rotation>0</rotation>
+    </field>
+    <field>
+      <x>2</x>
+      <y>5</y>
+      <type>2</type>
+      <rotation>0</rotation>
+    </field>
+    <field>
+      <x>2</x>
+      <y>6</y>
+      <type>3</type>
+      <rotation>0</rotation>
+    </field>
+    <field>
+      <x>2</x>
+      <y>7</y>
+      <type>0</type>
+      <rotation>0</rotation>
+    </field>
+    <field>
+      <x>2</x>
+      <y>8</y>
+      <type>0</type>
+      <rotation>0</rotation>
+    </field>
+    <field>
+      <x>2</x>
+      <y>9</y>
+      <type>0</type>
+      <rotation>0</rotation>
+    </field>
+    <field>
+      <x>3</x>
+      <y>0</y>
+      <type>2</type>
+      <rotation>1</rotation>
+    </field>
+    <field>
+      <x>3</x>
+      <y>1</y>
+      <type>0</type>
+      <rotation>0</rotation>
+    </field>
+    <field>
+      <x>3</x>
+      <y>2</y>
+      <type>2</type>
+      <rotation>1</rotation>
+    </field>
+    <field>
+      <x>3</x>
+      <y>3</y>
+      <type>0</type>
+      <rotation>0</rotation>
+    </field>
+    <field>
       <x>3</x>
       <y>4</y>
       <type>0</type>
@@ -240,374 +240,374 @@
     <field>
       <x>3</x>
       <y>5</y>
+      <type>0</type>
+      <rotation>0</rotation>
+    </field>
+    <field>
+      <x>3</x>
+      <y>6</y>
+      <type>2</type>
+      <rotation>1</rotation>
+    </field>
+    <field>
+      <x>3</x>
+      <y>7</y>
+      <type>0</type>
+      <rotation>0</rotation>
+    </field>
+    <field>
+      <x>3</x>
+      <y>8</y>
+      <type>0</type>
+      <rotation>0</rotation>
+    </field>
+    <field>
+      <x>3</x>
+      <y>9</y>
+      <type>0</type>
+      <rotation>0</rotation>
+    </field>
+    <field>
+      <x>4</x>
+      <y>0</y>
+      <type>2</type>
+      <rotation>1</rotation>
+    </field>
+    <field>
+      <x>4</x>
+      <y>1</y>
+      <type>0</type>
+      <rotation>0</rotation>
+    </field>
+    <field>
+      <x>4</x>
+      <y>2</y>
+      <type>2</type>
+      <rotation>1</rotation>
+    </field>
+    <field>
+      <x>4</x>
+      <y>3</y>
+      <type>0</type>
+      <rotation>0</rotation>
+    </field>
+    <field>
+      <x>4</x>
+      <y>4</y>
+      <type>0</type>
+      <rotation>0</rotation>
+    </field>
+    <field>
+      <x>4</x>
+      <y>5</y>
+      <type>0</type>
+      <rotation>0</rotation>
+    </field>
+    <field>
+      <x>4</x>
+      <y>6</y>
+      <type>2</type>
+      <rotation>1</rotation>
+    </field>
+    <field>
+      <x>4</x>
+      <y>7</y>
+      <type>0</type>
+      <rotation>0</rotation>
+    </field>
+    <field>
+      <x>4</x>
+      <y>8</y>
+      <type>0</type>
+      <rotation>0</rotation>
+    </field>
+    <field>
+      <x>4</x>
+      <y>9</y>
+      <type>0</type>
+      <rotation>0</rotation>
+    </field>
+    <field>
+      <x>5</x>
+      <y>0</y>
+      <type>2</type>
+      <rotation>1</rotation>
+    </field>
+    <field>
+      <x>5</x>
+      <y>1</y>
+      <type>0</type>
+      <rotation>0</rotation>
+    </field>
+    <field>
+      <x>5</x>
+      <y>2</y>
+      <type>2</type>
+      <rotation>1</rotation>
+    </field>
+    <field>
+      <x>5</x>
+      <y>3</y>
+      <type>0</type>
+      <rotation>0</rotation>
+    </field>
+    <field>
+      <x>5</x>
+      <y>4</y>
+      <type>0</type>
+      <rotation>0</rotation>
+    </field>
+    <field>
+      <x>5</x>
+      <y>5</y>
+      <type>0</type>
+      <rotation>0</rotation>
+    </field>
+    <field>
+      <x>5</x>
+      <y>6</y>
+      <type>2</type>
+      <rotation>1</rotation>
+    </field>
+    <field>
+      <x>5</x>
+      <y>7</y>
+      <type>0</type>
+      <rotation>0</rotation>
+    </field>
+    <field>
+      <x>5</x>
+      <y>8</y>
+      <type>0</type>
+      <rotation>0</rotation>
+    </field>
+    <field>
+      <x>5</x>
+      <y>9</y>
+      <type>0</type>
+      <rotation>0</rotation>
+    </field>
+    <field>
+      <x>6</x>
+      <y>0</y>
+      <type>2</type>
+      <rotation>1</rotation>
+    </field>
+    <field>
+      <x>6</x>
+      <y>1</y>
+      <type>0</type>
+      <rotation>0</rotation>
+    </field>
+    <field>
+      <x>6</x>
+      <y>2</y>
+      <type>2</type>
+      <rotation>1</rotation>
+    </field>
+    <field>
+      <x>6</x>
+      <y>3</y>
+      <type>0</type>
+      <rotation>0</rotation>
+    </field>
+    <field>
+      <x>6</x>
+      <y>4</y>
+      <type>0</type>
+      <rotation>0</rotation>
+    </field>
+    <field>
+      <x>6</x>
+      <y>5</y>
+      <type>0</type>
+      <rotation>0</rotation>
+    </field>
+    <field>
+      <x>6</x>
+      <y>6</y>
+      <type>2</type>
+      <rotation>1</rotation>
+    </field>
+    <field>
+      <x>6</x>
+      <y>7</y>
+      <type>0</type>
+      <rotation>0</rotation>
+    </field>
+    <field>
+      <x>6</x>
+      <y>8</y>
+      <type>0</type>
+      <rotation>0</rotation>
+    </field>
+    <field>
+      <x>6</x>
+      <y>9</y>
+      <type>0</type>
+      <rotation>0</rotation>
+    </field>
+    <field>
+      <x>7</x>
+      <y>0</y>
+      <type>2</type>
+      <rotation>1</rotation>
+    </field>
+    <field>
+      <x>7</x>
+      <y>1</y>
+      <type>0</type>
+      <rotation>0</rotation>
+    </field>
+    <field>
+      <x>7</x>
+      <y>2</y>
+      <type>2</type>
+      <rotation>3</rotation>
+    </field>
+    <field>
+      <x>7</x>
+      <y>3</y>
+      <type>0</type>
+      <rotation>0</rotation>
+    </field>
+    <field>
+      <x>7</x>
+      <y>4</y>
+      <type>0</type>
+      <rotation>0</rotation>
+    </field>
+    <field>
+      <x>7</x>
+      <y>5</y>
+      <type>0</type>
+      <rotation>0</rotation>
+    </field>
+    <field>
+      <x>7</x>
+      <y>6</y>
+      <type>2</type>
+      <rotation>1</rotation>
+    </field>
+    <field>
+      <x>7</x>
+      <y>7</y>
+      <type>0</type>
+      <rotation>0</rotation>
+    </field>
+    <field>
+      <x>7</x>
+      <y>8</y>
+      <type>0</type>
+      <rotation>0</rotation>
+    </field>
+    <field>
+      <x>7</x>
+      <y>9</y>
+      <type>0</type>
+      <rotation>0</rotation>
+    </field>
+    <field>
+      <x>8</x>
+      <y>0</y>
+      <type>2</type>
+      <rotation>1</rotation>
+    </field>
+    <field>
+      <x>8</x>
+      <y>1</y>
+      <type>0</type>
+      <rotation>0</rotation>
+    </field>
+    <field>
+      <x>8</x>
+      <y>2</y>
+      <type>2</type>
+      <rotation>1</rotation>
+    </field>
+    <field>
+      <x>8</x>
+      <y>3</y>
+      <type>0</type>
+      <rotation>0</rotation>
+    </field>
+    <field>
+      <x>8</x>
+      <y>4</y>
+      <type>0</type>
+      <rotation>0</rotation>
+    </field>
+    <field>
+      <x>8</x>
+      <y>5</y>
+      <type>0</type>
+      <rotation>0</rotation>
+    </field>
+    <field>
+      <x>8</x>
+      <y>6</y>
+      <type>5</type>
+      <rotation>2</rotation>
+    </field>
+    <field>
+      <x>8</x>
+      <y>7</y>
+      <type>2</type>
+      <rotation>0</rotation>
+    </field>
+    <field>
+      <x>8</x>
+      <y>8</y>
+      <type>2</type>
+      <rotation>0</rotation>
+    </field>
+    <field>
+      <x>8</x>
+      <y>9</y>
+      <type>2</type>
+      <rotation>0</rotation>
+    </field>
+    <field>
+      <x>9</x>
+      <y>0</y>
       <type>3</type>
       <rotation>2</rotation>
     </field>
     <field>
-      <x>3</x>
-      <y>6</y>
-      <type>0</type>
+      <x>9</x>
+      <y>1</y>
+      <type>2</type>
       <rotation>0</rotation>
     </field>
     <field>
-      <x>3</x>
-      <y>7</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>3</x>
-      <y>8</y>
-      <type>3</type>
+      <x>9</x>
+      <y>2</y>
+      <type>5</type>
       <rotation>3</rotation>
     </field>
     <field>
-      <x>3</x>
-      <y>9</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>4</x>
-      <y>0</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>4</x>
-      <y>1</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>4</x>
-      <y>2</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>4</x>
-      <y>3</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>4</x>
-      <y>4</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>4</x>
-      <y>5</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>4</x>
-      <y>6</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>4</x>
-      <y>7</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>4</x>
-      <y>8</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>4</x>
-      <y>9</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>5</x>
-      <y>0</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>5</x>
-      <y>1</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>5</x>
-      <y>2</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>5</x>
-      <y>3</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>5</x>
-      <y>4</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>5</x>
-      <y>5</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>5</x>
-      <y>6</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>5</x>
-      <y>7</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>5</x>
-      <y>8</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>5</x>
-      <y>9</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>6</x>
-      <y>0</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>6</x>
-      <y>1</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>6</x>
-      <y>2</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>6</x>
-      <y>3</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>6</x>
-      <y>4</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>6</x>
-      <y>5</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>6</x>
-      <y>6</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>6</x>
-      <y>7</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>6</x>
-      <y>8</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>6</x>
-      <y>9</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>7</x>
-      <y>0</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>7</x>
-      <y>1</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>7</x>
-      <y>2</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>7</x>
-      <y>3</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>7</x>
-      <y>4</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>7</x>
-      <y>5</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>7</x>
-      <y>6</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>7</x>
-      <y>7</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>7</x>
-      <y>8</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>7</x>
-      <y>9</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>8</x>
-      <y>0</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>8</x>
-      <y>1</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>8</x>
-      <y>2</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>8</x>
-      <y>3</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>8</x>
-      <y>4</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>8</x>
-      <y>5</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>8</x>
-      <y>6</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>8</x>
-      <y>7</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>8</x>
-      <y>8</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>8</x>
-      <y>9</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>9</x>
-      <y>0</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>9</x>
-      <y>1</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
-      <x>9</x>
-      <y>2</y>
-      <type>0</type>
-      <rotation>0</rotation>
-    </field>
-    <field>
       <x>9</x>
       <y>3</y>
-      <type>0</type>
+      <type>2</type>
       <rotation>0</rotation>
     </field>
     <field>
       <x>9</x>
       <y>4</y>
-      <type>0</type>
+      <type>2</type>
       <rotation>0</rotation>
     </field>
     <field>
       <x>9</x>
       <y>5</y>
-      <type>0</type>
+      <type>2</type>
       <rotation>0</rotation>
     </field>
     <field>
       <x>9</x>
       <y>6</y>
-      <type>0</type>
-      <rotation>0</rotation>
+      <type>3</type>
+      <rotation>3</rotation>
     </field>
     <field>
       <x>9</x>
@@ -628,4 +628,14 @@
       <rotation>0</rotation>
     </field>
   </grid>
+  <tower>
+    <tow>
+      <range>5</range>
+      <cost>50</cost>
+      <damage>5</damage>
+      <rate>5</rate>
+      <speed>5</speed>
+      <upgrade>false</upgrade>
+    </tow>
+  </tower>
 </level>

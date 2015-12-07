@@ -213,10 +213,10 @@ namespace Towerdefense
                     moveCurve(speedFactor, rotation,centerPosition,offset);
                     break;
                 case 4:
-                    /*move4WayRoad*/
+                    move4WayRoad(speedFactor, centerPosition);
                     break;
                 case 5:
-                    /*move3WayRoad*/
+                    move3WayRoad(speedFactor, rotation,centerPosition);
                     break;
             }
             return this.position;
@@ -265,16 +265,42 @@ namespace Towerdefense
             if(!hasTurned){
                  if(this.Rotation == entryZeroY && ( (this.Rotation == 0 && this.Position.Y >= centerPosition.Y) || (this.Rotation == 90 && this.Position.X <= centerPosition.X) || (this.Rotation == 180 && this.Position.Y <= centerPosition.Y) || (this.Rotation == 270 && this.Position.X >= centerPosition.X ))){
                 this.Rotation = outZeroX;
-                     hasTurned = true;
+                this.hasTurned = true;
              }
              else if (this.Rotation == entryZeroX && ( (this.Rotation == 0 && this.Position.Y >= centerPosition.Y) || (this.Rotation == 90 && this.Position.X <= centerPosition.X) || (this.Rotation == 180 && this.Position.Y <= centerPosition.Y) || (this.Rotation == 270 && this.Position.X >= centerPosition.X))) {
                  this.rotation = outZeroY;
-                 hasTurned = true;
+                 this.hasTurned = true;
              }
             }
-                 //todo bis zum Mittelpunkt gehen, rotieren bis zum ende des Feldes gehen
-             
-                 
+        }
+
+        public void move4WayRoad(float speedFactor, Vector2 centerPosition) {
+
+            this.Rotation = (int) normalizeDegree(this.Rotation);
+
+            if (this.lastCenterPosition != centerPosition)
+            {
+                this.lastCenterPosition = centerPosition; hasTurned = false;
+            }
+            float mv = speedFactor * this.movementSpeed;
+
+            if (this.Rotation == 0) { this.position.Y += mv; }
+            else if (this.Rotation == 90) { this.position.X -= mv; }
+            else if (this.Rotation == 180) { this.position.Y -= mv; }
+            else if (this.Rotation == 270){this.position.X += mv;}
+
+                        if(!hasTurned){
+                 if((this.Rotation == 0 && this.Position.Y >= centerPosition.Y) || (this.Rotation == 90 && this.Position.X <= centerPosition.X) || (this.Rotation == 180 && this.Position.Y <= centerPosition.Y) || (this.Rotation == 270 && this.Position.X >= centerPosition.X )){
+            Random x = new Random();
+            int rand = x.Next(-1,2);
+            this.Rotation += 90 * rand;
+                     hasTurned = true;
+            }
+                 }
+        }
+
+        public void move3WayRoad(float speedFactor,int roadRotation, Vector2 centerPosition) {
+ 
         }
 
     public float normalizeDegree(float degree){

@@ -103,7 +103,7 @@ namespace Towerdefense
         /*Draws the tower to the Mouse when drawTower is true the texture of the tower will be drawn to the mouseposition*/
         public void drawTowerToMouse(Point ms, Boolean drawTower, SpriteBatch spriteBatch, Texture2D towerTexture, int amountOfFields, GraphicsDevice graphicsDevice)
         {
-            float scale = (float)graphicsDevice.Viewport.Height / (amountOfFields * towerTexture.Height);
+            float scale = (float) 0.5 * graphicsDevice.Viewport.Height / (amountOfFields * towerTexture.Height);
             Vector2 origin = new Vector2(towerTexture.Width / 2, towerTexture.Height / 2);
             Vector2 msV = new Vector2(ms.X, ms.Y);
             if (drawTower)
