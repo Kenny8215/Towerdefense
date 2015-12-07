@@ -33,6 +33,7 @@ namespace Towerdefense
         }
         #endregion
 
+        #region Constructor
         public GameManager()
         {
             levelObject = new LoadLevel();
@@ -40,17 +41,9 @@ namespace Towerdefense
             waveList = levelObject.getWaves();
             towerList = new List<Tower>();
         }
+        #endregion
 
-        public void draw()
-        {
-
-        }
-
-        public void updateEnemys()
-        {
-
-        }
-
+        #region Towers
         public void drawTowers(List<Tower> towerList, SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, int amountOfFields)
         {
             if (towerList.Count == 0) { }
@@ -67,6 +60,7 @@ namespace Towerdefense
                 }
             }
         }
+        #endregion
 
         #region PlayerInput
 
@@ -346,7 +340,6 @@ namespace Towerdefense
             return -1;
         }
         #endregion
-
 
         #region Enemies
         public void drawEnemies(Texture2D enemy, List<Wave> waveList, SpriteBatch spriteBatch, Vector2[] currentPosition)

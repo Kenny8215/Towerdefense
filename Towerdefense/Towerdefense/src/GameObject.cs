@@ -9,22 +9,26 @@ namespace Towerdefense
 {
     abstract class GameObject
     {
+        #region Fields
         private static int amountObjects = 0;
         private int ID;
         Texture2D sprite;
+        #endregion
 
+        #region Constructor
         public GameObject()
         {
 
         }
-
         public GameObject(Texture2D sprite) {
 
             amountObjects++;
             ID1 = amountObjects;
             this.Sprite = sprite;
         }
+        #endregion
 
+        #region setter and getter
         public int ID1
         {
             get
@@ -53,6 +57,6 @@ namespace Towerdefense
 
         public int getID(){return this.ID1;}
         public void setSprite(Texture2D sprite) { this.Sprite = sprite; }
-  
+        #endregion
     }
 }

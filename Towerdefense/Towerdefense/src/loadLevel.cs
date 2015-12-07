@@ -10,6 +10,7 @@ namespace Towerdefense
 {
     class LoadLevel
     {
+        #region Fields
         private List<Wave> waves = null;
 
         private List<Field> grid = null;
@@ -17,7 +18,9 @@ namespace Towerdefense
         private List<Tower> tower1 = null;
 
         int grid_count;
+        #endregion
 
+        #region Load
         public void load(String str)
         {
             System.IO.Stream stream = TitleContainer.OpenStream(str); //create stream for reading the xml file
@@ -67,8 +70,10 @@ namespace Towerdefense
             XElement g = doc.Descendants("grid").ElementAt(0);
             grid_count = Convert.ToInt32(g.Element("count").Value);//read out size of the field
           
-        }
+        
+#endregion
 
+        #region setter and getter
         public List<Field> getGrid()
         {
             return grid;
@@ -90,5 +95,6 @@ namespace Towerdefense
         {
             return grid_count;
         }
+        #endregion
     }
 }

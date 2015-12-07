@@ -171,7 +171,7 @@ namespace Towerdefense
 
         #endregion
 
-        /*Constructor*/
+        #region Constructors
         public Tower(Texture2D sprite,Vector2 position,int range, int cost, int damage, int fireRate, int speed, Boolean isUpgradeable, Texture2D rangeCircle) : base(sprite) {
             this.position = position;
             this.range = range;
@@ -189,12 +189,9 @@ namespace Towerdefense
             this.rangeCircle = rangeCircle;
             this.range = 175; 
         }
+        #endregion
 
-        public Tower()
-        {
-
-        }
-        
+        #region AimAndShoot
         public Vector2 SearchClosestEnemy(){
         
         //TO DO : Searchs the closest Enemy 
@@ -206,8 +203,8 @@ namespace Towerdefense
         //TO DO : Shoots at the closest Enemy
             return true;
         }
+        #endregion
 
-  
 
     }
 }

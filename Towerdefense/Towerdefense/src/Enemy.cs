@@ -25,7 +25,9 @@ namespace Towerdefense
         private Boolean isBoss;
         private Boolean isFlying;
         private Boolean hasTurned;
+#endregion
 
+        #region Setter and Getter
         public int HitPoints
         {
             get
@@ -144,6 +146,7 @@ namespace Towerdefense
         }
         #endregion
 
+        #region Constructors
         public Enemy()
             : base()
         {
@@ -166,7 +169,9 @@ namespace Towerdefense
             this.IsBoss = isBoss;
             this.IsFlying = isFlying;
         }
+#endregion
 
+        #region Draw
         public void drawEnemy(Texture2D enemy, SpriteBatch spriteBatch, Vector2 startPosition)
         {
 
@@ -174,8 +179,9 @@ namespace Towerdefense
 
             spriteBatch.Draw(enemy, startPosition, null, null, textCent, rotInRad(), new Vector2(0.2F, 0.2F), Color.White, SpriteEffects.None, 1F);
         }
-        
+        #endregion 
 
+        #region update
         public Vector2 moveEnemy(Vector2[,] roadTypeAndRotation, Vector2 currentEnemyField, float speedFactor, int amountOfField,Vector2[,] FieldCenterPosition,Vector2 offset)
         {
             int roadType = 0; int rotation = 0;
@@ -211,6 +217,7 @@ namespace Towerdefense
             }
             return this.position;
         }
+#endregion 
 
         #region movement
         public void moveStraight(float speedFactor, int roadRotation)
@@ -277,7 +284,8 @@ namespace Towerdefense
     }
         #endregion
 
-        public float rotInRad() { 
+        #region helpFunctions
+    public float rotInRad() { 
             switch (this.Rotation) {
                 case 90:
                     return 1.5708F;
@@ -288,13 +296,15 @@ namespace Towerdefense
                 default: return 0F;
         } }
 
-        public Vector2 currentEnemyField(Vector2 offset)
-        {
-            Vector2 currentField;
-            currentField.X = (int)(this.position.X / offset.X);
-            currentField.Y = (int)(this.position.Y / offset.Y);
-            return currentField;
-        }
+    public Vector2 currentEnemyField(Vector2 offset)
+    {
+        Vector2 currentField;
+        currentField.X = (int)(this.position.X / offset.X);
+        currentField.Y = (int)(this.position.Y / offset.Y);
+        return currentField;
+    }
+    #endregion
+    
     }
 
 

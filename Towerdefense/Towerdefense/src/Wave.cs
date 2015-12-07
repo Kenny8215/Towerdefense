@@ -7,9 +7,12 @@ namespace Towerdefense
 {
     class Wave
     {
+        #region Fields
         Enemy enemy;
         int count;
+        #endregion
 
+        #region setter and getter
         internal Enemy Enemy
         {
             get
@@ -35,5 +38,6 @@ namespace Towerdefense
                 count = value;
             }
         }
+        #endregion
     }
 }
