@@ -216,11 +216,12 @@ namespace Towerdefense
         public void moveStraight(float speedFactor, int roadRotation)
         {
             float mv = speedFactor * this.movementSpeed;
+            if (this.Rotation >= 360) { this.Rotation = (int) normalizeDegree(this.Rotation); }
             if (this.Rotation == 0) { this.position.Y += mv; }
             else if (this.Rotation == 90) { this.position.X -= mv; }
             else if (this.Rotation == 180) { this.position.Y -= mv; }
             else if (this.Rotation == 270) { this.position.X += mv; }
-           
+
         }
 
         public void moveCurve(float speedFactor, int roadRotation, Vector2 centerPosition,Vector2 offset)
@@ -232,11 +233,12 @@ namespace Towerdefense
              int entryZeroX = 90 + 90 * roadRotation;
              int outZeroY = 180 + 90 * roadRotation;
 
-             if (entryZeroY >= 360 || outZeroX >= 360 || entryZeroX >= 360 || outZeroY >= 360) {
+             if (entryZeroY >= 360 || outZeroX >= 360 || entryZeroX >= 360 || outZeroY >= 360 || this.Rotation >= 360) {
                 entryZeroY = (int) normalizeDegree(entryZeroY);
                 entryZeroX = (int) normalizeDegree(entryZeroX);
                 outZeroY = (int) normalizeDegree(outZeroY);
-                outZeroX = (int) normalizeDegree(outZeroX); 
+                outZeroX = (int) normalizeDegree(outZeroX);
+                this.Rotation = (int)normalizeDegree(this.Rotation);
              }
 
              if (this.Rotation == 0) { this.position.Y += mv; }

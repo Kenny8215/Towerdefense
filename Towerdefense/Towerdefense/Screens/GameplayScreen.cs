@@ -53,6 +53,7 @@ namespace Towerdefense
         Texture2D tower4Icon;
         Texture2D moneyIcon;
         Texture2D enemy1;
+        Texture2D rangeCircle;
 
         SpriteFont arial;
 
@@ -153,6 +154,7 @@ namespace Towerdefense
             tower2Icon = content.Load<Texture2D>("Menu/tower1");
             tower3Icon = content.Load<Texture2D>("Menu/tower1");
             tower4Icon = content.Load<Texture2D>("Menu/tower1");
+            rangeCircle = content.Load<Texture2D>("rangeCircle");
 
             roadArray = new Texture2D[] { nonroad, nonroad1, road1, road2, road3, road4 };
             menuTextureArray = new Texture2D[] {  lifeIcon, moneyIcon, tower1Icon, tower2Icon,tower3Icon,tower4Icon,};
@@ -289,7 +291,7 @@ namespace Towerdefense
               drawTower = gameManager.TowerToMouse(mouseState,previousMouseState,menuRectangle,drawTower);
 
              towerAmount = towerList.Count;
-             towerList = gameManager.addPlacedTowerToList(mouseState, previousMouseState, drawTower, towerList, highlightedGridElement, tower1Icon, FieldCenterPosition, amountOfField,roadTypeAndRotation,highlightedGridElement,player);
+             towerList = gameManager.addPlacedTowerToList(mouseState, previousMouseState, drawTower, towerList, highlightedGridElement, tower1Icon, FieldCenterPosition, amountOfField,roadTypeAndRotation,highlightedGridElement,player,rangeCircle);
 
              if (towerAmount != towerList.Count)
              {

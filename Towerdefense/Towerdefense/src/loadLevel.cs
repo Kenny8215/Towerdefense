@@ -14,7 +14,7 @@ namespace Towerdefense
 
         private List<Field> grid = null;
 
-        private List<Tower> tower = null;
+        private List<Tower> tower1 = null;
 
         int grid_count;
 
@@ -52,7 +52,7 @@ namespace Towerdefense
                         Rotation = Convert.ToInt32(field.Element("rotation").Value)
                     }).ToList();
 
-            tower = (from tower in doc.Descendants("tower")
+            tower1 = (from tower in doc.Descendants("tower")
                      select new Tower()
                      {
                          Range = Convert.ToInt32(tower.Element("range").Value),
@@ -83,7 +83,7 @@ namespace Towerdefense
 
         public List<Tower> getTower()
         {
-            return tower;
+            return tower1;
         }
 
         public int getGridCount()

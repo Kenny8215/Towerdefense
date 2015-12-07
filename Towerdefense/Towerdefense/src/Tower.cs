@@ -12,6 +12,7 @@ namespace Towerdefense
         #region Field
 
         Texture2D sprite;
+        Texture2D rangeCircle;
         string spritePath;
 
         /*Towerrange*/
@@ -38,6 +39,15 @@ namespace Towerdefense
         #endregion  
 
         #region Setter and Getter
+        public Texture2D RangeCircle{
+            get {
+                return this.rangeCircle;
+            }
+
+            set {
+                this.RangeCircle = rangeCircle;
+            }
+    }
 
         public int Range
         {
@@ -162,7 +172,7 @@ namespace Towerdefense
         #endregion
 
         /*Constructor*/
-        public Tower(Texture2D sprite,Vector2 position,int range, int cost, int damage, int fireRate, int speed, Boolean isUpgradeable) : base(sprite) {
+        public Tower(Texture2D sprite,Vector2 position,int range, int cost, int damage, int fireRate, int speed, Boolean isUpgradeable, Texture2D rangeCircle) : base(sprite) {
             this.position = position;
             this.range = range;
             this.cost = cost;
@@ -170,11 +180,14 @@ namespace Towerdefense
             this.fireRate = fireRate;
             this.speed = speed;
             this.IsUpgradeable = isUpgradeable;
+            this.rangeCircle = rangeCircle;
         }
 
         /*Testconstructor*/
-        public Tower(Texture2D sprite, Vector2 position) : base(sprite) {
+        public Tower(Texture2D sprite,Texture2D rangeCircle , Vector2 position) : base(sprite) {
             this.position = position;
+            this.rangeCircle = rangeCircle;
+            this.range = 175; 
         }
 
         public Tower()
