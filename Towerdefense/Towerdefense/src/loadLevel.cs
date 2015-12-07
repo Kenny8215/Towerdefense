@@ -35,15 +35,16 @@ namespace Towerdefense
                      select new Wave()
                      {
                          Count = Convert.ToInt32(wave.Element("count").Value),//read out size of the wave
-                         Enemy = (from e in wave.Descendants("enemy") select new Enemy() //read out all enemys of a wave
-                         {
-                             HitPoints = Convert.ToInt32(e.Element("hitPoints").Value),
-                             MovementSpeed = Convert.ToInt32(e.Element("movementSpeed").Value),
-                             Resistance = e.Element("resistance").Value,
-                             IsBoss = Convert.ToBoolean(e.Element("boss").Value),
-                             IsFlying = Convert.ToBoolean(e.Element("flying").Value),
-                             SpritePath = "enemies/wolf"                           
-                         }).ToList()[0]
+                         Enemy = (from e in wave.Descendants("enemy")
+                                  select new Enemy() //read out all enemys of a wave
+                                      {
+                                          HitPoints = Convert.ToInt32(e.Element("hitPoints").Value),
+                                          MovementSpeed = Convert.ToInt32(e.Element("movementSpeed").Value),
+                                          Resistance = e.Element("resistance").Value,
+                                          IsBoss = Convert.ToBoolean(e.Element("boss").Value),
+                                          IsFlying = Convert.ToBoolean(e.Element("flying").Value),
+                                          SpritePath = "enemies/wolf"
+                                      }).ToList()[0]
                      }).ToList();
 
             grid = (from field in doc.Descendants("field")
@@ -56,19 +57,20 @@ namespace Towerdefense
                     }).ToList();
 
             tower1 = (from tower in doc.Descendants("tower")
-                     select new Tower()
-                     {
-                         Range = Convert.ToInt32(tower.Element("range").Value),
-                         Cost = Convert.ToInt32(tower.Element("cost").Value),
-                         Damage = Convert.ToInt32(tower.Element("damage").Value),
-                         FireRate = Convert.ToInt32(tower.Element("rate").Value),
-                         Speed = Convert.ToInt32(tower.Element("speed").Value),
-                         IsUpgradeable = Convert.ToBoolean(tower.Element("upgrade").Value),
-                         SpritePath = "Menu/tower1"
-                     }).ToList();
+                      select new Tower()
+                      {
+                          Range = Convert.ToInt32(tower.Element("range").Value),
+                          Cost = Convert.ToInt32(tower.Element("cost").Value),
+                          Damage = Convert.ToInt32(tower.Element("damage").Value),
+                          FireRate = Convert.ToInt32(tower.Element("rate").Value),
+                          Speed = Convert.ToInt32(tower.Element("speed").Value),
+                          IsUpgradeable = Convert.ToBoolean(tower.Element("upgrade").Value),
+                          SpritePath = "Menu/tower1"
+                      }).ToList();
 
             XElement g = doc.Descendants("grid").ElementAt(0);
-            grid_count = Convert.ToInt32(g.Element("count").Value);//read out size of the field
+            grid_count = Convert.ToInt32(g.Element("count").Value);
+        }//read out size of the field
           
         
 #endregion

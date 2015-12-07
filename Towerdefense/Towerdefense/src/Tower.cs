@@ -189,6 +189,8 @@ namespace Towerdefense
             this.rangeCircle = rangeCircle;
             this.range = 175; 
         }
+
+        public Tower() { }
         #endregion
 
         #region AimAndShoot
