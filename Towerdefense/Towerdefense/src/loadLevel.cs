@@ -66,6 +66,11 @@ namespace Towerdefense
 
             XElement g = doc.Descendants("grid").ElementAt(0);
             grid_count = Convert.ToInt32(g.Element("count").Value);//read out size of the field
+
+            foreach(Wave w in waves)
+            {
+                w.loadDone();
+            }
           
         }
 

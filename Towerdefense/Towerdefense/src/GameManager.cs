@@ -348,35 +348,27 @@ namespace Towerdefense
 
 
         #region Enemies
-        public void drawEnemies(Texture2D enemy, List<Wave> waveList, SpriteBatch spriteBatch, Vector2[] currentPosition)
+        public void drawEnemies(List<Enemy> list ,SpriteBatch spriteBatch)
         {
 
-            foreach (Wave w in waveList)
+            foreach (Enemy e in list)
             {
-                for (int i = 0; i < 2; i++)
-                {
-
                     //replace new Vector2(30,30) with Enemy.position
-                    w.Enemy.drawEnemy(enemy, spriteBatch, currentPosition[i]);
-
-                }
+                    e.drawEnemy(spriteBatch);
+                
             }
         }
 
-        public Vector2[] updateEnemies(List<Wave> waveList, Vector2[,] roadTypeAndRotation, Vector2 offset, int amountOfField,Vector2[,] FieldCenterPosition)
+        public Vector2 updateEnemies(Enemy e, Vector2[,] roadTypeAndRotation, Vector2 offset, int amountOfField,Vector2[,] FieldCenterPosition)
         {
-            Vector2[] currentPosition = new Vector2[2]; ;
+            Vector2 currentPosition = new Vector2();
             Vector2 currentField;
-            foreach (Wave w in waveList)
-            {
-                for (int i = 0; i < 2; i++)
-                {
 
-                    currentField = w.Enemy.currentEnemyField(offset);
-                    currentPosition[i].X = w.Enemy.moveEnemy(roadTypeAndRotation, currentField, 0.03F,amountOfField,FieldCenterPosition,offset).X;
-                    currentPosition[i].Y = w.Enemy.moveEnemy(roadTypeAndRotation, currentField, 0.03F,amountOfField,FieldCenterPosition,offset).Y;
-                }
-            }
+                    currentField = e.currentEnemyField(offset);
+                    Vector2 newPos = e.moveEnemy(roadTypeAndRotation, currentField, 1F, amountOfField, FieldCenterPosition, offset);
+                    currentPosition.X = newPos.X;
+                    currentPosition.Y = newPos.Y;
+            
             return currentPosition;
         }
     }

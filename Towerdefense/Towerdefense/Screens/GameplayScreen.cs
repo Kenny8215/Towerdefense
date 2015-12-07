@@ -84,6 +84,17 @@ namespace Towerdefense
         private List<Wave> waveList;
         private List<Field> grid;
         private List<Tower> tower;
+
+
+        int currentWave;
+        List<Enemy> toDraw;
+        int currentEnemy;
+
+
+        double timeLaps;
+
+
+        bool levelDone = false;
         #endregion
 
         #region Initialization
@@ -117,6 +128,10 @@ namespace Towerdefense
             tower = levelObject.getTower();
             amountOfField = levelObject.getGridCount();
             FieldCenterPosition = new Vector2[amountOfField, amountOfField];
+            currentWave = 0;
+            currentEnemy = 0;
+            toDraw = new List<Enemy>();
+            timeLaps = 0;
 
         }
 
@@ -128,10 +143,6 @@ namespace Towerdefense
             if (content == null)
                 content = new ContentManager(ScreenManager.Game.Services, "Content");
             #region Load Textures
-            foreach(Wave w in waveList)
-            {
-                w.Enemy.Sprite = content.Load<Texture2D>(w.Enemy.SpritePath);
-            }
 
             foreach (Tower t in tower)
             {
@@ -157,7 +168,13 @@ namespace Towerdefense
             roadArray = new Texture2D[] { nonroad, nonroad1, road1, road2, road3, road4 };
             menuTextureArray = new Texture2D[] {  lifeIcon, moneyIcon, tower1Icon, tower2Icon,tower3Icon,tower4Icon,};
 
-            enemy1 = content.Load<Texture2D>("enemies/wolf");
+            foreach(Wave w in waveList)
+            {
+                foreach(Enemy e in w.getEnemys())
+                {
+                    e.setSprite(content.Load<Texture2D>(e.SpritePath));
+                }
+            }
             #endregion    
 
             arial = content.Load<SpriteFont>("Arial");
@@ -239,6 +256,8 @@ namespace Towerdefense
         {
             base.Update(gameTime, otherScreenHasFocus, false);
 
+            timeLaps += gameTime.ElapsedGameTime.TotalSeconds;
+
             // Gradually fade in or out depending on whether we are covered by the pause screen.
             if (coveredByOtherScreen)
                 pauseAlpha = Math.Min(pauseAlpha + 1f / 32, 1);
@@ -247,7 +266,47 @@ namespace Towerdefense
 
             if (IsActive)
             {
-              currentEnemyPosition =  gameManager.updateEnemies(waveList, roadTypeAndRotation, offset,amountOfField,FieldCenterPosition);
+                if (timeLaps >= 1)
+                {
+                    timeLaps = 0;
+                    if (!levelDone)
+                    {
+                        toDraw.Add(waveList[currentWave].getEnemys()[currentEnemy]);
+                        try
+                        {
+                            if (waveList[currentWave].getEnemys()[currentEnemy + 1] != null)
+                            {
+                                currentEnemy += 1;
+                            }
+                            else
+                            {
+
+                            }
+                        }
+                        catch (ArgumentOutOfRangeException)
+                        {
+                            currentWave += 1;
+                            try
+                            {
+                                if (waveList[currentWave + 1] != null)
+                                {
+                                    currentWave += 1;
+                                }
+                            }
+                            catch (ArgumentOutOfRangeException)
+                            {
+                                levelDone = true;
+                            }
+
+                        }
+                    }         
+                    
+                }
+                foreach(Enemy e in toDraw)
+                {
+                    e.Position= gameManager.updateEnemies(e,roadTypeAndRotation, offset, amountOfField, FieldCenterPosition);
+                }
+
                 // TODO: this game isn't very fun! You could probably improve
                 // it by inserting something more interesting in this space :-)
             }
@@ -340,7 +399,7 @@ namespace Towerdefense
             /*Draws The TowerTexture to the Mouseposition when leftclicked*/
             gameManager.drawTowerToMouse(Mouse.GetState().Position, drawTower, spriteBatch, tower1Icon, amountOfField, ScreenManager.GraphicsDevice);
 
-            gameManager.drawEnemies(enemy1, waveList, spriteBatch,currentEnemyPosition);
+            gameManager.drawEnemies(toDraw, spriteBatch);
             spriteBatch.End();
             // If the game is transitioning on or off, fade it out to black.
             if (TransitionPosition > 0 || pauseAlpha > 0)

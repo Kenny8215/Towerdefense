@@ -6,7 +6,7 @@
         <name>wolf</name>
         <hitPoints>100</hitPoints>
         <movementSpeed>1</movementSpeed>
-        <sprite>pfad</sprite>
+        <sprite>enemies/wolf</sprite>
         <resistance>ice</resistance>
         <boss>False</boss>
         <flying>False</flying>
@@ -18,7 +18,7 @@
         <name>fish</name>
         <hitPoints>1000</hitPoints>
         <movementSpeed>10</movementSpeed>
-        <sprite>pfad</sprite>
+        <sprite>enemies/wolf</sprite>
         <resistance>ice</resistance>
         <boss>False</boss>
         <flying>True</flying>

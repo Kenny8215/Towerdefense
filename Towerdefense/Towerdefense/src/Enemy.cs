@@ -22,9 +22,14 @@ namespace Towerdefense
         private float movementSpeed;
         private string resistance;
 
-        private Boolean isBoss;
-        private Boolean isFlying;
-        private Boolean hasTurned;
+        private bool isBoss;
+        private bool isFlying;
+        private bool hasTurned;
+
+        public Enemy cloneMe()
+        {
+            return new Enemy(this.sprite, this.spritePath, this.hitPoints, this.position, this.walkDistance, this.rotation, this.movementSpeed,this.resistance, this.isBoss, this.isFlying);
+        }
 
         public int HitPoints
         {
@@ -152,7 +157,7 @@ namespace Towerdefense
             this.position = new Vector2(30, 0);
         }
 
-        public Enemy(Texture2D sprite, int hitPoints, Vector2 position, int walkDistance, int rotation, float movementSpeed, string resistance, Boolean isBoss, Boolean isFlying)
+        public Enemy(Texture2D sprite, string spritePath, int hitPoints, Vector2 position, int walkDistance, int rotation, float movementSpeed, string resistance, bool isBoss, bool isFlying)
             : base(sprite, hitPoints)
         {
 
@@ -165,14 +170,15 @@ namespace Towerdefense
             this.Resistance = resistance;
             this.IsBoss = isBoss;
             this.IsFlying = isFlying;
+            this.spritePath = spritePath;
         }
 
-        public void drawEnemy(Texture2D enemy, SpriteBatch spriteBatch, Vector2 startPosition)
+        public void drawEnemy(SpriteBatch spriteBatch)
         {
 
-            Vector2 textCent = new Vector2(enemy.Bounds.Center.X, enemy.Bounds.Center.Y);
+            Vector2 textCent = new Vector2(this.Sprite.Bounds.Center.X, this.Sprite.Bounds.Center.Y);
 
-            spriteBatch.Draw(enemy, startPosition, null, null, textCent, rotInRad(), new Vector2(0.2F, 0.2F), Color.White, SpriteEffects.None, 1F);
+            spriteBatch.Draw(this.Sprite, this.position, null, null, textCent, rotInRad(), new Vector2(0.2F, 0.2F), Color.White, SpriteEffects.None, 1F);
         }
         
 
@@ -225,7 +231,9 @@ namespace Towerdefense
 
         public void moveCurve(float speedFactor, int roadRotation, Vector2 centerPosition,Vector2 offset)
         {
-            if(this.lastCenterPosition != centerPosition){this.lastCenterPosition = centerPosition; hasTurned = false;}
+            if(this.lastCenterPosition != centerPosition){
+                this.lastCenterPosition = centerPosition; hasTurned = false;
+            }
             float mv = speedFactor * this.movementSpeed;
              int entryZeroY = 0 + roadRotation * 90;
              int outZeroX = 270 + roadRotation * 90;

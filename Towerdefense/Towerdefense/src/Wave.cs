@@ -7,6 +7,7 @@ namespace Towerdefense
 {
     class Wave
     {
+        List<Enemy> listEnemy;
         Enemy enemy;
         int count;
 
@@ -33,6 +34,20 @@ namespace Towerdefense
             set
             {
                 count = value;
+            }
+        }
+
+        public List<Enemy> getEnemys()
+        {
+            return listEnemy;
+        }
+
+        public void loadDone()
+        {
+            listEnemy = new List<Enemy>();
+            for(int i = 0; i < count; i++)
+            {
+                listEnemy.Add(enemy.cloneMe());
             }
         }
     }
