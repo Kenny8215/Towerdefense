@@ -174,7 +174,7 @@ namespace Towerdefense
             this.IsFlying = isFlying;
             this.spritePath = spritePath;
         }
-#endregion
+        #endregion
 
         public void drawEnemy(SpriteBatch spriteBatch)
         {
@@ -183,10 +183,10 @@ namespace Towerdefense
 
             spriteBatch.Draw(this.Sprite, this.position, null, null, textCent, rotInRad(), new Vector2(0.2F, 0.2F), Color.White, SpriteEffects.None, 1F);
         }
-        #endregion 
+        #endregion
 
         #region update
-        public Vector2 moveEnemy(Vector2[,] roadTypeAndRotation, Vector2 currentEnemyField, float speedFactor, int amountOfField,Vector2[,] FieldCenterPosition,Vector2 offset)
+        public Vector2 moveEnemy(Vector2[,] roadTypeAndRotation, Vector2 currentEnemyField, float speedFactor, int amountOfField, Vector2[,] FieldCenterPosition, Vector2 offset)
         {
             int roadType = 0; int rotation = 0;
             Vector2 centerPosition = Vector2.Zero;
@@ -195,8 +195,9 @@ namespace Towerdefense
             {
                 roadType = (int)roadTypeAndRotation[(int)currentEnemyField.X, (int)currentEnemyField.Y].X;
                 rotation = (int)roadTypeAndRotation[(int)currentEnemyField.X, (int)currentEnemyField.Y].Y;
-                centerPosition = FieldCenterPosition[(int) currentEnemyField.X,(int)currentEnemyField.Y] ;
-            }else{return this.position;}
+                centerPosition = FieldCenterPosition[(int)currentEnemyField.X, (int)currentEnemyField.Y];
+            }
+            else { return this.position; }
             switch (roadType)
             {
                 case 0:
@@ -210,24 +211,24 @@ namespace Towerdefense
                     moveStraight(speedFactor, rotation);
                     break;
                 case 3:
-                    moveCurve(speedFactor, rotation,centerPosition,offset);
+                    moveCurve(speedFactor, rotation, centerPosition, offset);
                     break;
                 case 4:
                     move4WayRoad(speedFactor, centerPosition);
                     break;
                 case 5:
-                    move3WayRoad(speedFactor, rotation,centerPosition);
+                    move3WayRoad(speedFactor, rotation, centerPosition);
                     break;
             }
             return this.position;
         }
-#endregion 
+        #endregion
 
         #region movement
         public void moveStraight(float speedFactor, int roadRotation)
         {
             float mv = speedFactor * this.movementSpeed;
-            if (this.Rotation >= 360) { this.Rotation = (int) normalizeDegree(this.Rotation); }
+            if (this.Rotation >= 360) { this.Rotation = (int)normalizeDegree(this.Rotation); }
             if (this.Rotation == 0) { this.position.Y += mv; }
             else if (this.Rotation == 90) { this.position.X -= mv; }
             else if (this.Rotation == 180) { this.position.Y -= mv; }
@@ -235,48 +236,54 @@ namespace Towerdefense
 
         }
 
-        public void moveCurve(float speedFactor, int roadRotation, Vector2 centerPosition,Vector2 offset)
+        public void moveCurve(float speedFactor, int roadRotation, Vector2 centerPosition, Vector2 offset)
         {
-            if(this.lastCenterPosition != centerPosition){
+            if (this.lastCenterPosition != centerPosition)
+            {
                 this.lastCenterPosition = centerPosition; hasTurned = false;
             }
             float mv = speedFactor * this.movementSpeed;
-             int entryZeroY = 0 + roadRotation * 90;
-             int outZeroX = 270 + roadRotation * 90;
-             int entryZeroX = 90 + 90 * roadRotation;
-             int outZeroY = 180 + 90 * roadRotation;
+            int entryZeroY = 0 + roadRotation * 90;
+            int outZeroX = 270 + roadRotation * 90;
+            int entryZeroX = 90 + 90 * roadRotation;
+            int outZeroY = 180 + 90 * roadRotation;
 
-             if (entryZeroY >= 360 || outZeroX >= 360 || entryZeroX >= 360 || outZeroY >= 360 || this.Rotation >= 360) {
-                entryZeroY = (int) normalizeDegree(entryZeroY);
-                entryZeroX = (int) normalizeDegree(entryZeroX);
-                outZeroY = (int) normalizeDegree(outZeroY);
-                outZeroX = (int) normalizeDegree(outZeroX);
+            if (entryZeroY >= 360 || outZeroX >= 360 || entryZeroX >= 360 || outZeroY >= 360 || this.Rotation >= 360)
+            {
+                entryZeroY = (int)normalizeDegree(entryZeroY);
+                entryZeroX = (int)normalizeDegree(entryZeroX);
+                outZeroY = (int)normalizeDegree(outZeroY);
+                outZeroX = (int)normalizeDegree(outZeroX);
                 this.Rotation = (int)normalizeDegree(this.Rotation);
-             }
+            }
 
-             if (this.Rotation == 0) { this.position.Y += mv; }
-             else if (this.Rotation == 90) { this.position.X -= mv; }
-             else if (this.Rotation == 180) { this.position.Y -= mv; }
-             else if (this.Rotation == 270)
-             {
-                 this.position.X += mv;
-             }
+            if (this.Rotation == 0) { this.position.Y += mv; }
+            else if (this.Rotation == 90) { this.position.X -= mv; }
+            else if (this.Rotation == 180) { this.position.Y -= mv; }
+            else if (this.Rotation == 270)
+            {
+                this.position.X += mv;
+            }
 
-            if(!hasTurned){
-                 if(this.Rotation == entryZeroY && ( (this.Rotation == 0 && this.Position.Y >= centerPosition.Y) || (this.Rotation == 90 && this.Position.X <= centerPosition.X) || (this.Rotation == 180 && this.Position.Y <= centerPosition.Y) || (this.Rotation == 270 && this.Position.X >= centerPosition.X ))){
-                this.Rotation = outZeroX;
-                this.hasTurned = true;
-             }
-             else if (this.Rotation == entryZeroX && ( (this.Rotation == 0 && this.Position.Y >= centerPosition.Y) || (this.Rotation == 90 && this.Position.X <= centerPosition.X) || (this.Rotation == 180 && this.Position.Y <= centerPosition.Y) || (this.Rotation == 270 && this.Position.X >= centerPosition.X))) {
-                 this.rotation = outZeroY;
-                 this.hasTurned = true;
-             }
+            if (!hasTurned)
+            {
+                if (this.Rotation == entryZeroY && ((this.Rotation == 0 && this.Position.Y >= centerPosition.Y) || (this.Rotation == 90 && this.Position.X <= centerPosition.X) || (this.Rotation == 180 && this.Position.Y <= centerPosition.Y) || (this.Rotation == 270 && this.Position.X >= centerPosition.X)))
+                {
+                    this.Rotation = outZeroX;
+                    this.hasTurned = true;
+                }
+                else if (this.Rotation == entryZeroX && ((this.Rotation == 0 && this.Position.Y >= centerPosition.Y) || (this.Rotation == 90 && this.Position.X <= centerPosition.X) || (this.Rotation == 180 && this.Position.Y <= centerPosition.Y) || (this.Rotation == 270 && this.Position.X >= centerPosition.X)))
+                {
+                    this.rotation = outZeroY;
+                    this.hasTurned = true;
+                }
             }
         }
 
-        public void move4WayRoad(float speedFactor, Vector2 centerPosition) {
+        public void move4WayRoad(float speedFactor, Vector2 centerPosition)
+        {
 
-            this.Rotation = (int) normalizeDegree(this.Rotation);
+            this.Rotation = (int)normalizeDegree(this.Rotation);
 
             if (this.lastCenterPosition != centerPosition)
             {
@@ -287,42 +294,86 @@ namespace Towerdefense
             if (this.Rotation == 0) { this.position.Y += mv; }
             else if (this.Rotation == 90) { this.position.X -= mv; }
             else if (this.Rotation == 180) { this.position.Y -= mv; }
-            else if (this.Rotation == 270){this.position.X += mv;}
+            else if (this.Rotation == 270) { this.position.X += mv; }
 
-                        if(!hasTurned){
-                 if((this.Rotation == 0 && this.Position.Y >= centerPosition.Y) || (this.Rotation == 90 && this.Position.X <= centerPosition.X) || (this.Rotation == 180 && this.Position.Y <= centerPosition.Y) || (this.Rotation == 270 && this.Position.X >= centerPosition.X )){
-            Random x = new Random();
-            int rand = x.Next(-1,2);
-            this.Rotation += 90 * rand;
+            if (!hasTurned)
+            {
+                if ((this.Rotation == 0 && this.Position.Y >= centerPosition.Y) || (this.Rotation == 90 && this.Position.X <= centerPosition.X) || (this.Rotation == 180 && this.Position.Y <= centerPosition.Y) || (this.Rotation == 270 && this.Position.X >= centerPosition.X))
+                {
+                    Random x = new Random();
+                    int rand = x.Next(-1, 2);
+                    this.Rotation += 90 * rand;
 
-                     hasTurned = true;
+                    hasTurned = true;
+                }
             }
-                 }
         }
 
-        public void move3WayRoad(float speedFactor,int roadRotation, Vector2 centerPosition) {
-        }
-
-    public float normalizeDegree(float degree){
-        degree = degree / 360;
-
-        if (degree > 1)
+        public void move3WayRoad(float speedFactor, int roadRotation, Vector2 centerPosition)
         {
-            degree -= 1;
+            this.Rotation = (int)normalizeDegree(this.Rotation);
+
+            if (this.lastCenterPosition != centerPosition)
+            {
+                this.lastCenterPosition = centerPosition; hasTurned = false;
+            }
+            float mv = speedFactor * this.movementSpeed;
+
+            if (this.Rotation == 0) { this.position.Y += mv; }
+            else if (this.Rotation == 90) { this.position.X -= mv; }
+            else if (this.Rotation == 180) { this.position.Y -= mv; }
+            else if (this.Rotation == 270) { this.position.X += mv; }
+
+            if (!hasTurned)
+            {
+                if ((this.Rotation == 0 && this.Position.Y >= centerPosition.Y) || (this.Rotation == 90 && this.Position.X <= centerPosition.X) || (this.Rotation == 180 && this.Position.Y <= centerPosition.Y) || (this.Rotation == 270 && this.Position.X >= centerPosition.X))
+                {
+                    if (this.Rotation == roadRotation * 90)
+                    {
+                        Random x = new Random();
+                        int rand = x.Next(-1, 1);
+                        if (rand == -1) { this.Rotation = (int) normalizeDegree(this.Rotation + 270); hasTurned = true; }
+                        else { this.Rotation = (int) normalizeDegree(this.Rotation + 90); hasTurned = true; }
+                    }
+                    else if(this.Rotation == (normalizeDegree(90 + roadRotation * 90))) {
+                        Random x = new Random();
+                        int rand = x.Next(0, 2);
+                        this.Rotation += (int) normalizeDegree(90 * rand);
+                        hasTurned = true;
+                    }
+                    else if (this.Rotation == (normalizeDegree(270 + roadRotation * 90))) {
+                        Random x = new Random();
+                        int rand = x.Next(0, 2);
+                        this.Rotation =(int) normalizeDegree(this.Rotation + 270 * rand);
+                             hasTurned = true;
+                    }
+                    }
+                }
+        }
+        /*check if degree is > than 360 and resets it */
+        public float normalizeDegree(float degree)
+        {
+            degree = degree / 360;
+
+            if (degree > 1)
+            {
+                degree -= 1;
             }
 
-        degree *= 360;
+            degree *= 360;
             if (degree == 360)
             {
                 degree = 0;
             }
-        return degree;
-    }
+            return degree;
+        }
         #endregion
 
         #region helpFunctions
-    public float rotInRad() { 
-            switch (this.Rotation) {
+        public float rotInRad()
+        {
+            switch (this.Rotation)
+            {
                 case 90:
                     return 1.5708F;
                 case 180:
@@ -330,19 +381,17 @@ namespace Towerdefense
                 case 270:
                     return 4.71239F;
                 default: return 0F;
-        } }
+            }
+        }
 
-    public Vector2 currentEnemyField(Vector2 offset)
-    {
-        Vector2 currentField;
-        currentField.X = (int)(this.position.X / offset.X);
-        currentField.Y = (int)(this.position.Y / offset.Y);
-        return currentField;
+        public Vector2 currentEnemyField(Vector2 offset)
+        {
+            Vector2 currentField;
+            currentField.X = (int)(this.position.X / offset.X);
+            currentField.Y = (int)(this.position.Y / offset.Y);
+            return currentField;
+        }
+        #endregion
+
     }
-    #endregion
-    
-    }
-
-
-
 }
