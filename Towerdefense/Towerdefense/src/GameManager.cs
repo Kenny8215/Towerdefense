@@ -127,6 +127,14 @@ namespace Towerdefense
                 else { t.IsSelected = false; }
             }
         }
+
+        public void towerUpgraded(List<Tower> towerList,MouseState ms, MouseState ps,Player player) {
+            foreach (Tower t in towerList) {
+                if(t.IsSelected){
+                t.upgradeTower(ms, ps, player);
+                }
+            }
+        }
         #endregion
 
         #region PlayerInput

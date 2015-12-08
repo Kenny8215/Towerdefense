@@ -383,6 +383,9 @@ namespace Towerdefense
                 {
                     roadTypeAndRotation[(int)highlightedGridElement.X, (int)highlightedGridElement.Y].X = 1;
                 }
+
+            gameManager.towerSelected(placedTowerList, highlightedGridElement);
+            gameManager.towerUpgraded(placedTowerList,mouseState,previousMouseState,player);
                 // roadTypeAndRotation[ towerList[towerAmount].Position.X] , towerList[towerAmount].Position.Y ] = 1;  }
                 drawTower = gameManager.placeTower(mouseState, previousMouseState, drawTower, placedTowerList, highlightedGridElement, tower1Icon, FieldCenterPosition, amountOfField);
 
@@ -421,7 +424,6 @@ namespace Towerdefense
             /*Draws the normal grid (has to be replaced with load level*/
             gameManager.drawGrid(roadTypeAndRotation, FieldCenterPosition, highlightedGridElement, amountOfField, roadArray, content, spriteBatch, ScreenManager.GraphicsDevice);
 
-            gameManager.towerSelected(placedTowerList, highlightedGridElement);
             /*Draws All towers in the grid*/
             gameManager.drawTowers(placedTowerList, spriteBatch, ScreenManager.GraphicsDevice, amountOfField);
 

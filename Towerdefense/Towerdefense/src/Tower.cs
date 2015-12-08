@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace Towerdefense
 {
@@ -29,6 +30,8 @@ namespace Towerdefense
 
         /*Projectile Speed*/
         private int speed;
+
+        private int upgradeCost;
 
         /*Tower can be upgraded*/
         private Boolean isUpgradeable;
@@ -228,12 +231,19 @@ namespace Towerdefense
             this.upgrade = upgrade;
             this.towerField.X = (int) (position.X / offset.X);
             this.towerField.Y = (int) (position.Y / offset.Y);
+            this.upgradeCost = 10;
         }
 
         public Tower() { }
         #endregion
 
         #region AimAndShoot
+        public void upgradeTower(MouseState ms, MouseState ps,Player player) {
+            if (this.IsSelected && ms.LeftButton == ButtonState.Pressed && ps.LeftButton == ButtonState.Released && player.getGold() > this.upgradeCost) {
+                if (this.Level < 6) { this.Level++; player.setGold(player.getGold()-this.upgradeCost); }
+            }
+        }
+
         public Vector2 SearchClosestEnemy(List<Enemy> enemies){
 
             Vector2 enemy;
