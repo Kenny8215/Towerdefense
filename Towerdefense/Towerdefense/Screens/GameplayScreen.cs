@@ -54,6 +54,7 @@ namespace Towerdefense
         Texture2D moneyIcon;
         Texture2D enemy1;
         Texture2D rangeCircle;
+        Texture2D upgrade;
 
         SpriteFont arial;
 
@@ -80,6 +81,7 @@ namespace Towerdefense
         int towerAmount;
 
         Boolean drawTower;
+        Boolean selectTower;
 
         /*Holds the center positions of all GridElements*/
         Vector2[,] FieldCenterPosition;
@@ -154,7 +156,7 @@ namespace Towerdefense
             {
                 t.Sprite = content.Load<Texture2D>(t.SpritePath);
             }
-
+            */
             gameFont = content.Load<SpriteFont>("gamefont");
             background = content.Load<Texture2D>("background");
             nonroad = content.Load<Texture2D>("tiles/noRoad1");
