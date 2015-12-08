@@ -13,10 +13,14 @@ namespace Towerdefense
     {
         #region Fields
         /*list of tower in game*/
-        List<Tower> towerList;
+        List<Tower> placedTowerList;
+
+        List<Tower> placebleTower;
 
         /*list of enemywaves*/
         List<Wave> waveList;
+
+        List<Field> grid;
 
         /*actual wave*/
         int actualWave;
@@ -26,20 +30,66 @@ namespace Towerdefense
         #endregion
 
         #region setter and getter
-        public List<Tower> TowerList
+        public List<Tower> PlacedTowerList
         {
-            get { return towerList; }
-            set { this.TowerList = towerList; }
+            get { return placedTowerList; }
+            set { placedTowerList = value; }
+        }
+
+        internal List<Wave> WaveList
+        {
+            get
+            {
+                return waveList;
+            }
+
+            set
+            {
+                waveList = value;
+            }
+        }
+
+        internal List<Field> Grid
+        {
+            get
+            {
+                return grid;
+            }
+
+            set
+            {
+                grid = value;
+            }
+        }
+
+        internal List<Tower> PlacebleTower
+        {
+            get
+            {
+                return placebleTower;
+            }
+
+            set
+            {
+                placebleTower = value;
+            }
+        }
+
+        internal int getGridCount()
+        {
+            return levelObject.getGridCount();
         }
         #endregion
 
         #region Constructor
-        public GameManager()
+        public GameManager(String lvl)
         {
             levelObject = new LoadLevel();
-            levelObject.load("Content\\level\\bsp_lvl.xml");
-            waveList = levelObject.getWaves();
-            towerList = new List<Tower>();
+            levelObject.load("Content\\level\\"+lvl);
+            WaveList = levelObject.getWaves();
+            placebleTower = levelObject.getTower();
+            grid = levelObject.getGrid();
+            placedTowerList = new List<Tower>();
         }
         #endregion
 

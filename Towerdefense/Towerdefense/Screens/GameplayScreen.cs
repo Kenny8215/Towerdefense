@@ -30,7 +30,7 @@ namespace Towerdefense
         #region Fields
         ContentManager content;
         SpriteFont gameFont;
-        GameManager gameManager = new GameManager();
+        GameManager gameManager;
 
         Player player = new Player(null, 20, 200, 0);
 
@@ -68,7 +68,8 @@ namespace Towerdefense
 
         Vector2[,] roadTypeAndRotation;
 
-        List<Tower> towerList;
+        List<Tower> placedTowerList;
+        List<Tower> placebleTower;
 
         MouseState previousMouseState;
 
@@ -82,10 +83,8 @@ namespace Towerdefense
 
         /*Holds the center positions of all GridElements*/
         Vector2[,] FieldCenterPosition;
-        private LoadLevel levelObject;
         private List<Wave> waveList;
         private List<Field> grid;
-        private List<Tower> tower;
 
 
         int currentWave;
@@ -113,7 +112,7 @@ namespace Towerdefense
 
             previousMouseState = Mouse.GetState();
             drawTower = false;
-            towerList = new List<Tower>();
+            placedTowerList = new List<Tower>();
         }
 
         public GameplayScreen(string v)
@@ -121,15 +120,15 @@ namespace Towerdefense
             TransitionOnTime = TimeSpan.FromSeconds(1.5);
             TransitionOffTime = TimeSpan.FromSeconds(0.5);
 
+            gameManager = new GameManager(v);
+
             previousMouseState = Mouse.GetState();
             drawTower = false;
-            towerList = new List<Tower>();
-            levelObject = new LoadLevel();
-            levelObject.load("Content\\level\\" + v);
-            waveList = levelObject.getWaves();
-            grid = levelObject.getGrid();
-            tower = levelObject.getTower();
-            amountOfField = levelObject.getGridCount();
+            placedTowerList = gameManager.PlacedTowerList;
+            placebleTower = gameManager.PlacebleTower;
+            waveList = gameManager.WaveList;
+            grid = gameManager.Grid;
+            amountOfField = gameManager.getGridCount();
             FieldCenterPosition = new Vector2[amountOfField, amountOfField];
             currentWave = 0;
             currentEnemy = 0;
@@ -151,7 +150,7 @@ namespace Towerdefense
                 w.Enemy.Sprite = content.Load<Texture2D>(w.Enemy.SpritePath);
             }
 
-            foreach (Tower t in tower)
+            foreach (Tower t in placebleTower)
             {
                 t.Sprite = content.Load<Texture2D>(t.SpritePath);
             }
@@ -215,7 +214,7 @@ namespace Towerdefense
             #endregion
 
             #region Tower
-            towerList = gameManager.TowerList;
+            placedTowerList = gameManager.PlacedTowerList;
             #endregion
 
             #region fullscreen
@@ -367,15 +366,15 @@ namespace Towerdefense
                 highlitedMenuElement = gameManager.SetCurrentMenuField(mouseState, menuRectangle);
                 drawTower = gameManager.TowerToMouse(mouseState, previousMouseState, menuRectangle, drawTower);
 
-                towerAmount = towerList.Count;
-                towerList = gameManager.addPlacedTowerToList(mouseState, previousMouseState, drawTower, towerList, highlightedGridElement, tower1Icon, FieldCenterPosition, amountOfField, roadTypeAndRotation, highlightedGridElement, player, rangeCircle);
+                towerAmount = placedTowerList.Count;
+                placedTowerList = gameManager.addPlacedTowerToList(mouseState, previousMouseState, drawTower, placedTowerList, highlightedGridElement, tower1Icon, FieldCenterPosition, amountOfField, roadTypeAndRotation, highlightedGridElement, player, rangeCircle);
 
-                if (towerAmount != towerList.Count)
+                if (towerAmount != placedTowerList.Count)
                 {
                     roadTypeAndRotation[(int)highlightedGridElement.X, (int)highlightedGridElement.Y].X = 1;
                 }
                 // roadTypeAndRotation[ towerList[towerAmount].Position.X] , towerList[towerAmount].Position.Y ] = 1;  }
-                drawTower = gameManager.placeTower(mouseState, previousMouseState, drawTower, towerList, highlightedGridElement, tower1Icon, FieldCenterPosition, amountOfField);
+                drawTower = gameManager.placeTower(mouseState, previousMouseState, drawTower, placedTowerList, highlightedGridElement, tower1Icon, FieldCenterPosition, amountOfField);
 
 
 
@@ -414,7 +413,7 @@ namespace Towerdefense
 
 
             /*Draws All towers in the grid*/
-            gameManager.drawTowers(towerList, spriteBatch, ScreenManager.GraphicsDevice, amountOfField);
+            gameManager.drawTowers(placedTowerList, spriteBatch, ScreenManager.GraphicsDevice, amountOfField);
 
             /*Draws The TowerTexture to the Mouseposition when leftclicked*/
             gameManager.drawTowerToMouse(Mouse.GetState().Position, drawTower, spriteBatch, tower1Icon, amountOfField, ScreenManager.GraphicsDevice);

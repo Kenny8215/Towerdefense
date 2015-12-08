@@ -47,7 +47,7 @@ namespace Towerdefense
                 return this.level;
             }
             set {
-                this.Level = level;
+                level = value;
             }
         }
         public Texture2D RangeCircle{
@@ -56,7 +56,7 @@ namespace Towerdefense
             }
 
             set {
-                this.RangeCircle = rangeCircle;
+                rangeCircle = value;
             }
     }
 
@@ -127,7 +127,7 @@ namespace Towerdefense
             }
         }
             
-        public Boolean IsUpgradeable
+        public bool IsUpgradeable
         {
             get
             {
@@ -136,7 +136,7 @@ namespace Towerdefense
 
             set
             {
-                IsUpgradeable = value;
+                isUpgradeable = value;
             }
         }
 

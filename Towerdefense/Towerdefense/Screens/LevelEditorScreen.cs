@@ -30,7 +30,7 @@ namespace Towerdefense
 
         ContentManager content;
         SpriteFont gameFont;
-        GameManager gameManager = new GameManager();
+        GameManager gameManager;
 
         Rectangle fullscreen;
 
@@ -73,6 +73,8 @@ namespace Towerdefense
         {
             TransitionOnTime = TimeSpan.FromSeconds(1.5);
             TransitionOffTime = TimeSpan.FromSeconds(0.5);
+
+            gameManager = new GameManager("bsp_lvl");
         }
 
 
