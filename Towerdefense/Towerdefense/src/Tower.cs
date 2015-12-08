@@ -41,6 +41,9 @@ namespace Towerdefense
 
         private Texture2D upgrade;
 
+        Enemy closestEnemy;
+        Vector2 enemyVector;
+
         #endregion  
 
         #region Setter and Getter
@@ -213,10 +216,27 @@ namespace Towerdefense
         #endregion
 
         #region AimAndShoot
-        public Vector2 SearchClosestEnemy(){
-        
-        //TO DO : Searchs the closest Enemy 
-            return Vector2.Zero;
+        public Vector2 SearchClosestEnemy(List<Enemy> enemies){
+
+            Vector2 enemy;
+            Vector2 tmp;
+
+            enemy = enemies[0].Position - this.position;
+            closestEnemy = enemies[0];
+            enemyVector = enemy;
+
+            for(int i = 0; i < enemies.Count; i++)
+            {
+                tmp = enemies[i].Position - this.position;
+                if (enemy.Length() > tmp.Length())
+                {
+                    enemy = tmp;
+                    enemyVector = tmp;
+                    closestEnemy = enemies[i];
+                }
+            }
+            
+            return enemy;
 
         }
 

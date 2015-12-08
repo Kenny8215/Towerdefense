@@ -193,7 +193,7 @@ namespace Towerdefense
                         if (FieldCenterPosition[(int)position.X, (int)position.Y] == t.Position) { return towerList; }
                     }
                     player.setGold(player.getGold() - 50);
-                    towerList.Add(new Tower(towerTexture, rangeCircle,upgrade, FieldCenterPosition[(int)position.X, (int)position.Y]));
+                    towerList.Add(new Tower(towerTexture, rangeCircle, upgrade, FieldCenterPosition[(int)position.X, (int)position.Y]));
                 }
             }
 
