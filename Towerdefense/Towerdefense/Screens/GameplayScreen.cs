@@ -377,7 +377,7 @@ namespace Towerdefense
                 drawTower = gameManager.TowerToMouse(mouseState, previousMouseState, menuRectangle, drawTower);
 
                 towerAmount = placedTowerList.Count;
-                placedTowerList = gameManager.addPlacedTowerToList(mouseState, previousMouseState, drawTower, placedTowerList, highlightedGridElement, tower1Icon, FieldCenterPosition, amountOfField, roadTypeAndRotation, highlightedGridElement, player, rangeCircle, upgrade);
+                placedTowerList = gameManager.addPlacedTowerToList(mouseState, previousMouseState, drawTower, placedTowerList, highlightedGridElement, tower1Icon, FieldCenterPosition, amountOfField, roadTypeAndRotation, highlightedGridElement, player, rangeCircle, upgrade,offset);
 
                 if (towerAmount != placedTowerList.Count)
                 {
@@ -421,7 +421,7 @@ namespace Towerdefense
             /*Draws the normal grid (has to be replaced with load level*/
             gameManager.drawGrid(roadTypeAndRotation, FieldCenterPosition, highlightedGridElement, amountOfField, roadArray, content, spriteBatch, ScreenManager.GraphicsDevice);
 
-
+            gameManager.towerSelected(placedTowerList, highlightedGridElement);
             /*Draws All towers in the grid*/
             gameManager.drawTowers(placedTowerList, spriteBatch, ScreenManager.GraphicsDevice, amountOfField);
 

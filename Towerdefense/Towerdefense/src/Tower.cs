@@ -41,12 +41,28 @@ namespace Towerdefense
 
         private Texture2D upgrade;
 
-        Enemy closestEnemy;
-        Vector2 enemyVector;
+        private Enemy closestEnemy;
+
+        private Vector2 enemyVector;
+
+        private Vector2 towerField;
+
+        private Boolean isSelected;
 
         #endregion  
 
         #region Setter and Getter
+
+        public Boolean IsSelected {
+            get { return this.isSelected; }
+            set { this.isSelected = value;}
+        }
+
+        public Vector2 TowerField {
+            get { return this.towerField; }
+            set { this.towerField = value; }
+        }
+
         public int Level {
             get {
                 return this.level;
@@ -204,12 +220,14 @@ namespace Towerdefense
         }
 
         /*Testconstructor*/
-        public Tower(Texture2D sprite,Texture2D rangeCircle,Texture2D upgrade , Vector2 position) : base(sprite) {
+        public Tower(Texture2D sprite,Texture2D rangeCircle,Texture2D upgrade , Vector2 position, Vector2 offset) : base(sprite) {
             this.position = position;
             this.rangeCircle = rangeCircle;
             this.range = 175;
             this.level = 1;
             this.upgrade = upgrade;
+            this.towerField.X = (int) (position.X / offset.X);
+            this.towerField.Y = (int) (position.Y / offset.Y);
         }
 
         public Tower() { }
@@ -220,6 +238,7 @@ namespace Towerdefense
 
             Vector2 enemy;
             Vector2 tmp;
+            
 
             enemy = enemies[0].Position - this.position;
             closestEnemy = enemies[0];

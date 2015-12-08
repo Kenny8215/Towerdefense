@@ -111,10 +111,20 @@ namespace Towerdefense
                     tmp.X = scalev.X * (0.5F + 0.1F * t.Level);
                     tmp.Y = scalev.Y * (0.5F + 0.1F * t.Level);
                     spriteBatch.Draw(t.Sprite, t.Position, null, null, origin, 0F, tmp, Color.White, SpriteEffects.None, 0);
-                    spriteBatch.Draw(t.RangeCircle, t.Position, null, null, new Vector2(t.RangeCircle.Width / 2, t.RangeCircle.Height / 2), 0F, new Vector2(t.Range * 0.001F, t.Range * 0.001F), Color.White, SpriteEffects.None, 0);
-                    if (t.Level < 10) { spriteBatch.Draw(t.Upgrade, t.Position, null, null, new Vector2(t.Upgrade.Width / 2, t.Upgrade.Height / 2), 0F, new Vector2(scaleU, scaleU), Color.White, SpriteEffects.None, 0F); }
-                    else { spriteBatch.Draw(t.Upgrade, t.Position, null, null, new Vector2(t.Upgrade.Width / 2, t.Upgrade.Height / 2), 0F, new Vector2(scaleU, scaleU), Color.White, SpriteEffects.None, 0F); }
-                }
+                    if (t.IsSelected)
+                    {
+                        spriteBatch.Draw(t.RangeCircle, t.Position, null, null, new Vector2(t.RangeCircle.Width / 2, t.RangeCircle.Height / 2), 0F, new Vector2(t.Range * 0.001F, t.Range * 0.001F), Color.White, SpriteEffects.None, 0);
+                        if (t.Level < 10) { spriteBatch.Draw(t.Upgrade, t.Position, null, null, new Vector2(t.Upgrade.Width / 2, t.Upgrade.Height / 2), 0F, new Vector2(scaleU, scaleU), Color.White, SpriteEffects.None, 0F); }
+                        else { spriteBatch.Draw(t.Upgrade, t.Position, null, null, new Vector2(t.Upgrade.Width / 2, t.Upgrade.Height / 2), 0F, new Vector2(scaleU, scaleU), Color.White, SpriteEffects.None, 0F); }
+                    }
+                   }
+            }
+        }
+
+        public void towerSelected(List<Tower> towerList, Vector2 highlightedGridElement) {
+            foreach (Tower t in towerList) {
+                if (t.TowerField == highlightedGridElement) { t.IsSelected = true; }
+                else { t.IsSelected = false; }
             }
         }
         #endregion
@@ -182,7 +192,7 @@ namespace Towerdefense
             return drawTower;
         }
 
-        public List<Tower> addPlacedTowerToList(MouseState ms, MouseState ps, Boolean drawTower, List<Tower> towerList, Vector2 position, Texture2D towerTexture, Vector2[,] FieldCenterPosition, int amountOfField, Vector2[,] roadTypeRotation, Vector2 highlightedGridElement, Player player,Texture2D rangeCircle,Texture2D upgrade)
+        public List<Tower> addPlacedTowerToList(MouseState ms, MouseState ps, Boolean drawTower, List<Tower> towerList, Vector2 position, Texture2D towerTexture, Vector2[,] FieldCenterPosition, int amountOfField, Vector2[,] roadTypeRotation, Vector2 highlightedGridElement, Player player,Texture2D rangeCircle,Texture2D upgrade,Vector2 offset)
         {
             if (player.getGold() >= 50)
             {
@@ -193,7 +203,7 @@ namespace Towerdefense
                         if (FieldCenterPosition[(int)position.X, (int)position.Y] == t.Position) { return towerList; }
                     }
                     player.setGold(player.getGold() - 50);
-                    towerList.Add(new Tower(towerTexture, rangeCircle, upgrade, FieldCenterPosition[(int)position.X, (int)position.Y]));
+                    towerList.Add(new Tower(towerTexture, rangeCircle, upgrade, FieldCenterPosition[(int)position.X, (int)position.Y],offset));
                 }
             }
 
