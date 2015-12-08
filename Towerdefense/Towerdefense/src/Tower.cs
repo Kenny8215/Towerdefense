@@ -39,6 +39,8 @@ namespace Towerdefense
         /*Towerposition*/
         private Vector2 position;
 
+        private Texture2D upgrade;
+
         #endregion  
 
         #region Setter and Getter
@@ -180,6 +182,10 @@ namespace Towerdefense
             }
         }
 
+        public Texture2D Upgrade {
+            get { return upgrade; }
+            set { upgrade = value; }
+        }
         #endregion
 
         #region Constructors
@@ -195,11 +201,12 @@ namespace Towerdefense
         }
 
         /*Testconstructor*/
-        public Tower(Texture2D sprite,Texture2D rangeCircle , Vector2 position) : base(sprite) {
+        public Tower(Texture2D sprite,Texture2D rangeCircle,Texture2D upgrade , Vector2 position) : base(sprite) {
             this.position = position;
             this.rangeCircle = rangeCircle;
             this.range = 175;
             this.level = 1;
+            this.upgrade = upgrade;
         }
 
         public Tower() { }

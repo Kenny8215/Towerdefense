@@ -54,6 +54,7 @@ namespace Towerdefense
         Texture2D moneyIcon;
         Texture2D enemy1;
         Texture2D rangeCircle;
+        Texture2D upgrade;
 
         SpriteFont arial;
 
@@ -79,6 +80,7 @@ namespace Towerdefense
         int towerAmount;
 
         Boolean drawTower;
+        Boolean selectTower;
 
         /*Holds the center positions of all GridElements*/
         Vector2[,] FieldCenterPosition;
@@ -151,11 +153,11 @@ namespace Towerdefense
                 w.Enemy.Sprite = content.Load<Texture2D>(w.Enemy.SpritePath);
             }
 
-            foreach (Tower t in tower)
+      /*      foreach (Tower t in tower)
             {
                 t.Sprite = content.Load<Texture2D>(t.SpritePath);
             }
-
+            */
             gameFont = content.Load<SpriteFont>("gamefont");
             background = content.Load<Texture2D>("background");
             nonroad = content.Load<Texture2D>("tiles/noRoad1");
@@ -368,7 +370,7 @@ namespace Towerdefense
                 drawTower = gameManager.TowerToMouse(mouseState, previousMouseState, menuRectangle, drawTower);
 
                 towerAmount = towerList.Count;
-                towerList = gameManager.addPlacedTowerToList(mouseState, previousMouseState, drawTower, towerList, highlightedGridElement, tower1Icon, FieldCenterPosition, amountOfField, roadTypeAndRotation, highlightedGridElement, player, rangeCircle);
+                towerList = gameManager.addPlacedTowerToList(mouseState, previousMouseState, drawTower, towerList, highlightedGridElement, tower1Icon, FieldCenterPosition, amountOfField, roadTypeAndRotation, highlightedGridElement, player, rangeCircle,upgrade);
 
                 if (towerAmount != towerList.Count)
                 {
