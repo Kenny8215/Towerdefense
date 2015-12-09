@@ -28,6 +28,11 @@ namespace Towerdefense
 
         /*LevelObject which contains Content loaded out of an *.xml */
         LoadLevel levelObject;
+
+        Texture2D icon_texture;
+        float icon_scale;
+        Vector2 icon_origin;
+        Vector2 icon_msv;
         #endregion
 
         #region setter and getter
@@ -168,7 +173,7 @@ namespace Towerdefense
         }
 
         /*Checks if a TowerIcon has been clicked - returns true when a TowerIcon has been clicked*/
-        public Boolean TowerToMouse(MouseState ms, MouseState ps, Rectangle[] menuRectangle, Boolean drawTower)
+        public Boolean TowerToMouse(MouseState ms, MouseState ps, Rectangle[] menuRectangle, Boolean drawTower,Texture2D[] menuTextureArray,int currentMenuElement)
         {
             if (ms.RightButton == ButtonState.Pressed && ps.RightButton == ButtonState.Released) { return false; }
             if (drawTower == true)
@@ -180,6 +185,9 @@ namespace Towerdefense
                 for (int i = 2; i < menuRectangle.Length; i++)
                     if (ms.LeftButton == ButtonState.Pressed && ps.LeftButton == ButtonState.Released && menuRectangle[i].Contains(ms.Position))
                     {
+                        this.icon_texture = menuTextureArray[currentMenuElement];
+                        this.icon_origin = new Vector2(this.icon_texture.Width / 2, this.icon_texture.Height / 2);
+                        this.icon_msv = new Vector2(ms.X, ms.Y);
                         return true;
                     }
             }
@@ -188,14 +196,14 @@ namespace Towerdefense
         }
 
         /*Draws the tower to the Mouse when drawTower is true the texture of the tower will be drawn to the mouseposition*/
-        public void drawTowerToMouse(Point ms, Boolean drawTower, SpriteBatch spriteBatch, Texture2D towerTexture, int amountOfFields, GraphicsDevice graphicsDevice)
+        public void drawTowerToMouse(Boolean drawTower, SpriteBatch spriteBatch, GraphicsDevice graphicsDevice,int amountOfFields)
         {
-            float scale = (float) 0.5 * graphicsDevice.Viewport.Height / (amountOfFields * towerTexture.Height);
-            Vector2 origin = new Vector2(towerTexture.Width / 2, towerTexture.Height / 2);
-            Vector2 msV = new Vector2(ms.X, ms.Y);
+            
+          
             if (drawTower)
             {
-                spriteBatch.Draw(towerTexture, msV, null, Color.White, 0F, origin, scale, SpriteEffects.None, 1F);
+                float scale = (float)0.5 * graphicsDevice.Viewport.Height / (amountOfFields * this.icon_texture.Height);
+                spriteBatch.Draw(this.icon_texture, this.icon_msv, null, Color.White, 0F, this.icon_origin, this.icon_scale, SpriteEffects.None, 1F);
             }
         }
 

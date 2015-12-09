@@ -169,15 +169,15 @@ namespace Towerdefense
             lifeIcon = content.Load<Texture2D>("Menu/shieldicon");
             moneyIcon = content.Load<Texture2D>("Menu/helmicon");
             tower1Icon = content.Load<Texture2D>("Menu/tower1");
-            tower2Icon = content.Load<Texture2D>("Menu/tower1");
-            tower3Icon = content.Load<Texture2D>("Menu/tower1");
-            tower4Icon = content.Load<Texture2D>("Menu/tower1");
+            tower2Icon = content.Load<Texture2D>("Menu/tower2");
+       /*     tower3Icon = content.Load<Texture2D>("Menu/tower1");
+            tower4Icon = content.Load<Texture2D>("Menu/tower1");*/
             rangeCircle = content.Load<Texture2D>("rangeCircle");
 
             upgrade = content.Load < Texture2D>("tower/upgradeGreen");
 
             roadArray = new Texture2D[] { nonroad, nonroad1, road1, road2, road3, road4 };
-            menuTextureArray = new Texture2D[] { lifeIcon, moneyIcon, tower1Icon, tower2Icon, tower3Icon, tower4Icon, };
+            menuTextureArray = new Texture2D[] { lifeIcon, moneyIcon, tower1Icon, tower2Icon};
 
             foreach(Wave w in waveList)
             {
@@ -374,7 +374,7 @@ namespace Towerdefense
             {
                 highlightedGridElement = gameManager.SetCurrentFieldMouse(mouseState, offset, highlightedGridElement, true);
                 highlitedMenuElement = gameManager.SetCurrentMenuField(mouseState, menuRectangle);
-                drawTower = gameManager.TowerToMouse(mouseState, previousMouseState, menuRectangle, drawTower);
+                drawTower = gameManager.TowerToMouse(mouseState, previousMouseState, menuRectangle, drawTower,menuTextureArray,highlitedMenuElement);
 
                 towerAmount = placedTowerList.Count;
                 placedTowerList = gameManager.addPlacedTowerToList(mouseState, previousMouseState, drawTower, placedTowerList, highlightedGridElement, tower1Icon, FieldCenterPosition, amountOfField, roadTypeAndRotation, highlightedGridElement, player, rangeCircle, upgrade,offset);
@@ -428,7 +428,7 @@ namespace Towerdefense
             gameManager.drawTowers(placedTowerList, spriteBatch, ScreenManager.GraphicsDevice, amountOfField);
 
             /*Draws The TowerTexture to the Mouseposition when leftclicked*/
-            gameManager.drawTowerToMouse(Mouse.GetState().Position, drawTower, spriteBatch, tower1Icon, amountOfField, ScreenManager.GraphicsDevice);
+            gameManager.drawTowerToMouse(drawTower, spriteBatch,ScreenManager.GraphicsDevice,amountOfField);
 
             gameManager.drawEnemies(toDraw, spriteBatch);
             spriteBatch.End();
