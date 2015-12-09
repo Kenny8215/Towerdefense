@@ -65,7 +65,7 @@ namespace Towerdefense
                           FireRate = Convert.ToInt32(tower.Element("rate").Value),
                           Speed = Convert.ToInt32(tower.Element("speed").Value),
                           IsUpgradeable = Convert.ToBoolean(tower.Element("upgrade").Value),
-                          SpritePath = "Menu/tower1"
+                          SpritePath = tower.Element("path").Value
                       }).ToList();
 
             XElement g = doc.Descendants("grid").ElementAt(0);
