@@ -278,15 +278,14 @@ namespace Towerdefense
 
         public Boolean CanShootEnemy(Vector2 enemyPosition)
         {
-            float x = enemyPosition.X - this.Position.X;
-            float y = enemyPosition.Y - this.Position.Y;
-            float posrangeX = this.Position.X + this.Range;
-            float posrangeY = this.Position.Y + this.Range;
-
-            if (((x > posrangeX) && (y > posrangeY)) || ((x < posrangeX) && (y > posrangeY)) || ((x > posrangeX) && (y < posrangeY)) || ((x < posrangeX) && (y < posrangeY))){
+            if (enemyVector.Length() > this.range)
+            {
                 return false;
-            } 
-            else { return true; }
+            }
+            else
+            {
+                return true;
+            }
         }
 
         public void Shoot() { }

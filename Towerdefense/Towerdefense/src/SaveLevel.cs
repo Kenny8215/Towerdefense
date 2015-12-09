@@ -127,41 +127,41 @@ namespace Towerdefense
             path.InnerText = "tower/tower1";
             tow.AppendChild(path);
 
+            tower.AppendChild(tow);
 
-
-            tow = doc.CreateElement("tow");
+            XmlNode tow2 = doc.CreateElement("tow");
 
 
             range = doc.CreateElement("range");
             range.InnerText = "5";
-            tow.AppendChild(range);
+            tow2.AppendChild(range);
 
             cost = doc.CreateElement("cost");
             cost.InnerText = "50";
-            tow.AppendChild(cost);
+            tow2.AppendChild(cost);
 
             damge = doc.CreateElement("damage");
             damge.InnerText = "5";
-            tow.AppendChild(damge);
+            tow2.AppendChild(damge);
 
             firerate = doc.CreateElement("rate");
             firerate.InnerText = "5";
-            tow.AppendChild(firerate);
+            tow2.AppendChild(firerate);
 
             speed = doc.CreateElement("speed");
             speed.InnerText = "5";
-            tow.AppendChild(speed);
+            tow2.AppendChild(speed);
 
             isUpgradeable = doc.CreateElement("upgrade");
             isUpgradeable.InnerText = "true";
-            tow.AppendChild(isUpgradeable);
+            tow2.AppendChild(isUpgradeable);
 
             path = doc.CreateElement("path");
             path.InnerText = "tower/tower2";
-            tow.AppendChild(path);
+            tow2.AppendChild(path);
 
 
-            tower.AppendChild(tow);
+            tower.AppendChild(tow2);
 
             myRoot.AppendChild(tower);
 
