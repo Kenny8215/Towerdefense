@@ -135,6 +135,21 @@ namespace Towerdefense
                 }
             }
         }
+
+        public void towerShoot(List<Tower> towerList, List<Wave> waveList) {
+            Vector2 closestEnemyPosition;
+            Boolean canShoot;
+            foreach (Wave w in waveList)
+            {
+               
+                foreach (Tower t in towerList)
+                {
+                    closestEnemyPosition = t.SearchClosestEnemy(w.getEnemys());
+                    canShoot = t.CanShootEnemy(closestEnemyPosition);
+                    if (canShoot) { /*t.Shoot();*/ }
+                }
+            }
+        }
         #endregion
 
         #region PlayerInput

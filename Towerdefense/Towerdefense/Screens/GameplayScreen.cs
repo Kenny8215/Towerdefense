@@ -378,7 +378,7 @@ namespace Towerdefense
 
                 towerAmount = placedTowerList.Count;
                 placedTowerList = gameManager.addPlacedTowerToList(mouseState, previousMouseState, drawTower, placedTowerList, highlightedGridElement, tower1Icon, FieldCenterPosition, amountOfField, roadTypeAndRotation, highlightedGridElement, player, rangeCircle, upgrade,offset);
-
+         
                 if (towerAmount != placedTowerList.Count)
                 {
                     roadTypeAndRotation[(int)highlightedGridElement.X, (int)highlightedGridElement.Y].X = 1;
@@ -387,9 +387,9 @@ namespace Towerdefense
             gameManager.towerSelected(placedTowerList, highlightedGridElement);
             gameManager.towerUpgraded(placedTowerList,mouseState,previousMouseState,player);
                 // roadTypeAndRotation[ towerList[towerAmount].Position.X] , towerList[towerAmount].Position.Y ] = 1;  }
-                drawTower = gameManager.placeTower(mouseState, previousMouseState, drawTower, placedTowerList, highlightedGridElement, tower1Icon, FieldCenterPosition, amountOfField);
+            drawTower = gameManager.placeTower(mouseState, previousMouseState, drawTower, placedTowerList, highlightedGridElement, tower1Icon, FieldCenterPosition, amountOfField);
 
-
+            gameManager.towerShoot(placedTowerList, waveList);
 
 
                 //TODO Handle Input
