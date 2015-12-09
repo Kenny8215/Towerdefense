@@ -15,6 +15,7 @@ namespace Towerdefense
         /*list of tower in game*/
         List<Tower> placedTowerList;
 
+        /*Towers that can be placed*/
         List<Tower> placebleTower;
 
         /*list of enemywaves*/
@@ -146,7 +147,7 @@ namespace Towerdefense
                 {
                     closestEnemyPosition = t.SearchClosestEnemy(w.getEnemys());
                     canShoot = t.CanShootEnemy(closestEnemyPosition);
-                    if (canShoot) { /*t.Shoot();*/ }
+                    if (canShoot) { t.Shoot(); }
                 }
             }
         }
@@ -420,7 +421,7 @@ namespace Towerdefense
         public int SetCurrentMenuField(MouseState ms, Rectangle[] menuRectangle)
         {
 
-            for (int j = 0; j < menuRectangle.Length; j++)
+            for (int j = 2; j < menuRectangle.Length; j++)
             {
                 if (menuRectangle[j].Contains(ms.Position.X, ms.Position.Y))
                 {

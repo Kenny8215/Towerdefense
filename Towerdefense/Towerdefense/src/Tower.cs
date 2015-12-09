@@ -284,10 +284,12 @@ namespace Towerdefense
             float posrangeY = this.Position.Y + this.Range;
 
             if (((x > posrangeX) && (y > posrangeY)) || ((x < posrangeX) && (y > posrangeY)) || ((x > posrangeX) && (y < posrangeY)) || ((x < posrangeX) && (y < posrangeY))){
-                return true;
+                return false;
             } 
-            else { return false; }
+            else { return true; }
         }
+
+        public void Shoot() { }
         #endregion
 
 
