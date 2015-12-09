@@ -14,7 +14,9 @@ namespace Towerdefense
 
         Texture2D sprite;
         Texture2D rangeCircle;
+        Texture2D weapon;
         string spritePath;
+
 
         /*Towerrange*/
         private int range;
@@ -55,7 +57,10 @@ namespace Towerdefense
         #endregion  
 
         #region Setter and Getter
-
+        public Texture2D Weapon {
+            get { return this.Weapon; }
+            set { this.Weapon = value; }
+        }
         public Boolean IsSelected {
             get { return this.isSelected; }
             set { this.isSelected = value;}

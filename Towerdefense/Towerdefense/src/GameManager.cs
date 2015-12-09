@@ -117,6 +117,7 @@ namespace Towerdefense
                     tmp.X = scalev.X * (0.5F + 0.1F * t.Level);
                     tmp.Y = scalev.Y * (0.5F + 0.1F * t.Level);
                     spriteBatch.Draw(t.Sprite, t.Position, null, null, origin, 0F, tmp, Color.White, SpriteEffects.None, 0);
+                //    spriteBatch.Draw(t.Weapon, t.Position, null, null, origin, 0F,tmp,Color.White,SpriteEffects.None,0);
                     if (t.IsSelected)
                     {
                         spriteBatch.Draw(t.RangeCircle, t.Position, null, null, new Vector2(t.RangeCircle.Width / 2, t.RangeCircle.Height / 2), 0F, new Vector2(t.Range * 0.001F, t.Range * 0.001F), Color.White, SpriteEffects.None, 0);
@@ -175,6 +176,7 @@ namespace Towerdefense
         /*Checks if a TowerIcon has been clicked - returns true when a TowerIcon has been clicked*/
         public Boolean TowerToMouse(MouseState ms, MouseState ps, Rectangle[] menuRectangle, Boolean drawTower,Texture2D[] menuTextureArray,int currentMenuElement)
         {
+            this.icon_msv = new Vector2(ms.X, ms.Y);
             if (ms.RightButton == ButtonState.Pressed && ps.RightButton == ButtonState.Released) { return false; }
             if (drawTower == true)
             {
@@ -187,7 +189,6 @@ namespace Towerdefense
                     {
                         this.icon_texture = menuTextureArray[currentMenuElement];
                         this.icon_origin = new Vector2(this.icon_texture.Width / 2, this.icon_texture.Height / 2);
-                        this.icon_msv = new Vector2(ms.X, ms.Y);
                         return true;
                     }
             }
@@ -202,7 +203,7 @@ namespace Towerdefense
           
             if (drawTower)
             {
-                float scale = (float)0.5 * graphicsDevice.Viewport.Height / (amountOfFields * this.icon_texture.Height);
+                this.icon_scale = (float)0.5 * graphicsDevice.Viewport.Height / (amountOfFields * this.icon_texture.Height);
                 spriteBatch.Draw(this.icon_texture, this.icon_msv, null, Color.White, 0F, this.icon_origin, this.icon_scale, SpriteEffects.None, 1F);
             }
         }
