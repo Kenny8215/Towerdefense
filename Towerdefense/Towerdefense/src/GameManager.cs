@@ -13,10 +13,15 @@ namespace Towerdefense
     {
         #region Fields
         /*list of tower in game*/
-        List<Tower> towerList;
+        List<Tower> placedTowerList;
+
+        /*Towers that can be placed*/
+        List<Tower> placebleTower;
 
         /*list of enemywaves*/
         List<Wave> waveList;
+
+        List<Field> grid;
 
         /*actual wave*/
         int actualWave;
@@ -26,20 +31,66 @@ namespace Towerdefense
         #endregion
 
         #region setter and getter
-        public List<Tower> TowerList
+        public List<Tower> PlacedTowerList
         {
-            get { return towerList; }
-            set { this.TowerList = towerList; }
+            get { return placedTowerList; }
+            set { placedTowerList = value; }
+        }
+
+        internal List<Wave> WaveList
+        {
+            get
+            {
+                return waveList;
+            }
+
+            set
+            {
+                waveList = value;
+            }
+        }
+
+        internal List<Field> Grid
+        {
+            get
+            {
+                return grid;
+            }
+
+            set
+            {
+                grid = value;
+            }
+        }
+
+        internal List<Tower> PlacebleTower
+        {
+            get
+            {
+                return placebleTower;
+            }
+
+            set
+            {
+                placebleTower = value;
+            }
+        }
+
+        internal int getGridCount()
+        {
+            return levelObject.getGridCount();
         }
         #endregion
 
         #region Constructor
-        public GameManager()
+        public GameManager(String lvl)
         {
             levelObject = new LoadLevel();
-            levelObject.load("Content\\level\\bsp_lvl.xml");
-            waveList = levelObject.getWaves();
-            towerList = new List<Tower>();
+            levelObject.load("Content\\level\\"+lvl);
+            WaveList = levelObject.getWaves();
+            placebleTower = levelObject.getTower();
+            grid = levelObject.getGrid();
+            placedTowerList = new List<Tower>();
         }
         #endregion
 
@@ -52,6 +103,7 @@ namespace Towerdefense
             else
             {
                 float scale = (float)graphicsDevice.Viewport.Height / (amountOfFields * towerList[0].Sprite.Height);
+                float scaleU = (float)graphicsDevice.Viewport.Height / (amountOfFields * 2000);
                 Vector2 scalev = new Vector2(scale, scale);
                 Vector2 origin = new Vector2(towerList[0].Sprite.Width / 2, towerList[0].Sprite.Height / 2);
                 foreach (Tower t in towerList)
@@ -60,7 +112,42 @@ namespace Towerdefense
                     tmp.X = scalev.X * (0.5F + 0.1F * t.Level);
                     tmp.Y = scalev.Y * (0.5F + 0.1F * t.Level);
                     spriteBatch.Draw(t.Sprite, t.Position, null, null, origin, 0F, tmp, Color.White, SpriteEffects.None, 0);
-                    spriteBatch.Draw(t.RangeCircle, t.Position, null, null, new Vector2(t.RangeCircle.Width / 2, t.RangeCircle.Height / 2), 0F, new Vector2(t.Range * 0.001F, t.Range * 0.001F), Color.White, SpriteEffects.None, 0);
+                    if (t.IsSelected)
+                    {
+                        spriteBatch.Draw(t.RangeCircle, t.Position, null, null, new Vector2(t.RangeCircle.Width / 2, t.RangeCircle.Height / 2), 0F, new Vector2(t.Range * 0.001F, t.Range * 0.001F), Color.White, SpriteEffects.None, 0);
+                        if (t.Level < 10) { spriteBatch.Draw(t.Upgrade, t.Position, null, null, new Vector2(t.Upgrade.Width / 2, t.Upgrade.Height / 2), 0F, new Vector2(scaleU, scaleU), Color.White, SpriteEffects.None, 0F); }
+                        else { spriteBatch.Draw(t.Upgrade, t.Position, null, null, new Vector2(t.Upgrade.Width / 2, t.Upgrade.Height / 2), 0F, new Vector2(scaleU, scaleU), Color.White, SpriteEffects.None, 0F); }
+                    }
+                   }
+            }
+        }
+
+        public void towerSelected(List<Tower> towerList, Vector2 highlightedGridElement) {
+            foreach (Tower t in towerList) {
+                if (t.TowerField == highlightedGridElement) { t.IsSelected = true; }
+                else { t.IsSelected = false; }
+            }
+        }
+
+        public void towerUpgraded(List<Tower> towerList,MouseState ms, MouseState ps,Player player) {
+            foreach (Tower t in towerList) {
+                if(t.IsSelected){
+                t.upgradeTower(ms, ps, player);
+                }
+            }
+        }
+
+        public void towerShoot(List<Tower> towerList, List<Wave> waveList) {
+            Vector2 closestEnemyPosition;
+            Boolean canShoot;
+            foreach (Wave w in waveList)
+            {
+               
+                foreach (Tower t in towerList)
+                {
+                    closestEnemyPosition = t.SearchClosestEnemy(w.getEnemys());
+                    canShoot = t.CanShootEnemy(closestEnemyPosition);
+                    if (canShoot) { t.Shoot(); }
                 }
             }
         }
@@ -103,7 +190,7 @@ namespace Towerdefense
         /*Draws the tower to the Mouse when drawTower is true the texture of the tower will be drawn to the mouseposition*/
         public void drawTowerToMouse(Point ms, Boolean drawTower, SpriteBatch spriteBatch, Texture2D towerTexture, int amountOfFields, GraphicsDevice graphicsDevice)
         {
-            float scale = (float)graphicsDevice.Viewport.Height / (amountOfFields * towerTexture.Height);
+            float scale = (float) 0.5 * graphicsDevice.Viewport.Height / (amountOfFields * towerTexture.Height);
             Vector2 origin = new Vector2(towerTexture.Width / 2, towerTexture.Height / 2);
             Vector2 msV = new Vector2(ms.X, ms.Y);
             if (drawTower)
@@ -129,7 +216,7 @@ namespace Towerdefense
             return drawTower;
         }
 
-        public List<Tower> addPlacedTowerToList(MouseState ms, MouseState ps, Boolean drawTower, List<Tower> towerList, Vector2 position, Texture2D towerTexture, Vector2[,] FieldCenterPosition, int amountOfField, Vector2[,] roadTypeRotation, Vector2 highlightedGridElement, Player player,Texture2D rangeCircle)
+        public List<Tower> addPlacedTowerToList(MouseState ms, MouseState ps, Boolean drawTower, List<Tower> towerList, Vector2 position, Texture2D towerTexture, Vector2[,] FieldCenterPosition, int amountOfField, Vector2[,] roadTypeRotation, Vector2 highlightedGridElement, Player player,Texture2D rangeCircle,Texture2D upgrade,Vector2 offset)
         {
             if (player.getGold() >= 50)
             {
@@ -140,7 +227,7 @@ namespace Towerdefense
                         if (FieldCenterPosition[(int)position.X, (int)position.Y] == t.Position) { return towerList; }
                     }
                     player.setGold(player.getGold() - 50);
-                    towerList.Add(new Tower(towerTexture, rangeCircle, FieldCenterPosition[(int)position.X, (int)position.Y]));
+                    towerList.Add(new Tower(towerTexture, rangeCircle, upgrade, FieldCenterPosition[(int)position.X, (int)position.Y],offset));
                 }
             }
 
@@ -334,7 +421,7 @@ namespace Towerdefense
         public int SetCurrentMenuField(MouseState ms, Rectangle[] menuRectangle)
         {
 
-            for (int j = 0; j < menuRectangle.Length; j++)
+            for (int j = 2; j < menuRectangle.Length; j++)
             {
                 if (menuRectangle[j].Contains(ms.Position.X, ms.Position.Y))
                 {

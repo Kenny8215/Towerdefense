@@ -56,7 +56,7 @@ namespace Towerdefense
                         Rotation = Convert.ToInt32(field.Element("rotation").Value)
                     }).ToList();
 
-            tower1 = (from tower in doc.Descendants("tower")
+            tower1 = (from tower in doc.Descendants("tow")
                       select new Tower()
                       {
                           Range = Convert.ToInt32(tower.Element("range").Value),

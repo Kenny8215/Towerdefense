@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace Towerdefense
 {
@@ -30,6 +31,8 @@ namespace Towerdefense
         /*Projectile Speed*/
         private int speed;
 
+        private int upgradeCost;
+
         /*Tower can be upgraded*/
         private Boolean isUpgradeable;
 
@@ -39,15 +42,36 @@ namespace Towerdefense
         /*Towerposition*/
         private Vector2 position;
 
+        private Texture2D upgrade;
+
+        private Enemy closestEnemy;
+
+        private Vector2 enemyVector;
+
+        private Vector2 towerField;
+
+        private Boolean isSelected;
+
         #endregion  
 
         #region Setter and Getter
+
+        public Boolean IsSelected {
+            get { return this.isSelected; }
+            set { this.isSelected = value;}
+        }
+
+        public Vector2 TowerField {
+            get { return this.towerField; }
+            set { this.towerField = value; }
+        }
+
         public int Level {
             get {
                 return this.level;
             }
             set {
-                this.Level = level;
+                level = value;
             }
         }
         public Texture2D RangeCircle{
@@ -56,7 +80,7 @@ namespace Towerdefense
             }
 
             set {
-                this.RangeCircle = rangeCircle;
+                rangeCircle = value;
             }
     }
 
@@ -127,7 +151,7 @@ namespace Towerdefense
             }
         }
             
-        public Boolean IsUpgradeable
+        public bool IsUpgradeable
         {
             get
             {
@@ -136,7 +160,7 @@ namespace Towerdefense
 
             set
             {
-                IsUpgradeable = value;
+                isUpgradeable = value;
             }
         }
 
@@ -180,6 +204,10 @@ namespace Towerdefense
             }
         }
 
+        public Texture2D Upgrade {
+            get { return upgrade; }
+            set { upgrade = value; }
+        }
         #endregion
 
         #region Constructors
@@ -195,28 +223,73 @@ namespace Towerdefense
         }
 
         /*Testconstructor*/
-        public Tower(Texture2D sprite,Texture2D rangeCircle , Vector2 position) : base(sprite) {
+        public Tower(Texture2D sprite,Texture2D rangeCircle,Texture2D upgrade , Vector2 position, Vector2 offset) : base(sprite) {
             this.position = position;
             this.rangeCircle = rangeCircle;
             this.range = 175;
-            this.level = 1;
+            this.level = 0;
+            this.upgrade = upgrade;
+            this.towerField.X = (int) (position.X / offset.X);
+            this.towerField.Y = (int) (position.Y / offset.Y);
+            this.upgradeCost = 10;
         }
 
         public Tower() { }
         #endregion
 
         #region AimAndShoot
-        public Vector2 SearchClosestEnemy(){
-        
-        //TO DO : Searchs the closest Enemy 
-            return Vector2.Zero;
+        public void upgradeTower(MouseState ms, MouseState ps,Player player) {
+            if (this.Level == 0) { this.Level++; }
+            else if (this.IsSelected && ms.LeftButton == ButtonState.Pressed && ps.LeftButton == ButtonState.Released && player.getGold() > this.upgradeCost) {
+                if (this.Level < 6) { 
+                    this.Level++;
+                    player.setGold(player.getGold()-this.upgradeCost);
+                    this.Damage += 5;
+                    this.Range += 25;
+                    this.FireRate += 10;
+               }
+            }
+        }
+
+        public Vector2 SearchClosestEnemy(List<Enemy> enemies){
+
+            Vector2 enemy;
+            Vector2 tmp;
+            
+
+            enemy = enemies[0].Position - this.position;
+            closestEnemy = enemies[0];
+            enemyVector = enemy;
+
+            for(int i = 0; i < enemies.Count; i++)
+            {
+                tmp = enemies[i].Position - this.position;
+                if (enemy.Length() > tmp.Length())
+                {
+                    enemy = tmp;
+                    enemyVector = tmp;
+                    closestEnemy = enemies[i];
+                }
+            }
+            
+            return enemy;
 
         }
 
-        public Boolean CanShootEnemy() {
-        //TO DO : Shoots at the closest Enemy
-            return true;
+        public Boolean CanShootEnemy(Vector2 enemyPosition)
+        {
+            float x = enemyPosition.X - this.Position.X;
+            float y = enemyPosition.Y - this.Position.Y;
+            float posrangeX = this.Position.X + this.Range;
+            float posrangeY = this.Position.Y + this.Range;
+
+            if (((x > posrangeX) && (y > posrangeY)) || ((x < posrangeX) && (y > posrangeY)) || ((x > posrangeX) && (y < posrangeY)) || ((x < posrangeX) && (y < posrangeY))){
+                return false;
+            } 
+            else { return true; }
         }
+
+        public void Shoot() { }
         #endregion
 
 
