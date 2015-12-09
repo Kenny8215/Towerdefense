@@ -227,7 +227,7 @@ namespace Towerdefense
             this.position = position;
             this.rangeCircle = rangeCircle;
             this.range = 175;
-            this.level = 1;
+            this.level = 0;
             this.upgrade = upgrade;
             this.towerField.X = (int) (position.X / offset.X);
             this.towerField.Y = (int) (position.Y / offset.Y);
@@ -239,8 +239,15 @@ namespace Towerdefense
 
         #region AimAndShoot
         public void upgradeTower(MouseState ms, MouseState ps,Player player) {
-            if (this.IsSelected && ms.LeftButton == ButtonState.Pressed && ps.LeftButton == ButtonState.Released && player.getGold() > this.upgradeCost) {
-                if (this.Level < 6) { this.Level++; player.setGold(player.getGold()-this.upgradeCost); }
+            if (this.Level == 0) { this.Level++; }
+            else if (this.IsSelected && ms.LeftButton == ButtonState.Pressed && ps.LeftButton == ButtonState.Released && player.getGold() > this.upgradeCost) {
+                if (this.Level < 6) { 
+                    this.Level++;
+                    player.setGold(player.getGold()-this.upgradeCost);
+                    this.Damage += 5;
+                    this.Range += 25;
+                    this.FireRate += 10;
+               }
             }
         }
 
@@ -269,9 +276,17 @@ namespace Towerdefense
 
         }
 
-        public Boolean CanShootEnemy() {
-        //TO DO : Shoots at the closest Enemy
-            return true;
+        public Boolean CanShootEnemy(Vector2 enemyPosition)
+        {
+            float x = enemyPosition.X - this.Position.X;
+            float y = enemyPosition.Y - this.Position.Y;
+            float posrangeX = this.Position.X + this.Range;
+            float posrangeY = this.Position.Y + this.Range;
+
+            if (((x > posrangeX) && (y > posrangeY)) || ((x < posrangeX) && (y > posrangeY)) || ((x > posrangeX) && (y < posrangeY)) || ((x < posrangeX) && (y < posrangeY))){
+                return true;
+            } 
+            else { return false; }
         }
         #endregion
 
