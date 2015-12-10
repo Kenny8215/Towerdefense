@@ -55,6 +55,7 @@ namespace Towerdefense
         Texture2D enemy1;
         Texture2D rangeCircle;
         Texture2D upgrade;
+        Texture2D projectile;
 
         SpriteFont arial;
 
@@ -71,6 +72,7 @@ namespace Towerdefense
 
         List<Tower> placedTowerList;
         List<Tower> placebleTower;
+        List<Projectile> PList;
 
         MouseState previousMouseState;
 
@@ -155,7 +157,9 @@ namespace Towerdefense
             foreach (Tower t in placebleTower)
             {
                 t.Sprite = content.Load<Texture2D>(t.SpritePath);
+                t.Weapon = content.Load<Texture2D>(t.WeaponPath);
             }
+
             
             gameFont = content.Load<SpriteFont>("gamefont");
             background = content.Load<Texture2D>("background");
@@ -331,10 +335,14 @@ namespace Towerdefense
                     e.Position= gameManager.updateEnemies(e,roadTypeAndRotation, offset, amountOfField, FieldCenterPosition);
                 }
 
+                gameManager.CurrentEnemys = toDraw;
+                gameManager.towerShoot(placedTowerList, toDraw);
+                gameManager.moveProjectiles();
+
                 // TODO: this game isn't very fun! You could probably improve
                 // it by inserting something more interesting in this space :-)
 
-                for(int i = 0; i < placedTowerList.Count; i++)
+                for (int i = 0; i < placedTowerList.Count; i++)
                 {
                     placedTowerList[i].SearchClosestEnemy(toDraw);
                 }
@@ -389,7 +397,7 @@ namespace Towerdefense
                 // roadTypeAndRotation[ towerList[towerAmount].Position.X] , towerList[towerAmount].Position.Y ] = 1;  }
             drawTower = gameManager.placeTower(mouseState, previousMouseState, drawTower, placedTowerList, highlightedGridElement, tower1Icon, FieldCenterPosition, amountOfField);
 
-            gameManager.towerShoot(placedTowerList, waveList);
+            
 
 
                 //TODO Handle Input
@@ -429,6 +437,8 @@ namespace Towerdefense
 
             /*Draws The TowerTexture to the Mouseposition when leftclicked*/
             gameManager.drawTowerToMouse(drawTower, spriteBatch,ScreenManager.GraphicsDevice,amountOfField);
+
+            
 
             gameManager.drawEnemies(toDraw, spriteBatch);
             spriteBatch.End();

@@ -65,7 +65,8 @@ namespace Towerdefense
                           FireRate = Convert.ToInt32(tower.Element("rate").Value),
                           Speed = Convert.ToInt32(tower.Element("speed").Value),
                           IsUpgradeable = Convert.ToBoolean(tower.Element("upgrade").Value),
-                          SpritePath = tower.Element("path").Value
+                          SpritePath = tower.Element("path").Value,
+                          WeaponPath="tower/viking_axe"
                       }).ToList();
 
             XElement g = doc.Descendants("grid").ElementAt(0);

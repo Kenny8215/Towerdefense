@@ -31,6 +31,15 @@ namespace Towerdefense
             return new Enemy(this.sprite, this.spritePath, this.hitPoints, this.position, this.walkDistance, this.rotation, this.movementSpeed, this.resistance, this.isBoss, this.isFlying);
         }
 
+        internal void damage(int damage, GameManager g)
+        {
+            this.hitPoints -= damage;
+            if (this.hitPoints <= 0)
+            {
+                g.destroyMe(this);
+            }
+        }
+
         #region Setter and Getter
         public int HitPoints
         {

@@ -15,6 +15,8 @@ namespace Towerdefense
         /*list of tower in game*/
         List<Tower> placedTowerList;
 
+        List<Projectile> PList;
+
         /*Towers that can be placed*/
         List<Tower> placebleTower;
 
@@ -40,6 +42,11 @@ namespace Towerdefense
         {
             get { return placedTowerList; }
             set { placedTowerList = value; }
+        }
+
+        internal void destroyMe(Enemy enemy)
+        {
+            this.currentEnemys.Remove(enemy);
         }
 
         internal List<Wave> WaveList
@@ -81,6 +88,34 @@ namespace Towerdefense
             }
         }
 
+        internal List<Projectile> PList1
+        {
+            get
+            {
+                return PList;
+            }
+
+            set
+            {
+                PList = value;
+            }
+        }
+
+        internal List<Enemy> CurrentEnemys
+        {
+            get
+            {
+                return currentEnemys;
+            }
+
+            set
+            {
+                currentEnemys = value;
+            }
+        }
+
+        private List<Enemy> currentEnemys;
+
         internal int getGridCount()
         {
             return levelObject.getGridCount();
@@ -96,6 +131,7 @@ namespace Towerdefense
             placebleTower = levelObject.getTower();
             grid = levelObject.getGrid();
             placedTowerList = new List<Tower>();
+            PList = new List<Projectile>();
         }
         #endregion
 
@@ -143,19 +179,15 @@ namespace Towerdefense
             }
         }
 
-        public void towerShoot(List<Tower> towerList, List<Wave> waveList) {
+        public void towerShoot(List<Tower> towerList, List<Enemy> EnemyList) {
             Vector2 closestEnemyPosition;
             Boolean canShoot;
-            foreach (Wave w in waveList)
-            {
-               
                 foreach (Tower t in towerList)
                 {
-                    closestEnemyPosition = t.SearchClosestEnemy(w.getEnemys());
+                    closestEnemyPosition = t.SearchClosestEnemy(EnemyList);
                     canShoot = t.CanShootEnemy(closestEnemyPosition);
-                    if (canShoot) { t.Shoot(); }
+                    if (canShoot) { t.Shoot(this); }
                 }
-            }
         }
         #endregion
 
@@ -196,6 +228,11 @@ namespace Towerdefense
             return false;
         }
 
+        internal void spawnProjectile(Vector2 enemyVector, Enemy closestEnemy, Vector2 position, int speed, int damage)
+        {
+            PList.Add(new Projectile(enemyVector, closestEnemy, position, speed, damage, this));
+        }
+
         /*Draws the tower to the Mouse when drawTower is true the texture of the tower will be drawn to the mouseposition*/
         public void drawTowerToMouse(Boolean drawTower, SpriteBatch spriteBatch, GraphicsDevice graphicsDevice,int amountOfFields)
         {
@@ -207,6 +244,8 @@ namespace Towerdefense
                 spriteBatch.Draw(this.icon_texture, this.icon_msv, null, Color.White, 0F, this.icon_origin, this.icon_scale, SpriteEffects.None, 1F);
             }
         }
+
+        
 
         /*Places the tower on the grid*/
         public Boolean placeTower(MouseState ms, MouseState ps, Boolean drawTower, List<Tower> towerList, Vector2 position, Texture2D towerTexture, Vector2[,] FieldCenterPosition, int amountOfField)
@@ -295,6 +334,14 @@ namespace Towerdefense
             }
 
             return currentField;
+        }
+
+        internal void moveProjectiles()
+        {
+            foreach(Projectile p in PList)
+            {
+                p.move();
+            }
         }
 
         /*Draws the grid textures*/

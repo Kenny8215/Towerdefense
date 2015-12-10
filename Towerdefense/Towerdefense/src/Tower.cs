@@ -16,6 +16,7 @@ namespace Towerdefense
         Texture2D rangeCircle;
         Texture2D weapon;
         string spritePath;
+        string weaponPath;
 
 
         /*Towerrange*/
@@ -58,8 +59,8 @@ namespace Towerdefense
 
         #region Setter and Getter
         public Texture2D Weapon {
-            get { return this.Weapon; }
-            set { this.Weapon = value; }
+            get { return this.weapon; }
+            set { this.weapon = value; }
         }
         public Boolean IsSelected {
             get { return this.isSelected; }
@@ -213,6 +214,19 @@ namespace Towerdefense
             get { return upgrade; }
             set { upgrade = value; }
         }
+
+        public string WeaponPath
+        {
+            get
+            {
+                return weaponPath;
+            }
+
+            set
+            {
+                weaponPath = value;
+            }
+        }
         #endregion
 
         #region Constructors
@@ -293,7 +307,9 @@ namespace Towerdefense
             }
         }
 
-        public void Shoot() { }
+        public void Shoot(GameManager g) {
+            g.spawnProjectile(this.enemyVector, this.closestEnemy, this.position, this.speed, this.damage);
+        }
         #endregion
 
 
