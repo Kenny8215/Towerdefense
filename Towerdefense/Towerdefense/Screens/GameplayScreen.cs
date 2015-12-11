@@ -161,6 +161,7 @@ namespace Towerdefense
                 t.Weapon = content.Load<Texture2D>(t.WeaponPath);
                 t.RangeCircle = content.Load<Texture2D>(t.RangeCirclePath);
                 t.Upgrade = content.Load<Texture2D>(t.UpdatePath);
+                t.ProjectileSprite = content.Load<Texture2D>("projectileTMP");
             }
        
           
@@ -342,6 +343,7 @@ namespace Towerdefense
                 gameManager.CurrentEnemys = toDraw;
                 gameManager.towerShoot(placedTowerList, toDraw);
                 gameManager.moveProjectiles();
+               
 
                 // TODO: this game isn't very fun! You could probably improve
                 // it by inserting something more interesting in this space :-)
@@ -438,6 +440,8 @@ namespace Towerdefense
 
             /*Draws All towers in the grid*/
             gameManager.drawTowers(placedTowerList, spriteBatch, ScreenManager.GraphicsDevice, amountOfField);
+
+            gameManager.drawProjectile(spriteBatch);
 
             /*Draws all towerweapons*/
            // gameManager.drawTowerWeapons(placedTowerList,spriteBatch);

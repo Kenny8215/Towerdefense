@@ -52,6 +52,10 @@ namespace Towerdefense
 
         private Texture2D upgrade;
 
+        private Texture2D projectileSprite;
+
+        private string projectileSpritePath;
+
         private Enemy closestEnemy;
 
         private Vector2 enemyVector;
@@ -63,6 +67,14 @@ namespace Towerdefense
         #endregion  
 
         #region Setter and Getter
+        public string ProjectileSpritePath {
+            get { return this.projectileSpritePath; }
+            set { this.projectileSpritePath = value; }
+        }
+        public Texture2D ProjectileSprite {
+            get { return this.projectileSprite; }
+            set { this.projectileSprite = value; }
+        }
         public int MaxLevel {
             get { return this.maxLevel; }
         }
@@ -251,7 +263,7 @@ namespace Towerdefense
         #endregion
 
         #region Constructors
-        public Tower(Texture2D sprite,Vector2 position,int range, int cost, int damage, int fireRate, int speed, Boolean isUpgradeable, Texture2D rangeCircle,Vector2 offset, int upgradeCost,Texture2D weapon,Texture2D upgrade) : base(sprite) {
+        public Tower(Texture2D sprite,Texture2D projectileSprite,Vector2 position,int range, int cost, int damage, int fireRate, int speed, Boolean isUpgradeable, Texture2D rangeCircle,Vector2 offset, int upgradeCost,Texture2D weapon,Texture2D upgrade) : base(sprite) {
             this.position = position;
             this.range = range;
             this.cost = cost;
@@ -265,6 +277,7 @@ namespace Towerdefense
             this.upgradeCost = upgradeCost;
             this.weapon = weapon;
             this.Upgrade = upgrade;
+            this.ProjectileSprite = projectileSprite;
             pastFrames = 0;
         }
 
@@ -341,7 +354,7 @@ namespace Towerdefense
             if (pastFrames >= fireRate * 1)
             {
                 pastFrames = 0;
-                g.spawnProjectile(this.enemyVector, this.closestEnemy, this.position, this.speed, this.damage);
+                g.spawnProjectile(this.projectileSprite,this.enemyVector, this.closestEnemy, this.position, this.speed, this.damage);
             }            
         }
         #endregion

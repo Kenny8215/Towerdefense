@@ -216,7 +216,7 @@ namespace Towerdefense
         }
 
         public void cloneTower(int towerType,Vector2 offset) {
-            this.Clone = new Tower(this.PlaceableTower[towerType].Sprite,this.PlaceableTower[towerType].Position,
+            this.Clone = new Tower(this.PlaceableTower[towerType].Sprite, this.PlaceableTower[towerType].ProjectileSprite, this.PlaceableTower[towerType].Position,
                 this.PlaceableTower[towerType].Range, this.PlaceableTower[towerType].Cost, this.PlaceableTower[towerType].Damage, this.PlaceableTower[towerType].FireRate
                 , this.PlaceableTower[towerType].Speed, this.PlaceableTower[towerType].IsUpgradeable, this.PlaceableTower[towerType].RangeCircle,offset, this.PlaceableTower[towerType].UpgradeCost
                 ,this.PlaceableTower[towerType].Weapon,this.PlaceableTower[towerType].Upgrade);            
@@ -262,9 +262,19 @@ namespace Towerdefense
             return false;
         }
 
-        internal void spawnProjectile(Vector2 enemyVector, Enemy closestEnemy, Vector2 position, int speed, int damage)
+        internal void spawnProjectile(Texture2D sprite,Vector2 enemyVector, Enemy closestEnemy, Vector2 position, int speed, int damage)
         {
-            PList.Add(new Projectile(enemyVector, closestEnemy, position, speed, damage, this));
+            PList.Add(new Projectile(sprite,enemyVector, closestEnemy, position, speed, damage, this));
+        }
+
+        public void drawProjectile(SpriteBatch spriteBatch) {
+            if (PList != null)
+            {
+                foreach (Projectile p in PList)
+                {
+                    p.Draw(spriteBatch);
+                }
+            }
         }
 
         /*Draws the tower to the Mouse when drawTower is true the texture of the tower will be drawn to the mouseposition*/
