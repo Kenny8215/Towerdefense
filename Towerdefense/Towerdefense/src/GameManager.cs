@@ -209,7 +209,9 @@ namespace Towerdefense
                 {
                     closestEnemyPosition = t.SearchClosestEnemy(EnemyList);
                     canShoot = t.CanShootEnemy(closestEnemyPosition);
-                    if (canShoot) { t.Shoot(this); }
+                    if (canShoot) {
+                        t.Shoot(this);
+                    }
                 }
         }
 
@@ -380,10 +382,20 @@ namespace Towerdefense
 
         internal void moveProjectiles()
         {
+            List<Projectile> toRemove = new List<Projectile>();
             foreach(Projectile p in PList)
             {
-                p.move();
+                if (p.move())
+                {
+                    toRemove.Add(p);
+                }
             }
+
+            foreach(Projectile p in toRemove)
+            {
+                PList.Remove(p);
+            }
+            toRemove.Clear();
         }
 
         /*Draws the grid textures*/

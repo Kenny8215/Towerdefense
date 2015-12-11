@@ -14,6 +14,7 @@ namespace Towerdefense
         private int speed;
         private int damage;
         private GameManager g;
+        private Vector2 target;
 
         public Projectile(Vector2 enemyVector, Enemy closestEnemy, Vector2 position, int speed, int damage, GameManager g)
         {
@@ -23,13 +24,15 @@ namespace Towerdefense
             this.speed = speed;
             this.damage = damage;
             this.g = g;
+
+            target = position + enemyVector;
         }
 
         public bool move()
         {
             position.X = position.X + (enemyVector.X / speed);
             position.Y = position.Y + (enemyVector.Y / speed);
-            if (position == closestEnemy.Position)
+            if (position.X == target.X && position.Y == target.Y)
             {
                 closestEnemy.damage(damage, g);
                 return true;
