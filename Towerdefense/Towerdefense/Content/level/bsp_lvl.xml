@@ -636,6 +636,7 @@
       <rate>5</rate>
       <speed>5</speed>
       <upgrade>true</upgrade>
+	  <upgradecost>5</upgradecost>
       <path>Tower/tower1</path>
     </tow>
     <tow>
@@ -644,6 +645,7 @@
       <damage>5</damage>
       <rate>5</rate>
       <speed>5</speed>
+	  <upgradecost>5</upgradecost>
       <upgrade>true</upgrade>
       <path>Tower/tower2</path>
     </tow>

@@ -65,6 +65,7 @@ namespace Towerdefense
                           FireRate = Convert.ToInt32(tower.Element("rate").Value),
                           Speed = Convert.ToInt32(tower.Element("speed").Value),
                           IsUpgradeable = Convert.ToBoolean(tower.Element("upgrade").Value),
+                          UpgradeCost = Convert.ToInt32(tower.Element("upgradecost").Value),
                           RangeCirclePath = "rangeCircle",
                           UpdatePath = "Tower/upgradeGreen",
                           SpritePath = tower.Element("path").Value,

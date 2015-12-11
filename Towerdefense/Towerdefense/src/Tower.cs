@@ -27,6 +27,8 @@ namespace Towerdefense
         /*costs to build a tower*/
         private int cost;
 
+        private int maxLevel = 10;
+
         /*Towerdamage*/
         private int damage;
 
@@ -60,6 +62,9 @@ namespace Towerdefense
         #endregion  
 
         #region Setter and Getter
+        public int MaxLevel {
+            get { return this.maxLevel; }
+        }
         public string UpdatePath {
             get { return this.updatePath; }
             set { this.updatePath = value; }
@@ -280,7 +285,7 @@ namespace Towerdefense
         public void upgradeTower(MouseState ms, MouseState ps,Player player) {
             if (this.Level == 0) { this.Level++; }
             else if (this.IsSelected && ms.LeftButton == ButtonState.Pressed && ps.LeftButton == ButtonState.Released && player.getGold() >= this.upgradeCost) {
-                if (this.Level < 6) { 
+                if (this.Level < this.maxLevel) { 
                     this.Level++;
                     player.setGold(player.getGold()-this.upgradeCost);
                     this.Damage += 5;
@@ -294,25 +299,27 @@ namespace Towerdefense
 
             Vector2 enemy;
             Vector2 tmp;
-            
 
-            enemy = enemies[0].Position - this.position;
-            closestEnemy = enemies[0];
-            enemyVector = enemy;
-
-            for(int i = 0; i < enemies.Count; i++)
+            if (enemies != null)
             {
-                tmp = enemies[i].Position - this.position;
-                if (enemy.Length() > tmp.Length())
-                {
-                    enemy = tmp;
-                    enemyVector = tmp;
-                    closestEnemy = enemies[i];
-                }
-            }
-            
-            return enemy;
+                enemy = enemies[0].Position - this.position;
+                closestEnemy = enemies[0];
+                enemyVector = enemy;
 
+                for (int i = 0; i < enemies.Count; i++)
+                {
+                    tmp = enemies[i].Position - this.position;
+                    if (enemy.Length() > tmp.Length())
+                    {
+                        enemy = tmp;
+                        enemyVector = tmp;
+                        closestEnemy = enemies[i];
+                    }
+                }
+
+                return enemy;
+            }
+            else { return Vector2.Zero; }
         }
 
         public Boolean CanShootEnemy(Vector2 enemyPosition)
