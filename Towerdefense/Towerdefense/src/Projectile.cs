@@ -24,15 +24,15 @@ namespace Towerdefense
             this.speed = speed;
             this.damage = damage;
             this.g = g;
-
-            target = position + enemyVector;
         }
 
         public bool move()
         {
-            position.X = position.X + (enemyVector.X / speed);
-            position.Y = position.Y + (enemyVector.Y / speed);
-            if (position.X == target.X && position.Y == target.Y)
+            target = closestEnemy.Position - this.position;
+            target.Normalize();
+            position.X = position.X + (target.X * speed * 10);
+            position.Y = position.Y + (target.Y * speed * 10);
+            if (closestEnemy.Position.X + speed * 10 >= position.X && closestEnemy.Position.Y + speed * 10 >= position.Y && closestEnemy.Position.X - speed * 10 <= position.X && closestEnemy.Position.Y <= position.Y)
             {
                 closestEnemy.damage(damage, g);
                 return true;

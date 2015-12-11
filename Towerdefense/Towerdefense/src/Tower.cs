@@ -19,6 +19,7 @@ namespace Towerdefense
         string weaponPath;
         string rangeCirclePath;
         string updatePath;
+        int pastFrames;
 
 
         /*Towerrange*/
@@ -264,6 +265,7 @@ namespace Towerdefense
             this.upgradeCost = upgradeCost;
             this.weapon = weapon;
             this.Upgrade = upgrade;
+            pastFrames = 0;
         }
 
         /*Testconstructor*/
@@ -335,7 +337,12 @@ namespace Towerdefense
         }
 
         public void Shoot(GameManager g) {
-            g.spawnProjectile(this.enemyVector, this.closestEnemy, this.position, this.speed, this.damage);
+            pastFrames++;
+            if (pastFrames >= fireRate * 1)
+            {
+                pastFrames = 0;
+                g.spawnProjectile(this.enemyVector, this.closestEnemy, this.position, this.speed, this.damage);
+            }            
         }
         #endregion
 
