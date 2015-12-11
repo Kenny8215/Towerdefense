@@ -215,16 +215,11 @@ namespace Towerdefense
                 }
         }
 
-        public Tower cloneTower(int towerType,Vector2 offset) {
-            Tower clone = new Tower(this.PlaceableTower[towerType].Sprite,this.PlaceableTower[towerType].Position,
+        public void cloneTower(int towerType,Vector2 offset) {
+            this.Clone = new Tower(this.PlaceableTower[towerType].Sprite,this.PlaceableTower[towerType].Position,
                 this.PlaceableTower[towerType].Range, this.PlaceableTower[towerType].Cost, this.PlaceableTower[towerType].Damage, this.PlaceableTower[towerType].FireRate
                 , this.PlaceableTower[towerType].Speed, this.PlaceableTower[towerType].IsUpgradeable, this.PlaceableTower[towerType].RangeCircle,offset, this.PlaceableTower[towerType].UpgradeCost
-                ,this.PlaceableTower[towerType].Weapon,this.PlaceableTower[towerType].Upgrade);
-                
-
-            return clone;
-
-            
+                ,this.PlaceableTower[towerType].Weapon,this.PlaceableTower[towerType].Upgrade);            
         }
         #endregion
 
@@ -249,6 +244,7 @@ namespace Towerdefense
             if (ms.RightButton == ButtonState.Pressed && ps.RightButton == ButtonState.Released) { return false; }
             if (drawTower == true)
             {
+
                 return true;
             }
             else
@@ -258,7 +254,7 @@ namespace Towerdefense
                     {
                         this.icon_texture = menuTextureArray[currentMenuElement];
                         this.icon_origin = new Vector2(this.icon_texture.Width / 2, this.icon_texture.Height / 2);
-                       this.Clone = cloneTower(currentMenuElement - 2,offset);
+                        cloneTower(currentMenuElement - 2, offset);
                         return true;
                     }
             }
@@ -272,16 +268,19 @@ namespace Towerdefense
         }
 
         /*Draws the tower to the Mouse when drawTower is true the texture of the tower will be drawn to the mouseposition*/
-        public void drawTowerToMouse(Boolean drawTower, SpriteBatch spriteBatch, GraphicsDevice graphicsDevice,int amountOfFields)
+        public void drawTowerToMouse(Boolean drawTower, SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, int amountOfFields)
         {
-            
-          
+
+
             if (drawTower)
             {
                 this.icon_scale = (float)0.5 * graphicsDevice.Viewport.Height / (amountOfFields * this.icon_texture.Height);
                 spriteBatch.Draw(this.icon_texture, this.icon_msv, null, Color.White, 0F, this.icon_origin, this.icon_scale, SpriteEffects.None, 1F);
             }
-            else { this.Clone = null; }
+            else
+            {
+            
+            }
         }
 
         
@@ -294,7 +293,7 @@ namespace Towerdefense
             {
                 foreach (Tower t in towerList)
                 {
-                    if (FieldCenterPosition[(int)position.X, (int)position.Y] == t.Position) { return drawTower = true; ; }
+                    if (FieldCenterPosition[(int)position.X, (int)position.Y] == t.Position) { return drawTower = false;  }
                 }
 
                 drawTower = false;
@@ -305,6 +304,7 @@ namespace Towerdefense
 
         public List<Tower> addPlacedTowerToList(MouseState ms, MouseState ps, Boolean drawTower, List<Tower> towerList, Vector2 position, Texture2D towerTexture, Vector2[,] FieldCenterPosition, int amountOfField, Vector2[,] roadTypeRotation, Vector2 highlightedGridElement, Player player,Texture2D rangeCircle,Texture2D upgrade,Vector2 offset)
         {
+            
             if (this.Clone!= null){
             if (player.getGold() >= this.Clone.Cost)
             {
@@ -315,10 +315,14 @@ namespace Towerdefense
                         if (FieldCenterPosition[(int)position.X, (int)position.Y] == t.Position) { return towerList; }
                     }
                     player.setGold(player.getGold() - clone.Cost);
-                    this.clone.Position = FieldCenterPosition[(int)position.X, (int)position.Y];
-                    this.clone.TowerField = new Vector2((int) (this.clone.Position.X / offset.X),(int)(this.clone.Position.Y / offset.Y));
+
+                    this.Clone.Position = FieldCenterPosition[(int)position.X, (int)position.Y];
+                    this.Clone.TowerField = new Vector2((int) (this.clone.Position.X / offset.X),(int)(this.clone.Position.Y / offset.Y));
                    
-                    towerList.Add(this.clone);
+                    towerList.Add(this.Clone);
+
+                    this.Clone = null;
+                    
                 }
             }
             }

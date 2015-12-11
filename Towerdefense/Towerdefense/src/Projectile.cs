@@ -28,14 +28,17 @@ namespace Towerdefense
 
         public bool move()
         {
-            target = closestEnemy.Position - this.position;
-            target.Normalize();
-            position.X = position.X + (target.X * speed * 10);
-            position.Y = position.Y + (target.Y * speed * 10);
-            if (closestEnemy.Position.X + speed * 10 >= position.X && closestEnemy.Position.Y + speed * 10 >= position.Y && closestEnemy.Position.X - speed * 10 <= position.X && closestEnemy.Position.Y <= position.Y)
+            if (closestEnemy != null)
             {
-                closestEnemy.damage(damage, g);
-                return true;
+                target = closestEnemy.Position - this.position;
+                target.Normalize();
+                position.X = position.X + (target.X * speed * 10);
+                position.Y = position.Y + (target.Y * speed * 10);
+                if (closestEnemy.Position.X + speed * 10 >= position.X && closestEnemy.Position.Y + speed * 10 >= position.Y && closestEnemy.Position.X - speed * 10 <= position.X && closestEnemy.Position.Y <= position.Y)
+                {
+                    closestEnemy.damage(damage, g);
+                    return true;
+                }
             }
             return false;
         }

@@ -161,8 +161,8 @@ namespace Towerdefense
                 t.RangeCircle = content.Load<Texture2D>(t.RangeCirclePath);
                 t.Upgrade = content.Load<Texture2D>(t.UpdatePath);
             }
-            
-            
+       
+          
             gameFont = content.Load<SpriteFont>("gamefont");
             background = content.Load<Texture2D>("background");
             nonroad = content.Load<Texture2D>("tiles/noRoad1");
