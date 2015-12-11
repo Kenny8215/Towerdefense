@@ -179,7 +179,7 @@ namespace Towerdefense
                 //    spriteBatch.Draw(t.Weapon, t.Position, null, null, origin, 0F,tmp,Color.White,SpriteEffects.None,0);
                     if (t.IsSelected)
                     {
-                        spriteBatch.Draw(t.RangeCircle, t.Position, null, null, new Vector2(t.RangeCircle.Width / 2, t.RangeCircle.Height / 2), 0F, new Vector2(t.Range * 0.001F, t.Range * 0.001F), Color.White, SpriteEffects.None, 0);
+                        spriteBatch.Draw(t.RangeCircle, t.Position, null, null, new Vector2(t.RangeCircle.Width / 2, t.RangeCircle.Height / 2), 0F, new Vector2((t.Range/1000F), (t.Range/1000F)), Color.White, SpriteEffects.None, 0);
                         if (t.Level < t.MaxLevel) { spriteBatch.Draw(t.Upgrade, t.Position, null, null, new Vector2(t.Upgrade.Width / 2, t.Upgrade.Height / 2), 0F, new Vector2(scaleU, scaleU), Color.Green, SpriteEffects.None, 0F); }
                         else { spriteBatch.Draw(t.Upgrade, t.Position, null, null, new Vector2(t.Upgrade.Width / 2, t.Upgrade.Height / 2), 0F, new Vector2(scaleU, scaleU), Color.Red, SpriteEffects.None, 0F); }
                     }

@@ -47,7 +47,7 @@ namespace Towerdefense
         }
 
         public void Draw(SpriteBatch spriteBatch) {
-            spriteBatch.Draw(this.Sprite, this.Position, null, null, null, 0F, new Vector2(0.2F,0.2F), Color.White, SpriteEffects.None, 1F);
+            spriteBatch.Draw(this.Sprite, this.Position, null, null, null, 0F, new Vector2(0.1F,0.1F), Color.White, SpriteEffects.None, 1F);
         }
 
         public Texture2D Sprite {

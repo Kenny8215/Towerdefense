@@ -14,6 +14,7 @@ namespace Towerdefense
         string spritePath;
 
         private int hitPoints;
+        private int maxHitPoints;
         private Texture2D healthBar;
         private String healthBarPath;
         private Vector2 position;
@@ -195,6 +196,7 @@ namespace Towerdefense
             this.IsFlying = isFlying;
             this.spritePath = spritePath;
             this.HealthBarPath = healthPath;
+            this.maxHitPoints = hitPoints;
         }
         #endregion
 
@@ -206,7 +208,7 @@ namespace Towerdefense
             int tmpY =(int) this.Position.Y ;
             int hpScale =(int) (this.HitPoints);
             Vector2 tmp = (this.position);
-            Rectangle rec = new Rectangle(tmpX, tmpY , hpScale, 10);
+            Rectangle rec = new Rectangle(tmpX, tmpY, 200*(this.HitPoints)/this.maxHitPoints, 10);
             Vector2 center;
             center.X = rec.Center.X;
             center.Y = rec.Center.Y;
