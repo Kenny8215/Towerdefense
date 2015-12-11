@@ -71,7 +71,7 @@ namespace Towerdefense
         Vector2[,] roadTypeAndRotation;
 
         List<Tower> placedTowerList;
-        List<Tower> placebleTower;
+        List<Tower> placeableTower;
         List<Projectile> PList;
 
         MouseState previousMouseState;
@@ -129,7 +129,7 @@ namespace Towerdefense
             previousMouseState = Mouse.GetState();
             drawTower = false;
             placedTowerList = gameManager.PlacedTowerList;
-            placebleTower = gameManager.PlacebleTower;
+            placeableTower = gameManager.PlaceableTower;
             waveList = gameManager.WaveList;
             grid = gameManager.Grid;
             amountOfField = gameManager.getGridCount();
@@ -154,12 +154,14 @@ namespace Towerdefense
                 w.Enemy.Sprite = content.Load<Texture2D>(w.Enemy.SpritePath);
             }
 
-            foreach (Tower t in placebleTower)
+            foreach (Tower t in placeableTower)
             {
                 t.Sprite = content.Load<Texture2D>(t.SpritePath);
                 t.Weapon = content.Load<Texture2D>(t.WeaponPath);
+                t.RangeCircle = content.Load<Texture2D>(t.RangeCirclePath);
+                t.Upgrade = content.Load<Texture2D>(t.UpdatePath);
             }
-
+            
             
             gameFont = content.Load<SpriteFont>("gamefont");
             background = content.Load<Texture2D>("background");
@@ -382,7 +384,7 @@ namespace Towerdefense
             {
                 highlightedGridElement = gameManager.SetCurrentFieldMouse(mouseState, offset, highlightedGridElement, true);
                 highlitedMenuElement = gameManager.SetCurrentMenuField(mouseState, menuRectangle);
-                drawTower = gameManager.TowerToMouse(mouseState, previousMouseState, menuRectangle, drawTower,menuTextureArray,highlitedMenuElement);
+                drawTower = gameManager.TowerToMouse(mouseState, previousMouseState, menuRectangle, drawTower,menuTextureArray,highlitedMenuElement,offset);
 
                 towerAmount = placedTowerList.Count;
                 placedTowerList = gameManager.addPlacedTowerToList(mouseState, previousMouseState, drawTower, placedTowerList, highlightedGridElement, tower1Icon, FieldCenterPosition, amountOfField, roadTypeAndRotation, highlightedGridElement, player, rangeCircle, upgrade,offset);

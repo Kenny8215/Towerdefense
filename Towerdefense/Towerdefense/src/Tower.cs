@@ -17,6 +17,8 @@ namespace Towerdefense
         Texture2D weapon;
         string spritePath;
         string weaponPath;
+        string rangeCirclePath;
+        string updatePath;
 
 
         /*Towerrange*/
@@ -58,6 +60,19 @@ namespace Towerdefense
         #endregion  
 
         #region Setter and Getter
+        public string UpdatePath {
+            get { return this.updatePath; }
+            set { this.updatePath = value; }
+        }
+
+        public string RangeCirclePath {
+            get { return this.rangeCirclePath; }
+            set { this.rangeCirclePath = value; }
+        }
+        public int UpgradeCost{
+        get{ return this.upgradeCost;}
+            set { this.upgradeCost = value; }
+        }
         public Texture2D Weapon {
             get { return this.weapon; }
             set { this.weapon = value; }
@@ -230,7 +245,7 @@ namespace Towerdefense
         #endregion
 
         #region Constructors
-        public Tower(Texture2D sprite,Vector2 position,int range, int cost, int damage, int fireRate, int speed, Boolean isUpgradeable, Texture2D rangeCircle) : base(sprite) {
+        public Tower(Texture2D sprite,Vector2 position,int range, int cost, int damage, int fireRate, int speed, Boolean isUpgradeable, Texture2D rangeCircle,Vector2 offset, int upgradeCost,Texture2D weapon,Texture2D upgrade) : base(sprite) {
             this.position = position;
             this.range = range;
             this.cost = cost;
@@ -239,6 +254,11 @@ namespace Towerdefense
             this.speed = speed;
             this.IsUpgradeable = isUpgradeable;
             this.rangeCircle = rangeCircle;
+            this.towerField.X = (int)(position.X / offset.X);
+            this.towerField.Y = (int)(position.Y / offset.Y);
+            this.upgradeCost = upgradeCost;
+            this.weapon = weapon;
+            this.Upgrade = upgrade;
         }
 
         /*Testconstructor*/
@@ -259,7 +279,7 @@ namespace Towerdefense
         #region AimAndShoot
         public void upgradeTower(MouseState ms, MouseState ps,Player player) {
             if (this.Level == 0) { this.Level++; }
-            else if (this.IsSelected && ms.LeftButton == ButtonState.Pressed && ps.LeftButton == ButtonState.Released && player.getGold() > this.upgradeCost) {
+            else if (this.IsSelected && ms.LeftButton == ButtonState.Pressed && ps.LeftButton == ButtonState.Released && player.getGold() >= this.upgradeCost) {
                 if (this.Level < 6) { 
                     this.Level++;
                     player.setGold(player.getGold()-this.upgradeCost);

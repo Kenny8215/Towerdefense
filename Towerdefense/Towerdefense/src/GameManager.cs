@@ -18,7 +18,7 @@ namespace Towerdefense
         List<Projectile> PList;
 
         /*Towers that can be placed*/
-        List<Tower> placebleTower;
+        List<Tower> placeableTower;
 
         /*list of enemywaves*/
         List<Wave> waveList;
@@ -35,9 +35,15 @@ namespace Towerdefense
         float icon_scale;
         Vector2 icon_origin;
         Vector2 icon_msv;
+
+        Tower clone;
         #endregion
 
         #region setter and getter
+        public Tower Clone {
+            get { return clone; }
+            set { clone = value; }
+        }
         public List<Tower> PlacedTowerList
         {
             get { return placedTowerList; }
@@ -75,16 +81,16 @@ namespace Towerdefense
             }
         }
 
-        internal List<Tower> PlacebleTower
+        internal List<Tower> PlaceableTower
         {
             get
             {
-                return placebleTower;
+                return placeableTower;
             }
 
             set
             {
-                placebleTower = value;
+                placeableTower = value;
             }
         }
 
@@ -128,7 +134,7 @@ namespace Towerdefense
             levelObject = new LoadLevel();
             levelObject.load("Content\\level\\"+lvl);
             WaveList = levelObject.getWaves();
-            placebleTower = levelObject.getTower();
+            placeableTower = levelObject.getTower();
             grid = levelObject.getGrid();
             placedTowerList = new List<Tower>();
             PList = new List<Projectile>();
@@ -157,8 +163,8 @@ namespace Towerdefense
                     if (t.IsSelected)
                     {
                         spriteBatch.Draw(t.RangeCircle, t.Position, null, null, new Vector2(t.RangeCircle.Width / 2, t.RangeCircle.Height / 2), 0F, new Vector2(t.Range * 0.001F, t.Range * 0.001F), Color.White, SpriteEffects.None, 0);
-                        if (t.Level < 10) { spriteBatch.Draw(t.Upgrade, t.Position, null, null, new Vector2(t.Upgrade.Width / 2, t.Upgrade.Height / 2), 0F, new Vector2(scaleU, scaleU), Color.White, SpriteEffects.None, 0F); }
-                        else { spriteBatch.Draw(t.Upgrade, t.Position, null, null, new Vector2(t.Upgrade.Width / 2, t.Upgrade.Height / 2), 0F, new Vector2(scaleU, scaleU), Color.White, SpriteEffects.None, 0F); }
+                        if (t.Level < 6) { spriteBatch.Draw(t.Upgrade, t.Position, null, null, new Vector2(t.Upgrade.Width / 2, t.Upgrade.Height / 2), 0F, new Vector2(scaleU, scaleU), Color.Green, SpriteEffects.None, 0F); }
+                        else { spriteBatch.Draw(t.Upgrade, t.Position, null, null, new Vector2(t.Upgrade.Width / 2, t.Upgrade.Height / 2), 0F, new Vector2(scaleU, scaleU), Color.Red, SpriteEffects.None, 0F); }
                     }
                    }
             }
@@ -189,6 +195,18 @@ namespace Towerdefense
                     if (canShoot) { t.Shoot(this); }
                 }
         }
+
+        public Tower cloneTower(int towerType,Vector2 offset) {
+            Tower clone = new Tower(this.PlaceableTower[towerType].Sprite,this.PlaceableTower[towerType].Position,
+                this.PlaceableTower[towerType].Range, this.PlaceableTower[towerType].Cost, this.PlaceableTower[towerType].Damage, this.PlaceableTower[towerType].FireRate
+                , this.PlaceableTower[towerType].Speed, this.PlaceableTower[towerType].IsUpgradeable, this.PlaceableTower[towerType].RangeCircle,offset, this.PlaceableTower[towerType].UpgradeCost
+                ,this.PlaceableTower[towerType].Weapon,this.PlaceableTower[towerType].Upgrade);
+                
+
+            return clone;
+
+            
+        }
         #endregion
 
         #region PlayerInput
@@ -206,7 +224,7 @@ namespace Towerdefense
         }
 
         /*Checks if a TowerIcon has been clicked - returns true when a TowerIcon has been clicked*/
-        public Boolean TowerToMouse(MouseState ms, MouseState ps, Rectangle[] menuRectangle, Boolean drawTower,Texture2D[] menuTextureArray,int currentMenuElement)
+        public Boolean TowerToMouse(MouseState ms, MouseState ps, Rectangle[] menuRectangle, Boolean drawTower,Texture2D[] menuTextureArray,int currentMenuElement,Vector2 offset)
         {
             this.icon_msv = new Vector2(ms.X, ms.Y);
             if (ms.RightButton == ButtonState.Pressed && ps.RightButton == ButtonState.Released) { return false; }
@@ -221,6 +239,7 @@ namespace Towerdefense
                     {
                         this.icon_texture = menuTextureArray[currentMenuElement];
                         this.icon_origin = new Vector2(this.icon_texture.Width / 2, this.icon_texture.Height / 2);
+                       this.Clone = cloneTower(currentMenuElement - 2,offset);
                         return true;
                     }
             }
@@ -243,6 +262,7 @@ namespace Towerdefense
                 this.icon_scale = (float)0.5 * graphicsDevice.Viewport.Height / (amountOfFields * this.icon_texture.Height);
                 spriteBatch.Draw(this.icon_texture, this.icon_msv, null, Color.White, 0F, this.icon_origin, this.icon_scale, SpriteEffects.None, 1F);
             }
+            else { this.Clone = null; }
         }
 
         
@@ -262,11 +282,12 @@ namespace Towerdefense
             }
 
             return drawTower;
-        }
+        }   
 
         public List<Tower> addPlacedTowerToList(MouseState ms, MouseState ps, Boolean drawTower, List<Tower> towerList, Vector2 position, Texture2D towerTexture, Vector2[,] FieldCenterPosition, int amountOfField, Vector2[,] roadTypeRotation, Vector2 highlightedGridElement, Player player,Texture2D rangeCircle,Texture2D upgrade,Vector2 offset)
         {
-            if (player.getGold() >= 50)
+            if (this.Clone!= null){
+            if (player.getGold() >= this.Clone.Cost)
             {
                 if (drawTower && ms.LeftButton == ButtonState.Pressed && ps.LeftButton != ButtonState.Pressed && position.X < amountOfField && position.Y < amountOfField && roadTypeRotation[(int)highlightedGridElement.X, (int)highlightedGridElement.Y].X == 0)
                 {
@@ -274,9 +295,13 @@ namespace Towerdefense
                     {
                         if (FieldCenterPosition[(int)position.X, (int)position.Y] == t.Position) { return towerList; }
                     }
-                    player.setGold(player.getGold() - 50);
-                    towerList.Add(new Tower(towerTexture, rangeCircle, upgrade, FieldCenterPosition[(int)position.X, (int)position.Y],offset));
+                    player.setGold(player.getGold() - clone.Cost);
+                    this.clone.Position = FieldCenterPosition[(int)position.X, (int)position.Y];
+                    this.clone.TowerField = new Vector2((int) (this.clone.Position.X / offset.X),(int)(this.clone.Position.Y / offset.Y));
+                   
+                    towerList.Add(this.clone);
                 }
+            }
             }
 
             return towerList;

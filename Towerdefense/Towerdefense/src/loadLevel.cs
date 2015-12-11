@@ -65,10 +65,12 @@ namespace Towerdefense
                           FireRate = Convert.ToInt32(tower.Element("rate").Value),
                           Speed = Convert.ToInt32(tower.Element("speed").Value),
                           IsUpgradeable = Convert.ToBoolean(tower.Element("upgrade").Value),
+                          RangeCirclePath = "rangeCircle",
+                          UpdatePath = "Tower/upgradeGreen",
                           SpritePath = tower.Element("path").Value,
-                          WeaponPath="tower/viking_axe"
+                          WeaponPath="Tower/viking_axe"
                       }).ToList();
-
+            
             XElement g = doc.Descendants("grid").ElementAt(0);
             grid_count = Convert.ToInt32(g.Element("count").Value);//read out size of the field
             foreach(Wave w in waves)
