@@ -437,6 +437,9 @@ namespace Towerdefense
             /*Draws All towers in the grid*/
             gameManager.drawTowers(placedTowerList, spriteBatch, ScreenManager.GraphicsDevice, amountOfField);
 
+            /*Draws all towerweapons*/
+           // gameManager.drawTowerWeapons(placedTowerList,spriteBatch);
+
             /*Draws The TowerTexture to the Mouseposition when leftclicked*/
             gameManager.drawTowerToMouse(drawTower, spriteBatch,ScreenManager.GraphicsDevice,amountOfField);
 

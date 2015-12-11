@@ -300,7 +300,7 @@ namespace Towerdefense
             Vector2 enemy;
             Vector2 tmp;
 
-            if (enemies != null)
+            if (enemies.Count != 0)
             {
                 enemy = enemies[0].Position - this.position;
                 closestEnemy = enemies[0];

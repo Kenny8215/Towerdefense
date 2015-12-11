@@ -142,9 +142,22 @@ namespace Towerdefense
         #endregion
 
         #region Towers
+        /*
+        public void drawTowerWeapons(List<Tower> towerList,SpriteBatch spriteBatch) {
+            Rectangle rec = new Rectangle(0,0,200,200);
+            Vector2 scale = new Vector2(1,1);
+            Vector2 origin;
+            foreach(Tower t in towerList){
+                origin.X =t.Weapon.Bounds.Center.X;
+                origin.Y = t.Weapon.Bounds.Center.Y;
+                spriteBatch.Draw(t.Weapon, t.Position, null, rec,origin, 0F,scale, Color.White, SpriteEffects.None, 0F);
+            }
+        }
+         */
         public void drawTowers(List<Tower> towerList, SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, int amountOfFields)
         {
             Vector2 tmp;
+            Vector2 tmp1;
 
             if (towerList.Count == 0) { }
             else
@@ -158,7 +171,11 @@ namespace Towerdefense
                     tmp = scalev;
                     tmp.X = scalev.X * (0.1F + 0.1F * t.Level);
                     tmp.Y = scalev.Y * (0.1F + 0.1F * t.Level);
+                    tmp1.X = scalev.X * (0.5F + 0.1F * t.Level);
+                    tmp1.Y = scalev.Y * (0.5F + 0.1F * t.Level);
                     spriteBatch.Draw(t.Sprite, t.Position, null, null, origin, 0F, tmp, Color.White, SpriteEffects.None, 0);
+                    spriteBatch.Draw(t.Weapon, t.Position, null, new Rectangle(0,0,200,200), origin, 0F, tmp1, Color.White, SpriteEffects.None, 0F);
+                    
                 //    spriteBatch.Draw(t.Weapon, t.Position, null, null, origin, 0F,tmp,Color.White,SpriteEffects.None,0);
                     if (t.IsSelected)
                     {
