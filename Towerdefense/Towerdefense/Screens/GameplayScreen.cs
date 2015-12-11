@@ -152,6 +152,7 @@ namespace Towerdefense
             foreach (Wave w in waveList)
             {
                 w.Enemy.Sprite = content.Load<Texture2D>(w.Enemy.SpritePath);
+                w.Enemy.HealthBar = content.Load<Texture2D>("enemies/health");
             }
 
             foreach (Tower t in placeableTower)
@@ -190,6 +191,7 @@ namespace Towerdefense
                 foreach(Enemy e in w.getEnemys())
                 {
                     e.setSprite(content.Load<Texture2D>(e.SpritePath));
+                    e.HealthBar = content.Load<Texture2D>("enemies/health");
                 }
             }
             #endregion    

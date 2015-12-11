@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Towerdefense
 {
@@ -15,6 +16,7 @@ namespace Towerdefense
         private int damage;
         private GameManager g;
         private Vector2 target;
+        private Texture2D sprite;
 
         public Projectile(Vector2 enemyVector, Enemy closestEnemy, Vector2 position, int speed, int damage, GameManager g)
         {

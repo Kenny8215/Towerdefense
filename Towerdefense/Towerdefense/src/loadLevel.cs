@@ -43,7 +43,8 @@ namespace Towerdefense
                                           Resistance = e.Element("resistance").Value,
                                           IsBoss = Convert.ToBoolean(e.Element("boss").Value),
                                           IsFlying = Convert.ToBoolean(e.Element("flying").Value),
-                                          SpritePath = "enemies/wolf"
+                                          SpritePath = "enemies/wolf",
+                                          HealthBarPath = "enemies/health"
                                       }).ToList()[0]
                      }).ToList();
 

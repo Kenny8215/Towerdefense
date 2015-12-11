@@ -14,6 +14,8 @@ namespace Towerdefense
         string spritePath;
 
         private int hitPoints;
+        private Texture2D healthBar;
+        private String healthBarPath;
         private Vector2 position;
         private Vector2 lastCenterPosition;
 
@@ -28,7 +30,7 @@ namespace Towerdefense
 
         public Enemy cloneMe()
         {
-            return new Enemy(this.sprite, this.spritePath, this.hitPoints, this.position, this.walkDistance, this.rotation, this.movementSpeed, this.resistance, this.isBoss, this.isFlying);
+            return new Enemy(this.sprite,this.healthBar, this.spritePath,this.healthBarPath, this.hitPoints, this.position, this.walkDistance, this.rotation, this.movementSpeed, this.resistance, this.isBoss, this.isFlying);
         }
 
         internal void damage(int damage, GameManager g)
@@ -41,6 +43,16 @@ namespace Towerdefense
         }
 
         #region Setter and Getter
+        public String HealthBarPath {
+            get { return healthBarPath; }
+            set { this.healthBarPath = HealthBarPath; }
+        }
+        public Texture2D HealthBar
+        {
+            get { return this.healthBar; }
+            set { this.healthBar = value; }
+        }
+
         public int HitPoints
         {
             get
@@ -168,7 +180,7 @@ namespace Towerdefense
             this.position = new Vector2(30, 0);
         }
 
-        public Enemy(Texture2D sprite, string spritePath, int hitPoints, Vector2 position, int walkDistance, int rotation, float movementSpeed, string resistance, bool isBoss, bool isFlying)
+        public Enemy(Texture2D sprite,Texture2D healthBar, string spritePath,string healthPath, int hitPoints, Vector2 position, int walkDistance, int rotation, float movementSpeed, string resistance, bool isBoss, bool isFlying)
             : base(sprite, hitPoints)
         {
 
@@ -182,6 +194,7 @@ namespace Towerdefense
             this.IsBoss = isBoss;
             this.IsFlying = isFlying;
             this.spritePath = spritePath;
+            this.HealthBarPath = healthPath;
         }
         #endregion
 
@@ -189,8 +202,17 @@ namespace Towerdefense
         {
 
             Vector2 textCent = new Vector2(this.Sprite.Bounds.Center.X, this.Sprite.Bounds.Center.Y);
-
-            spriteBatch.Draw(this.Sprite, this.position, null, null, textCent, rotInRad(), new Vector2(0.2F, 0.2F), Color.White, SpriteEffects.None, 1F);
+            int tmpX = (int)this.Position.X ;
+            int tmpY =(int) this.Position.Y ;
+            int hpScale =(int) (this.HitPoints);
+            Vector2 tmp = (this.position);
+            Rectangle rec = new Rectangle(tmpX, tmpY , hpScale, 10);
+            Vector2 center;
+            center.X = rec.Center.X;
+            center.Y = rec.Center.Y;
+            spriteBatch.Draw(this.Sprite, this.position, null, null, textCent, rotInRad(), new Vector2(0.3F, 0.3F), Color.White, SpriteEffects.None, 1F);
+            if (this.HitPoints > 10) { spriteBatch.Draw(this.HealthBar, this.Position, null, rec, textCent, rotInRad(), new Vector2(0.3F, 0.3F), Color.SteelBlue, SpriteEffects.None, 1F); }
+            else { spriteBatch.Draw(this.HealthBar, this.Position, null, rec, textCent, rotInRad(), new Vector2(0.3F, 0.3F), Color.Red, SpriteEffects.None, 1F); }
         }
         #endregion
 
