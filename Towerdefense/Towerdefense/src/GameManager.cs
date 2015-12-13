@@ -174,7 +174,7 @@ namespace Towerdefense
                     tmp1.X = scalev.X * (0.5F + 0.1F * t.Level);
                     tmp1.Y = scalev.Y * (0.5F + 0.1F * t.Level);
                     spriteBatch.Draw(t.Sprite, t.Position, null, null, origin, 0F, tmp, Color.White, SpriteEffects.None, 0);
-                    spriteBatch.Draw(t.Weapon, t.Position, null, new Rectangle(0,0,200,200), origin, 0F, tmp1, Color.White, SpriteEffects.None, 0F);
+                    spriteBatch.Draw(t.Weapon, t.Position, null, new Rectangle(0,0,200,200), origin,t.WeaponRotation, tmp1, Color.White, SpriteEffects.None, 0F);
                     
                 //    spriteBatch.Draw(t.Weapon, t.Position, null, null, origin, 0F,tmp,Color.White,SpriteEffects.None,0);
                     if (t.IsSelected)
@@ -208,9 +208,11 @@ namespace Towerdefense
                 foreach (Tower t in towerList)
                 {
                     closestEnemyPosition = t.SearchClosestEnemy(EnemyList);
-                    canShoot = t.CanShootEnemy(closestEnemyPosition);
-                    if (canShoot) {
-                        t.Shoot(this);
+                t.WeaponRotation = t.TurnToFace(t.Position, closestEnemyPosition, t.WeaponRotation, 0.025F);
+                canShoot = t.CanShootEnemy(closestEnemyPosition);
+                if (canShoot) {
+                    
+                    t.Shoot(this);
                     }
                 }
         }
@@ -221,6 +223,7 @@ namespace Towerdefense
                 , this.PlaceableTower[towerType].Speed, this.PlaceableTower[towerType].IsUpgradeable, this.PlaceableTower[towerType].RangeCircle,offset, this.PlaceableTower[towerType].UpgradeCost
                 ,this.PlaceableTower[towerType].Weapon,this.PlaceableTower[towerType].Upgrade);            
         }
+
         #endregion
 
         #region PlayerInput
