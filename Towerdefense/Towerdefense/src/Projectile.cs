@@ -23,23 +23,23 @@ namespace Towerdefense
             this.sprite = sprite;
             this.enemyVector = enemyVector;
             this.closestEnemy = closestEnemy;
-            this.Position = position;
+            Position = position;
             this.speed = speed;
             this.damage = damage;
             this.g = g;
         }
 
-        public bool move()
+        public bool move(Player player)
         {
             if (closestEnemy != null)
             {
-                target = closestEnemy.Position - this.position;
+                target = closestEnemy.Position - position;
                 target.Normalize();
                 position.X = position.X + (target.X * speed );
                 position.Y = position.Y + (target.Y * speed );
                 if (closestEnemy.Position.X + speed * 10 >= position.X && closestEnemy.Position.Y + speed * 10 >= position.Y && closestEnemy.Position.X - speed * 10 <= position.X && closestEnemy.Position.Y <= position.Y)
                 {
-                    closestEnemy.damage(damage, g);
+                    closestEnemy.damage(damage, g,player);
                     return true;
                 }
             }
@@ -47,12 +47,12 @@ namespace Towerdefense
         }
 
         public void Draw(SpriteBatch spriteBatch) {
-            spriteBatch.Draw(this.Sprite, this.Position, null, null, null, 0F, new Vector2(0.1F,0.1F), Color.White, SpriteEffects.None, 1F);
+            spriteBatch.Draw(Sprite, Position, null, null, null, 0F, new Vector2(0.1F,0.1F), Color.White, SpriteEffects.None, 1F);
         }
 
         public Texture2D Sprite {
-            get { return this.sprite; }
-            set { this.sprite = value; }
+            get { return sprite; }
+            set { sprite = value; }
         }
 
         public Vector2 Position

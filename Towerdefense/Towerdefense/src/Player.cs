@@ -16,8 +16,12 @@ namespace Towerdefense
         #endregion
 
         #region setter and getter
+        public int GoldAmount {
+            get { return goldAmount; }
+            set { goldAmount = GoldAmount; }
+        }
         public void setGold(int goldAmount) { this.goldAmount = goldAmount; }
-        public int getGold() { return this.goldAmount; }
+        public int getGold() { return goldAmount; }
         #endregion
 
         #region Constructors
@@ -33,7 +37,7 @@ namespace Towerdefense
         public String[] getPlayerInfo(){
             playerInfo[1] = goldAmount.ToString();
             playerInfo[0] = HitPoints.ToString();
-            return this.playerInfo;
+            return playerInfo;
         }
         #endregion
     }

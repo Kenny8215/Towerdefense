@@ -24,7 +24,7 @@ namespace Towerdefense
 
             amountObjects++;
             ID1 = amountObjects;
-            this.Sprite = sprite;
+            Sprite = sprite;
         }
         #endregion
 
@@ -55,8 +55,8 @@ namespace Towerdefense
             }
         }
 
-        public int getID(){return this.ID1;}
-        public void setSprite(Texture2D sprite) { this.Sprite = sprite; }
+        public int getID(){return ID1; }
+        public void setSprite(Texture2D sprite) { Sprite = sprite; }
         #endregion
     }
 }

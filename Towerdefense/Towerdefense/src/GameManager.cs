@@ -52,7 +52,7 @@ namespace Towerdefense
 
         internal void destroyMe(Enemy enemy)
         {
-            this.currentEnemys.Remove(enemy);
+            currentEnemys.Remove(enemy);
         }
 
         internal List<Wave> WaveList
@@ -211,10 +211,10 @@ namespace Towerdefense
         }
 
         public void cloneTower(int towerType,Vector2 offset) {
-            this.Clone = new Tower(this.PlaceableTower[towerType].Sprite, this.PlaceableTower[towerType].ProjectileSprite, this.PlaceableTower[towerType].Position,
-                this.PlaceableTower[towerType].Range, this.PlaceableTower[towerType].Cost, this.PlaceableTower[towerType].Damage, this.PlaceableTower[towerType].FireRate
-                , this.PlaceableTower[towerType].Speed, this.PlaceableTower[towerType].IsUpgradeable, this.PlaceableTower[towerType].RangeCircle,offset, this.PlaceableTower[towerType].UpgradeCost
-                ,this.PlaceableTower[towerType].Weapon,this.PlaceableTower[towerType].Upgrade);            
+            Clone = new Tower(PlaceableTower[towerType].Sprite, PlaceableTower[towerType].ProjectileSprite, PlaceableTower[towerType].Position,
+                PlaceableTower[towerType].Range, PlaceableTower[towerType].Cost, PlaceableTower[towerType].Damage, PlaceableTower[towerType].FireRate
+                , PlaceableTower[towerType].Speed, PlaceableTower[towerType].IsUpgradeable, PlaceableTower[towerType].RangeCircle,offset, PlaceableTower[towerType].UpgradeCost
+                , PlaceableTower[towerType].Weapon, PlaceableTower[towerType].Upgrade);            
         }
 
         #endregion
@@ -236,7 +236,7 @@ namespace Towerdefense
         /*Checks if a TowerIcon has been clicked - returns true when a TowerIcon has been clicked*/
         public Boolean TowerToMouse(MouseState ms, MouseState ps, Rectangle[] menuRectangle, Boolean drawTower,Texture2D[] menuTextureArray,int currentMenuElement,Vector2 offset)
         {
-            this.icon_msv = new Vector2(ms.X, ms.Y);
+            icon_msv = new Vector2(ms.X, ms.Y);
             if (ms.RightButton == ButtonState.Pressed && ps.RightButton == ButtonState.Released) { return false; }
             if (drawTower == true)
             {
@@ -248,8 +248,8 @@ namespace Towerdefense
                 for (int i = 2; i < menuRectangle.Length; i++)
                     if (ms.LeftButton == ButtonState.Pressed && ps.LeftButton == ButtonState.Released && menuRectangle[i].Contains(ms.Position))
                     {
-                        this.icon_texture = menuTextureArray[currentMenuElement];
-                        this.icon_origin = new Vector2(this.icon_texture.Width / 2, this.icon_texture.Height / 2);
+                        icon_texture = menuTextureArray[currentMenuElement];
+                        icon_origin = new Vector2(icon_texture.Width / 2, icon_texture.Height / 2);
                         cloneTower(currentMenuElement - 2, offset);
                         return true;
                     }
@@ -280,8 +280,8 @@ namespace Towerdefense
 
             if (drawTower)
             {
-                this.icon_scale = (float)0.5 * graphicsDevice.Viewport.Height / (amountOfFields * this.icon_texture.Height);
-                spriteBatch.Draw(this.icon_texture, this.icon_msv, null, Color.White, 0F, this.icon_origin, this.icon_scale, SpriteEffects.None, 1F);
+                icon_scale = (float)0.5 * graphicsDevice.Viewport.Height / (amountOfFields * icon_texture.Height);
+                spriteBatch.Draw(icon_texture, icon_msv, null, Color.White, 0F, icon_origin, icon_scale, SpriteEffects.None, 1F);
             }
             else
             {
@@ -311,8 +311,8 @@ namespace Towerdefense
         public List<Tower> addPlacedTowerToList(MouseState ms, MouseState ps, Boolean drawTower, List<Tower> towerList, Vector2 position, Texture2D towerTexture, Vector2[,] FieldCenterPosition, int amountOfField, Vector2[,] roadTypeRotation, Vector2 highlightedGridElement, Player player,Texture2D rangeCircle,Texture2D upgrade,Vector2 offset)
         {
             
-            if (this.Clone!= null){
-            if (player.getGold() >= this.Clone.Cost)
+            if (Clone != null){
+            if (player.getGold() >= Clone.Cost)
             {
                 if (drawTower && ms.LeftButton == ButtonState.Pressed && ps.LeftButton != ButtonState.Pressed && position.X < amountOfField && position.Y < amountOfField && roadTypeRotation[(int)highlightedGridElement.X, (int)highlightedGridElement.Y].X == 0)
                 {
@@ -322,12 +322,12 @@ namespace Towerdefense
                     }
                     player.setGold(player.getGold() - clone.Cost);
 
-                    this.Clone.Position = FieldCenterPosition[(int)position.X, (int)position.Y];
-                    this.Clone.TowerField = new Vector2((int) (this.clone.Position.X / offset.X),(int)(this.clone.Position.Y / offset.Y));
+                        Clone.Position = FieldCenterPosition[(int)position.X, (int)position.Y];
+                        Clone.TowerField = new Vector2((int) (clone.Position.X / offset.X),(int)(clone.Position.Y / offset.Y));
                    
-                    towerList.Add(this.Clone);
+                    towerList.Add(Clone);
 
-                    this.Clone = null;
+                        Clone = null;
                     
                 }
             }
@@ -414,12 +414,12 @@ namespace Towerdefense
             return currentField;
         }
 
-        internal void moveProjectiles()
+        internal void moveProjectiles(Player player)
         {
             List<Projectile> toRemove = new List<Projectile>();
             foreach(Projectile p in PList)
             {
-                if (p.move())
+                if (p.move(player))
                 {
                     toRemove.Add(p);
                 }

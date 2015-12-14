@@ -357,7 +357,7 @@ namespace Towerdefense
 
                 gameManager.CurrentEnemys = toDraw;
                 gameManager.towerShoot(placedTowerList, toDraw);
-                gameManager.moveProjectiles();
+                gameManager.moveProjectiles(player);
                
 
                 // TODO: this game isn't very fun! You could probably improve

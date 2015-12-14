@@ -34,7 +34,7 @@ namespace Towerdefense
             count.InnerText = "10";
             wave.AppendChild(count);
 
-            XmlNode enemy = this.createEnemyNote("wolf", 100, 1, "enemies/wolf", "ice", false, false,doc);
+            XmlNode enemy = createEnemyNote("wolf", 100, 1, "enemies/wolf", "ice", false, false,doc);
             wave.AppendChild(enemy);
 
             waves.AppendChild(wave);
@@ -47,7 +47,7 @@ namespace Towerdefense
             count.InnerText = "10";
             wave.AppendChild(count);
 
-            enemy = this.createEnemyNote("fish", 1000, 10, "enemies/wolf", "ice", false, true, doc);
+            enemy = createEnemyNote("fish", 1000, 10, "enemies/wolf", "ice", false, true, doc);
             wave.AppendChild(enemy);
 
             waves.AppendChild(wave);

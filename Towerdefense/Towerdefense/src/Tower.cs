@@ -75,46 +75,46 @@ namespace Towerdefense
         }
 
         public string ProjectileSpritePath {
-            get { return this.projectileSpritePath; }
-            set { this.projectileSpritePath = value; }
+            get { return projectileSpritePath; }
+            set { projectileSpritePath = value; }
         }
         public Texture2D ProjectileSprite {
-            get { return this.projectileSprite; }
-            set { this.projectileSprite = value; }
+            get { return projectileSprite; }
+            set { projectileSprite = value; }
         }
         public int MaxLevel {
-            get { return this.maxLevel; }
+            get { return maxLevel; }
         }
         public string UpdatePath {
-            get { return this.updatePath; }
-            set { this.updatePath = value; }
+            get { return updatePath; }
+            set { updatePath = value; }
         }
 
         public string RangeCirclePath {
-            get { return this.rangeCirclePath; }
-            set { this.rangeCirclePath = value; }
+            get { return rangeCirclePath; }
+            set { rangeCirclePath = value; }
         }
         public int UpgradeCost{
-        get{ return this.upgradeCost;}
-            set { this.upgradeCost = value; }
+        get{ return upgradeCost; }
+            set { upgradeCost = value; }
         }
         public Texture2D Weapon {
-            get { return this.weapon; }
-            set { this.weapon = value; }
+            get { return weapon; }
+            set { weapon = value; }
         }
         public Boolean IsSelected {
-            get { return this.isSelected; }
-            set { this.isSelected = value;}
+            get { return isSelected; }
+            set { isSelected = value;}
         }
 
         public Vector2 TowerField {
-            get { return this.towerField; }
-            set { this.towerField = value; }
+            get { return towerField; }
+            set { towerField = value; }
         }
 
         public int Level {
             get {
-                return this.level;
+                return level;
             }
             set {
                 level = value;
@@ -122,7 +122,7 @@ namespace Towerdefense
         }
         public Texture2D RangeCircle{
             get {
-                return this.rangeCircle;
+                return rangeCircle;
             }
 
             set {
@@ -134,7 +134,7 @@ namespace Towerdefense
         {
             get
             {
-                return this.range;
+                return range;
             }
 
             set
@@ -148,7 +148,7 @@ namespace Towerdefense
         {
             get
             {
-                return this.cost;
+                return cost;
             }
                 set
             {
@@ -160,7 +160,7 @@ namespace Towerdefense
         {
             get
             {
-                return this.damage;
+                return damage;
             }
 
             set
@@ -174,7 +174,7 @@ namespace Towerdefense
         {
             get
             {
-                return this.fireRate;
+                return fireRate;
             }
 
             set
@@ -188,7 +188,7 @@ namespace Towerdefense
         {
             get
             {
-                return this.speed;
+                return speed;
             }
 
             set
@@ -201,7 +201,7 @@ namespace Towerdefense
         {
             get
             {
-                return this.isUpgradeable;
+                return isUpgradeable;
             }
 
             set
@@ -215,7 +215,7 @@ namespace Towerdefense
         {
             get
             {
-                return this.position;
+                return position;
             }
 
             set
@@ -277,14 +277,14 @@ namespace Towerdefense
             this.damage = damage;
             this.fireRate = fireRate;
             this.speed = speed;
-            this.IsUpgradeable = isUpgradeable;
+            IsUpgradeable = isUpgradeable;
             this.rangeCircle = rangeCircle;
-            this.towerField.X = (int)(position.X / offset.X);
-            this.towerField.Y = (int)(position.Y / offset.Y);
+            towerField.X = (int)(position.X / offset.X);
+            towerField.Y = (int)(position.Y / offset.Y);
             this.upgradeCost = upgradeCost;
             this.weapon = weapon;
-            this.Upgrade = upgrade;
-            this.ProjectileSprite = projectileSprite;
+            Upgrade = upgrade;
+            ProjectileSprite = projectileSprite;
             pastFrames = 0;
             WeaponRotation = 0F;
         }
@@ -293,12 +293,12 @@ namespace Towerdefense
         public Tower(Texture2D sprite,Texture2D rangeCircle,Texture2D upgrade , Vector2 position, Vector2 offset) : base(sprite) {
             this.position = position;
             this.rangeCircle = rangeCircle;
-            this.range = 175;
-            this.level = 0;
+            range = 175;
+            level = 0;
             this.upgrade = upgrade;
-            this.towerField.X = (int) (position.X / offset.X);
-            this.towerField.Y = (int) (position.Y / offset.Y);
-            this.upgradeCost = 10;
+            towerField.X = (int) (position.X / offset.X);
+            towerField.Y = (int) (position.Y / offset.Y);
+            upgradeCost = 10;
         }
 
         public Tower() { }
@@ -371,14 +371,14 @@ namespace Towerdefense
             return radians;
         }
         public void upgradeTower(MouseState ms, MouseState ps,Player player) {
-            if (this.Level == 0) { this.Level++; }
-            else if (this.IsSelected && ms.LeftButton == ButtonState.Pressed && ps.LeftButton == ButtonState.Released && player.getGold() >= this.upgradeCost) {
-                if (this.Level < this.maxLevel) { 
-                    this.Level++;
-                    player.setGold(player.getGold()-this.upgradeCost);
-                    this.Damage += 5;
-                    this.Range += 25;
-                    this.FireRate += 10;
+            if (Level == 0) { Level++; }
+            else if (IsSelected && ms.LeftButton == ButtonState.Pressed && ps.LeftButton == ButtonState.Released && player.getGold() >= upgradeCost) {
+                if (Level < maxLevel) {
+                    Level++;
+                    player.setGold(player.getGold()- upgradeCost);
+                    Damage += 5;
+                    Range += 25;
+                    FireRate += 10;
                }
             }
         }
@@ -390,13 +390,13 @@ namespace Towerdefense
 
             if (enemies.Count != 0)
             {
-                enemy = enemies[0].Position - this.position;
+                enemy = enemies[0].Position - position;
                 closestEnemy = enemies[0];
                 enemyVector = enemy;
 
                 for (int i = 0; i < enemies.Count; i++)
                 {
-                    tmp = enemies[i].Position - this.position;
+                    tmp = enemies[i].Position - position;
                     if (enemy.Length() > tmp.Length())
                     {
                         enemy = tmp;
@@ -412,7 +412,7 @@ namespace Towerdefense
 
         public Boolean CanShootEnemy(Vector2 enemyPosition)
         {
-            if (enemyVector.Length() > this.range)
+            if (enemyVector.Length() > range)
             {
                 return false;
             }
@@ -427,7 +427,7 @@ namespace Towerdefense
             if (pastFrames >= fireRate * 1)
             {
                 pastFrames = 0;
-                g.spawnProjectile(this.projectileSprite,this.enemyVector, this.closestEnemy, this.position, this.speed, this.damage);
+                g.spawnProjectile(projectileSprite, enemyVector, closestEnemy, position, speed, damage);
             }            
         }
         #endregion

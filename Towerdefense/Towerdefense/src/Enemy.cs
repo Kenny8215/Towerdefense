@@ -31,27 +31,29 @@ namespace Towerdefense
 
         public Enemy cloneMe()
         {
-            return new Enemy(this.sprite,this.healthBar, this.spritePath,this.healthBarPath, this.hitPoints, this.position, this.walkDistance, this.rotation, this.movementSpeed, this.resistance, this.isBoss, this.isFlying);
+            return new Enemy(sprite, healthBar, spritePath, healthBarPath, hitPoints, position, walkDistance, rotation, movementSpeed, resistance, isBoss, isFlying);
         }
 
-        internal void damage(int damage, GameManager g)
+        internal void damage(int damage, GameManager g,Player player)
         {
-            this.hitPoints -= damage;
-            if (this.hitPoints <= 0)
+            hitPoints -= damage;
+            if (hitPoints <= 0)
             {
+                player.setGold(player.getGold() + (int)(maxHitPoints * 0.1));
                 g.destroyMe(this);
+                
             }
         }
 
         #region Setter and Getter
         public String HealthBarPath {
             get { return healthBarPath; }
-            set { this.healthBarPath = HealthBarPath; }
+            set { healthBarPath = HealthBarPath; }
         }
         public Texture2D HealthBar
         {
-            get { return this.healthBar; }
-            set { this.healthBar = value; }
+            get { return healthBar; }
+            set { healthBar = value; }
         }
 
         public int HitPoints
@@ -176,9 +178,9 @@ namespace Towerdefense
         public Enemy()
             : base()
         {
-            this.Rotation = 0;
-            this.lastCenterPosition = new Vector2(-1, -1);
-            this.position = new Vector2(30, 0);
+            Rotation = 0;
+            lastCenterPosition = new Vector2(-1, -1);
+            position = new Vector2(30, 0);
         }
 
         public Enemy(Texture2D sprite,Texture2D healthBar, string spritePath,string healthPath, int hitPoints, Vector2 position, int walkDistance, int rotation, float movementSpeed, string resistance, bool isBoss, bool isFlying)
@@ -186,35 +188,35 @@ namespace Towerdefense
         {
 
             this.sprite = sprite;
-            this.HitPoints = hitPoints;
-            this.Position = position;
-            this.WalkDistance = walkDistance;
-            this.Rotation = rotation;
-            this.MovementSpeed = movementSpeed;
-            this.Resistance = resistance;
-            this.IsBoss = isBoss;
-            this.IsFlying = isFlying;
+            HitPoints = hitPoints;
+            Position = position;
+            WalkDistance = walkDistance;
+            Rotation = rotation;
+            MovementSpeed = movementSpeed;
+            Resistance = resistance;
+            IsBoss = isBoss;
+            IsFlying = isFlying;
             this.spritePath = spritePath;
-            this.HealthBarPath = healthPath;
-            this.maxHitPoints = hitPoints;
+            HealthBarPath = healthPath;
+            maxHitPoints = hitPoints;
         }
         #endregion
 
         public void drawEnemy(SpriteBatch spriteBatch)
         {
 
-            Vector2 textCent = new Vector2(this.Sprite.Bounds.Center.X, this.Sprite.Bounds.Center.Y);
-            int tmpX = (int)this.Position.X ;
-            int tmpY =(int) this.Position.Y ;
-            int hpScale =(int) (this.HitPoints);
-            Vector2 tmp = (this.position);
-            Rectangle rec = new Rectangle(tmpX, tmpY, 200*(this.HitPoints)/this.maxHitPoints, 10);
+            Vector2 textCent = new Vector2(Sprite.Bounds.Center.X, Sprite.Bounds.Center.Y);
+            int tmpX = (int)Position.X ;
+            int tmpY =(int)Position.Y ;
+            int hpScale =(int) (HitPoints);
+            Vector2 tmp = (position);
+            Rectangle rec = new Rectangle(tmpX, tmpY, 200*(HitPoints) / maxHitPoints, 10);
             Vector2 center;
             center.X = rec.Center.X;
             center.Y = rec.Center.Y;
-            spriteBatch.Draw(this.Sprite, this.position, null, null, textCent, rotInRad(), new Vector2(0.3F, 0.3F), Color.White, SpriteEffects.None, 1F);
-            if (this.HitPoints > 10) { spriteBatch.Draw(this.HealthBar, this.Position, null, rec, textCent, rotInRad(), new Vector2(0.3F, 0.3F), Color.SteelBlue, SpriteEffects.None, 1F); }
-            else { spriteBatch.Draw(this.HealthBar, this.Position, null, rec, textCent, rotInRad(), new Vector2(0.3F, 0.3F), Color.Red, SpriteEffects.None, 1F); }
+            spriteBatch.Draw(Sprite, position, null, null, textCent, rotInRad(), new Vector2(0.3F, 0.3F), Color.White, SpriteEffects.None, 1F);
+            if (HitPoints > 10) { spriteBatch.Draw(HealthBar, Position, null, rec, textCent, rotInRad(), new Vector2(0.3F, 0.3F), Color.SteelBlue, SpriteEffects.None, 1F); }
+            else { spriteBatch.Draw(HealthBar, Position, null, rec, textCent, rotInRad(), new Vector2(0.3F, 0.3F), Color.Red, SpriteEffects.None, 1F); }
         }
         #endregion
 
@@ -230,7 +232,7 @@ namespace Towerdefense
                 rotation = (int)roadTypeAndRotation[(int)currentEnemyField.X, (int)currentEnemyField.Y].Y;
                 centerPosition = FieldCenterPosition[(int)currentEnemyField.X, (int)currentEnemyField.Y];
             }
-            else { return this.position; }
+            else { return position; }
             switch (roadType)
             {
                 case 0:
@@ -253,62 +255,62 @@ namespace Towerdefense
                     move3WayRoad(speedFactor, rotation, centerPosition);
                     break;
             }
-            return this.position;
+            return position;
         }
         #endregion
 
         #region movement
         public void moveStraight(float speedFactor, int roadRotation)
         {
-            float mv = speedFactor * this.movementSpeed;
-            if (this.Rotation >= 360) { this.Rotation = (int)normalizeDegree(this.Rotation); }
-            if (this.Rotation == 0) { this.position.Y += mv; }
-            else if (this.Rotation == 90) { this.position.X -= mv; }
-            else if (this.Rotation == 180) { this.position.Y -= mv; }
-            else if (this.Rotation == 270) { this.position.X += mv; }
+            float mv = speedFactor * movementSpeed;
+            if (Rotation >= 360) { Rotation = (int)normalizeDegree(Rotation); }
+            if (Rotation == 0) { position.Y += mv; }
+            else if (Rotation == 90) { position.X -= mv; }
+            else if (Rotation == 180) { position.Y -= mv; }
+            else if (Rotation == 270) { position.X += mv; }
 
         }
 
         public void moveCurve(float speedFactor, int roadRotation, Vector2 centerPosition, Vector2 offset)
         {
-            if (this.lastCenterPosition != centerPosition)
+            if (lastCenterPosition != centerPosition)
             {
-                this.lastCenterPosition = centerPosition; hasTurned = false;
+                lastCenterPosition = centerPosition; hasTurned = false;
             }
-            float mv = speedFactor * this.movementSpeed;
+            float mv = speedFactor * movementSpeed;
             int entryZeroY = 0 + roadRotation * 90;
             int outZeroX = 270 + roadRotation * 90;
             int entryZeroX = 90 + 90 * roadRotation;
             int outZeroY = 180 + 90 * roadRotation;
 
-            if (entryZeroY >= 360 || outZeroX >= 360 || entryZeroX >= 360 || outZeroY >= 360 || this.Rotation >= 360)
+            if (entryZeroY >= 360 || outZeroX >= 360 || entryZeroX >= 360 || outZeroY >= 360 || Rotation >= 360)
             {
                 entryZeroY = (int)normalizeDegree(entryZeroY);
                 entryZeroX = (int)normalizeDegree(entryZeroX);
                 outZeroY = (int)normalizeDegree(outZeroY);
                 outZeroX = (int)normalizeDegree(outZeroX);
-                this.Rotation = (int)normalizeDegree(this.Rotation);
+                Rotation = (int)normalizeDegree(Rotation);
             }
 
-            if (this.Rotation == 0) { this.position.Y += mv; }
-            else if (this.Rotation == 90) { this.position.X -= mv; }
-            else if (this.Rotation == 180) { this.position.Y -= mv; }
-            else if (this.Rotation == 270)
+            if (Rotation == 0) { position.Y += mv; }
+            else if (Rotation == 90) { position.X -= mv; }
+            else if (Rotation == 180) { position.Y -= mv; }
+            else if (Rotation == 270)
             {
-                this.position.X += mv;
+                position.X += mv;
             }
 
             if (!hasTurned)
             {
-                if (this.Rotation == entryZeroY && ((this.Rotation == 0 && this.Position.Y >= centerPosition.Y) || (this.Rotation == 90 && this.Position.X <= centerPosition.X) || (this.Rotation == 180 && this.Position.Y <= centerPosition.Y) || (this.Rotation == 270 && this.Position.X >= centerPosition.X)))
+                if (Rotation == entryZeroY && ((Rotation == 0 && Position.Y >= centerPosition.Y) || (Rotation == 90 && Position.X <= centerPosition.X) || (Rotation == 180 && Position.Y <= centerPosition.Y) || (Rotation == 270 && Position.X >= centerPosition.X)))
                 {
-                    this.Rotation = outZeroX;
-                    this.hasTurned = true;
+                    Rotation = outZeroX;
+                    hasTurned = true;
                 }
-                else if (this.Rotation == entryZeroX && ((this.Rotation == 0 && this.Position.Y >= centerPosition.Y) || (this.Rotation == 90 && this.Position.X <= centerPosition.X) || (this.Rotation == 180 && this.Position.Y <= centerPosition.Y) || (this.Rotation == 270 && this.Position.X >= centerPosition.X)))
+                else if (Rotation == entryZeroX && ((Rotation == 0 && Position.Y >= centerPosition.Y) || (Rotation == 90 && Position.X <= centerPosition.X) || (Rotation == 180 && Position.Y <= centerPosition.Y) || (Rotation == 270 && Position.X >= centerPosition.X)))
                 {
-                    this.rotation = outZeroY;
-                    this.hasTurned = true;
+                    rotation = outZeroY;
+                    hasTurned = true;
                 }
             }
         }
@@ -316,26 +318,26 @@ namespace Towerdefense
         public void move4WayRoad(float speedFactor, Vector2 centerPosition)
         {
 
-            this.Rotation = (int)normalizeDegree(this.Rotation);
+            Rotation = (int)normalizeDegree(Rotation);
 
-            if (this.lastCenterPosition != centerPosition)
+            if (lastCenterPosition != centerPosition)
             {
-                this.lastCenterPosition = centerPosition; hasTurned = false;
+                lastCenterPosition = centerPosition; hasTurned = false;
             }
-            float mv = speedFactor * this.movementSpeed;
+            float mv = speedFactor * movementSpeed;
 
-            if (this.Rotation == 0) { this.position.Y += mv; }
-            else if (this.Rotation == 90) { this.position.X -= mv; }
-            else if (this.Rotation == 180) { this.position.Y -= mv; }
-            else if (this.Rotation == 270) { this.position.X += mv; }
+            if (Rotation == 0) { position.Y += mv; }
+            else if (Rotation == 90) { position.X -= mv; }
+            else if (Rotation == 180) { position.Y -= mv; }
+            else if (Rotation == 270) { position.X += mv; }
 
             if (!hasTurned)
             {
-                if ((this.Rotation == 0 && this.Position.Y >= centerPosition.Y) || (this.Rotation == 90 && this.Position.X <= centerPosition.X) || (this.Rotation == 180 && this.Position.Y <= centerPosition.Y) || (this.Rotation == 270 && this.Position.X >= centerPosition.X))
+                if ((Rotation == 0 && Position.Y >= centerPosition.Y) || (Rotation == 90 && Position.X <= centerPosition.X) || (Rotation == 180 && Position.Y <= centerPosition.Y) || (Rotation == 270 && Position.X >= centerPosition.X))
                 {
                     Random x = new Random();
                     int rand = x.Next(-1, 2);
-                    this.Rotation += 90 * rand;
+                    Rotation += 90 * rand;
 
                     hasTurned = true;
                 }
@@ -344,40 +346,40 @@ namespace Towerdefense
 
         public void move3WayRoad(float speedFactor, int roadRotation, Vector2 centerPosition)
         {
-            this.Rotation = (int)normalizeDegree(this.Rotation);
+            Rotation = (int)normalizeDegree(Rotation);
 
-            if (this.lastCenterPosition != centerPosition)
+            if (lastCenterPosition != centerPosition)
             {
-                this.lastCenterPosition = centerPosition; hasTurned = false;
+                lastCenterPosition = centerPosition; hasTurned = false;
             }
-            float mv = speedFactor * this.movementSpeed;
+            float mv = speedFactor * movementSpeed;
 
-            if (this.Rotation == 0) { this.position.Y += mv; }
-            else if (this.Rotation == 90) { this.position.X -= mv; }
-            else if (this.Rotation == 180) { this.position.Y -= mv; }
-            else if (this.Rotation == 270) { this.position.X += mv; }
+            if (Rotation == 0) { position.Y += mv; }
+            else if (Rotation == 90) { position.X -= mv; }
+            else if (Rotation == 180) { position.Y -= mv; }
+            else if (Rotation == 270) { position.X += mv; }
 
             if (!hasTurned)
             {
-                if ((this.Rotation == 0 && this.Position.Y >= centerPosition.Y) || (this.Rotation == 90 && this.Position.X <= centerPosition.X) || (this.Rotation == 180 && this.Position.Y <= centerPosition.Y) || (this.Rotation == 270 && this.Position.X >= centerPosition.X))
+                if ((Rotation == 0 && Position.Y >= centerPosition.Y) || (Rotation == 90 && Position.X <= centerPosition.X) || (Rotation == 180 && Position.Y <= centerPosition.Y) || (Rotation == 270 && Position.X >= centerPosition.X))
                 {
-                    if (this.Rotation == roadRotation * 90)
+                    if (Rotation == roadRotation * 90)
                     {
                         Random x = new Random();
                         int rand = x.Next(-1, 1);
-                        if (rand == -1) { this.Rotation = (int) normalizeDegree(this.Rotation + 270); hasTurned = true; }
-                        else { this.Rotation = (int) normalizeDegree(this.Rotation + 90); hasTurned = true; }
+                        if (rand == -1) { Rotation = (int) normalizeDegree(Rotation + 270); hasTurned = true; }
+                        else { Rotation = (int) normalizeDegree(Rotation + 90); hasTurned = true; }
                     }
-                    else if(this.Rotation == (normalizeDegree(90 + roadRotation * 90))) {
+                    else if(Rotation == (normalizeDegree(90 + roadRotation * 90))) {
                         Random x = new Random();
                         int rand = x.Next(0, 2);
-                        this.Rotation += (int) normalizeDegree(90 * rand);
+                        Rotation += (int) normalizeDegree(90 * rand);
                         hasTurned = true;
                     }
-                    else if (this.Rotation == (normalizeDegree(270 + roadRotation * 90))) {
+                    else if (Rotation == (normalizeDegree(270 + roadRotation * 90))) {
                         Random x = new Random();
                         int rand = x.Next(0, 2);
-                        this.Rotation =(int) normalizeDegree(this.Rotation + 270 * rand);
+                        Rotation = (int) normalizeDegree(Rotation + 270 * rand);
                              hasTurned = true;
                     }
                     }
@@ -405,7 +407,7 @@ namespace Towerdefense
         #region helpFunctions
         public float rotInRad()
         {
-            switch (this.Rotation)
+            switch (Rotation)
             {
                 case 90:
                     return 1.5708F;
@@ -420,8 +422,8 @@ namespace Towerdefense
         public Vector2 currentEnemyField(Vector2 offset)
         {
             Vector2 currentField;
-            currentField.X = (int)(this.position.X / offset.X);
-            currentField.Y = (int)(this.position.Y / offset.Y);
+            currentField.X = (int)(position.X / offset.X);
+            currentField.Y = (int)(position.Y / offset.Y);
             return currentField;
         }
         #endregion

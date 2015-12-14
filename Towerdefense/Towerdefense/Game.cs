@@ -62,7 +62,7 @@ namespace Towerdefense
             screenManager.AddScreen(new MainMenuScreen(), null);
 
             //Mouse Visible
-            this.IsMouseVisible = true;
+            IsMouseVisible = true;
         }
 
 
