@@ -20,6 +20,7 @@ namespace Towerdefense
         private Vector2 position;
         private Vector2 lastCenterPosition;
 
+        private int dmg;
         private int walkDistance;
         private int rotation;
         private float movementSpeed;
@@ -42,6 +43,15 @@ namespace Towerdefense
                 player.setGold(player.getGold() + (int)(maxHitPoints * 0.1));
                 g.destroyMe(this);
                 
+            }
+        }
+
+        internal void enemyDoesDamage(Player player,GameManager g ,Vector2[,] fieldCenterPosition,Vector2 offset,int amountOfField) {
+            Vector2 outOfGrid = new Vector2(fieldCenterPosition[amountOfField-1,amountOfField-1].X+offset.X, fieldCenterPosition[amountOfField-1, amountOfField-1].Y + offset.Y);
+            if (this.Position.X >= outOfGrid.X / 2 || Position.Y >= outOfGrid.Y / 2 || Position.X <= 0 || Position.Y / 2 <= 0)
+            {
+                player.loseHitPoints(dmg);
+                g.destroyMe(this);
             }
         }
 
@@ -199,6 +209,7 @@ namespace Towerdefense
             this.spritePath = spritePath;
             HealthBarPath = healthPath;
             maxHitPoints = hitPoints;
+            dmg = 1;
         }
         #endregion
 
