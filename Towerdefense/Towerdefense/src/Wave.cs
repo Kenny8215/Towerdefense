@@ -11,6 +11,7 @@ namespace Towerdefense
         List<Enemy> listEnemy;
         Enemy enemy;
         int count;
+        bool done;
         #endregion
 
         #region setter and getter
@@ -37,6 +38,19 @@ namespace Towerdefense
             set
             {
                 count = value;
+            }
+        }
+
+        public bool Done
+        {
+            get
+            {
+                return done;
+            }
+
+            set
+            {
+                done = value;
             }
         }
 

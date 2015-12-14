@@ -35,6 +35,7 @@ namespace Towerdefense
                      select new Wave()
                      {
                          Count = Convert.ToInt32(wave.Element("count").Value),//read out size of the wave
+                         Done = false,
                          Enemy = (from e in wave.Descendants("enemy")
                                   select new Enemy() //read out all enemys of a wave
                                       {
