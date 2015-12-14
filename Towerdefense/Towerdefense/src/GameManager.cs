@@ -192,18 +192,22 @@ namespace Towerdefense
         }
 
         public void towerShoot(List<Tower> towerList, List<Enemy> EnemyList) {
-            Vector2 closestEnemyPosition;
-            Boolean canShoot;
+            if (EnemyList.Count != 0)
+            {
+                Vector2 closestEnemyPosition;
+                Boolean canShoot;
                 foreach (Tower t in towerList)
                 {
                     closestEnemyPosition = t.SearchClosestEnemy(EnemyList);
-                t.WeaponRotation = t.TurnToFace(t.Position, closestEnemyPosition, t.WeaponRotation, 0.025F);
-                canShoot = t.CanShootEnemy(closestEnemyPosition);
-                if (canShoot) {
-                    
-                    t.Shoot(this);
+                    t.WeaponRotation = t.TurnToFace(t.Position, closestEnemyPosition, t.WeaponRotation, 0.025F);
+                    canShoot = t.CanShootEnemy(closestEnemyPosition);
+                    if (canShoot)
+                    {
+
+                        t.Shoot(this);
                     }
                 }
+            }
         }
 
         public void cloneTower(int towerType,Vector2 offset) {
