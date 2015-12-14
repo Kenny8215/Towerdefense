@@ -360,14 +360,16 @@ namespace Towerdefense
                     }
                 }
 
-                gameManager.CurrentEnemys = toDraw;
-                gameManager.towerShoot(placedTowerList, toDraw);
-                gameManager.moveProjectiles(player);
 
-                foreach (Enemy e in removedEnemies) {
+                foreach (Enemy e in removedEnemies)
+                {
                     player.loseHitPoints(e.Dmg);
                     toDraw.Remove(e);
                 }
+
+                gameManager.CurrentEnemys = toDraw;
+                gameManager.towerShoot(placedTowerList, toDraw);
+                gameManager.moveProjectiles(player);
 
                 removedEnemies = new List<Enemy>();
                 // TODO: this game isn't very fun! You could probably improve
@@ -376,6 +378,11 @@ namespace Towerdefense
                 for (int i = 0; i < placedTowerList.Count; i++)
                 {
                     placedTowerList[i].SearchClosestEnemy(toDraw);
+                }
+
+                if(player.HitPoints <= 0) {
+
+                    ScreenManager.AddScreen(new LoseScreen(), ControllingPlayer);
                 }
             }
         }

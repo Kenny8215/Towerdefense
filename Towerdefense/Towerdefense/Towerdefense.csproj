@@ -40,6 +40,7 @@
   <ItemGroup>
     <Compile Include="Screens\LevelEditorScreen.cs" />
     <Compile Include="Screens\LevelPickScreen.cs" />
+    <Compile Include="Screens\LoseScreen.cs" />
     <Compile Include="Screens\WinScreen.cs" />
     <Compile Include="src\DynamicGameObject.cs" />
     <Compile Include="src\Enemy.cs" />
