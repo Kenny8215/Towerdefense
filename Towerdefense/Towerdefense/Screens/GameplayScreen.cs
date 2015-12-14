@@ -332,7 +332,14 @@ namespace Towerdefense
                             }
 
                         }
-                    }         
+                    }
+                    else
+                    {
+                        if (toDraw.Count == 0)
+                        {
+                            ScreenManager.AddScreen(new WinScreen(), ControllingPlayer);
+                        }
+                    }      
                     
                 }
                 foreach(Enemy e in toDraw)
