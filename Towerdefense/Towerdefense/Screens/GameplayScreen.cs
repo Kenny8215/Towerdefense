@@ -76,6 +76,7 @@ namespace Towerdefense
         List<Tower> placedTowerList;
         List<Tower> placeableTower;
         List<Projectile> PList;
+        List<Enemy> removedEnemies;
 
         MouseState previousMouseState;
 
@@ -141,6 +142,7 @@ namespace Towerdefense
             currentEnemy = 0;
             toDraw = new List<Enemy>();
             timeLaps = 0;
+            removedEnemies = new List<Enemy>();
 
         }
         #endregion
@@ -352,14 +354,22 @@ namespace Towerdefense
                 }
                 foreach(Enemy e in toDraw)
                 {
-                    e.Position= gameManager.updateEnemies(e,roadTypeAndRotation, offset, amountOfField, FieldCenterPosition);
+                    e.Position = gameManager.updateEnemies(e, roadTypeAndRotation, offset, amountOfField, FieldCenterPosition);
+                        if (e.Position.X <= 0 || e.Position.Y <= 0 || e.Position.X >= amountOfField*offset.X || e.Position.Y >= amountOfField*offset.Y) {
+                        removedEnemies.Add(e);
+                    }
                 }
 
                 gameManager.CurrentEnemys = toDraw;
                 gameManager.towerShoot(placedTowerList, toDraw);
                 gameManager.moveProjectiles(player);
-               
 
+                foreach (Enemy e in removedEnemies) {
+                    player.loseHitPoints(e.Dmg);
+                    toDraw.Remove(e);
+                }
+
+                removedEnemies = new List<Enemy>();
                 // TODO: this game isn't very fun! You could probably improve
                 // it by inserting something more interesting in this space :-)
 

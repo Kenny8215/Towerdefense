@@ -340,7 +340,7 @@ namespace Towerdefense
         #region Grid and LevelEditor methods
         /*Randomizes nonRoadFields*/
         public Vector2[,] randomNonRoads(Vector2[,] roadTypeAndRotation,int amountOfField) {
-            Random r = new Random(25);
+            Random r = new Random();
             int currentRandom;
             for (int i = 0; i < amountOfField; i++) {
                 for (int j = 0; j < amountOfField; j++) {
