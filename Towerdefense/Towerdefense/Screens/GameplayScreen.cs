@@ -40,6 +40,9 @@ namespace Towerdefense
 
         Texture2D nonroad;
         Texture2D nonroad1;
+        Texture2D nonroad2;
+        Texture2D nonroad3;
+        Texture2D nonroad4;
         Texture2D road1;
         Texture2D road2;
         Texture2D road3;
@@ -169,6 +172,9 @@ namespace Towerdefense
             background = content.Load<Texture2D>("background");
             nonroad = content.Load<Texture2D>("tiles/noRoad1");
             nonroad1 = content.Load<Texture2D>("tiles/noRoad1");
+            nonroad2 = content.Load<Texture2D>("tiles/noRoad1");
+            nonroad3 = content.Load<Texture2D>("tiles/noRoad1");
+            nonroad4 = content.Load<Texture2D>("tiles/noRoad1");
             road1 = content.Load<Texture2D>("tiles/road");
             road2 = content.Load<Texture2D>("tiles/road1");
             road3 = content.Load<Texture2D>("tiles/road2");
@@ -184,7 +190,7 @@ namespace Towerdefense
 
             upgrade = content.Load < Texture2D>("tower/upgradeGreen");
 
-            roadArray = new Texture2D[] { nonroad, nonroad1, road1, road2, road3, road4 };
+            roadArray = new Texture2D[] { nonroad, nonroad1, road1, road2, road3, road4,nonroad2,nonroad3,nonroad4 };
             menuTextureArray = new Texture2D[] { lifeIcon, moneyIcon, tower1Icon, tower2Icon};
 
             foreach(Wave w in waveList)
@@ -250,6 +256,8 @@ namespace Towerdefense
                 roadTypeAndRotation[f.X, f.Y].X = f.Type;
                 roadTypeAndRotation[f.X, f.Y].Y = f.Rotation;
             }
+
+            roadTypeAndRotation = gameManager.randomNonRoads(roadTypeAndRotation, amountOfField);
             #endregion
 
             // A real game would probably have more content than this sample, so
@@ -442,9 +450,6 @@ namespace Towerdefense
             gameManager.drawTowers(placedTowerList, spriteBatch, ScreenManager.GraphicsDevice, amountOfField);
 
             gameManager.drawProjectile(spriteBatch);
-
-            /*Draws all towerweapons*/
-           // gameManager.drawTowerWeapons(placedTowerList,spriteBatch);
 
             /*Draws The TowerTexture to the Mouseposition when leftclicked*/
             gameManager.drawTowerToMouse(drawTower, spriteBatch,ScreenManager.GraphicsDevice,amountOfField);

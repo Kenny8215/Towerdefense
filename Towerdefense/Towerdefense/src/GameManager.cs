@@ -142,18 +142,7 @@ namespace Towerdefense
         #endregion
 
         #region Towers
-        /*
-        public void drawTowerWeapons(List<Tower> towerList,SpriteBatch spriteBatch) {
-            Rectangle rec = new Rectangle(0,0,200,200);
-            Vector2 scale = new Vector2(1,1);
-            Vector2 origin;
-            foreach(Tower t in towerList){
-                origin.X =t.Weapon.Bounds.Center.X;
-                origin.Y = t.Weapon.Bounds.Center.Y;
-                spriteBatch.Draw(t.Weapon, t.Position, null, rec,origin, 0F,scale, Color.White, SpriteEffects.None, 0F);
-            }
-        }
-         */
+  
         public void drawTowers(List<Tower> towerList, SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, int amountOfFields)
         {
             Vector2 tmp;
@@ -345,6 +334,30 @@ namespace Towerdefense
         #endregion
 
         #region Grid and LevelEditor methods
+        /*Randomizes nonRoadFields*/
+        public Vector2[,] randomNonRoads(Vector2[,] roadTypeAndRotation,int amountOfField) {
+            Random r = new Random(25);
+            int currentRandom;
+            for (int i = 0; i < amountOfField; i++) {
+                for (int j = 0; j < amountOfField; j++) {
+                    if (roadTypeAndRotation[j, i].X == 0) {
+                        currentRandom = r.Next(0, 9);
+                        if (currentRandom <= 5){
+                            roadTypeAndRotation[j, i].X = 0;
+                            roadTypeAndRotation[j, i].Y = r.Next(0, 3);
+                        }
+                        else {
+                            roadTypeAndRotation[j, i].X = currentRandom;
+                            roadTypeAndRotation[j, i].Y = r.Next(0, 3);
+                        }
+                    }
+                }
+            }
+
+
+            return roadTypeAndRotation;
+        }
+
         /*Calculates the center of each gridelement*/
         public Vector2[,] createGrid(float maxHeight, int amountOfFields)
         {
