@@ -4,7 +4,7 @@
       <count>10</count>
       <enemy>
         <name>wolf</name>
-        <hitPoints>100</hitPoints>
+        <hitPoints>1000</hitPoints>
         <movementSpeed>1</movementSpeed>
         <sprite>enemies/wolf</sprite>
         <resistance>ice</resistance>
@@ -13,14 +13,14 @@
       </enemy>
     </wave>
     <wave>
-      <count>10</count>
+      <count>1</count>
       <enemy>
         <name>fish</name>
-        <hitPoints>1000</hitPoints>
-        <movementSpeed>10</movementSpeed>
+        <hitPoints>10000</hitPoints>
+        <movementSpeed>1</movementSpeed>
         <sprite>enemies/wolf</sprite>
         <resistance>ice</resistance>
-        <boss>False</boss>
+        <boss>true</boss>
         <flying>True</flying>
       </enemy>
     </wave>

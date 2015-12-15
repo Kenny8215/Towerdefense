@@ -205,6 +205,10 @@ namespace Towerdefense
             HealthBarPath = healthPath;
             maxHitPoints = hitPoints;
             dmg = 1;
+
+            if (IsBoss) {
+                dmg *= 10;
+            }
         }
         #endregion
 
@@ -218,11 +222,14 @@ namespace Towerdefense
             Vector2 tmp = (position);
             Rectangle rec = new Rectangle(tmpX, tmpY, 200*(HitPoints) / maxHitPoints, 10);
             Vector2 center;
+            Vector2 scale = new Vector2(0.3F, 0.3F);
+            Vector2 scaleboss = new Vector2(0.5F, 0.5F);
             center.X = rec.Center.X;
             center.Y = rec.Center.Y;
-            spriteBatch.Draw(Sprite, position, null, null, textCent, rotInRad(), new Vector2(0.3F, 0.3F), Color.White, SpriteEffects.None, 1F);
-            if (HitPoints > maxHitPoints * 0.25F) { spriteBatch.Draw(HealthBar, Position, null, rec, textCent, rotInRad(), new Vector2(0.3F, 0.3F), Color.SteelBlue, SpriteEffects.None, 1F); }
-            else { spriteBatch.Draw(HealthBar, Position, null, rec, textCent, rotInRad(), new Vector2(0.3F, 0.3F), Color.Red, SpriteEffects.None, 1F); }
+            if (this.IsBoss) { spriteBatch.Draw(Sprite, position, null, null, textCent, rotInRad(), scaleboss, Color.White, SpriteEffects.None, 1F); }
+            else { spriteBatch.Draw(Sprite, position, null, null, textCent, rotInRad(), scale, Color.White, SpriteEffects.None, 1F); }
+            if (HitPoints > maxHitPoints * 0.25F) { spriteBatch.Draw(HealthBar, Position, null, rec, textCent, rotInRad(), scale, Color.SteelBlue, SpriteEffects.None, 1F); }
+            else { spriteBatch.Draw(HealthBar, Position, null, rec, textCent, rotInRad(), scale, Color.Red, SpriteEffects.None, 1F); }
         }
         #endregion
 
