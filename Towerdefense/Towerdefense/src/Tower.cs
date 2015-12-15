@@ -424,7 +424,7 @@ namespace Towerdefense
 
         public void Shoot(GameManager g) {
             pastFrames++;
-            if (pastFrames >= fireRate * 1)
+            if (pastFrames >= 950/fireRate * 1)
             {
                 pastFrames = 0;
                 g.spawnProjectile(projectileSprite, enemyVector, closestEnemy, position, speed, damage);
