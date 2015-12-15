@@ -106,7 +106,7 @@ namespace Towerdefense
         double spendTime;
         double timeLaps;
 
-        double wavetime = 30;
+        double wavetime = 10;
         double lapsedWavetime = 0;
 
 

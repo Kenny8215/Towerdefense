@@ -1,10 +1,10 @@
 <level>
   <waves>
     <wave>
-      <count>10</count>
+      <count>20</count>
       <enemy>
         <name>wolf</name>
-        <hitPoints>100</hitPoints>
+        <hitPoints>800</hitPoints>
         <movementSpeed>1</movementSpeed>
         <sprite>enemies/wolf</sprite>
         <resistance>ice</resistance>
@@ -13,14 +13,26 @@
       </enemy>
     </wave>
     <wave>
-      <count>10</count>
+      <count>20</count>
       <enemy>
         <name>fish</name>
-        <hitPoints>1000</hitPoints>
-        <movementSpeed>10</movementSpeed>
+        <hitPoints>1100</hitPoints>
+        <movementSpeed>3</movementSpeed>
         <sprite>enemies/wolf</sprite>
         <resistance>ice</resistance>
         <boss>False</boss>
+        <flying>True</flying>
+      </enemy>
+    </wave>
+	<wave>
+      <count>1</count>
+      <enemy>
+        <name>megafish</name>
+        <hitPoints>110000</hitPoints>
+        <movementSpeed>1</movementSpeed>
+        <sprite>enemies/wolf</sprite>
+        <resistance>ice</resistance>
+        <boss>true</boss>
         <flying>True</flying>
       </enemy>
     </wave>
