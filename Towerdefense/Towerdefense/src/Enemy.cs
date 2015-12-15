@@ -37,11 +37,15 @@ namespace Towerdefense
 
         internal void damage(int damage, GameManager g,Player player)
         {
-            hitPoints -= damage;
-            if (hitPoints <= 0)
+            if (hitPoints > 0)
             {
-                player.setGold(player.getGold() + (int)(maxHitPoints * 0.1));
+                hitPoints -= damage;
+            }
+           else
+            {
                 g.destroyMe(this);
+                player.setGold(player.getGold() + (int)(2 + (maxHitPoints * 0.001)));
+                
                 
             }
         }
