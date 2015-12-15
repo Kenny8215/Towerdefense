@@ -345,8 +345,8 @@ namespace Towerdefense
             for (int i = 0; i < amountOfField; i++) {
                 for (int j = 0; j < amountOfField; j++) {
                     if (roadTypeAndRotation[j, i].X == 0) {
-                        currentRandom = r.Next(0, 10);
-                        if (currentRandom <= 5){
+                        currentRandom = r.Next(0, 20);
+                        if (currentRandom <= 5 || currentRandom >= 11){
                             roadTypeAndRotation[j, i].X = 0;
                             roadTypeAndRotation[j, i].Y = r.Next(0, 3);
                         }
