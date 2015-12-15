@@ -214,14 +214,14 @@ namespace Towerdefense
             Vector2 textCent = new Vector2(Sprite.Bounds.Center.X, Sprite.Bounds.Center.Y);
             int tmpX = (int)Position.X ;
             int tmpY =(int)Position.Y ;
-            int hpScale =(int) (HitPoints);
+            int hpScale = (HitPoints);
             Vector2 tmp = (position);
             Rectangle rec = new Rectangle(tmpX, tmpY, 200*(HitPoints) / maxHitPoints, 10);
             Vector2 center;
             center.X = rec.Center.X;
             center.Y = rec.Center.Y;
             spriteBatch.Draw(Sprite, position, null, null, textCent, rotInRad(), new Vector2(0.3F, 0.3F), Color.White, SpriteEffects.None, 1F);
-            if (HitPoints > 10) { spriteBatch.Draw(HealthBar, Position, null, rec, textCent, rotInRad(), new Vector2(0.3F, 0.3F), Color.SteelBlue, SpriteEffects.None, 1F); }
+            if (HitPoints > maxHitPoints * 0.25F) { spriteBatch.Draw(HealthBar, Position, null, rec, textCent, rotInRad(), new Vector2(0.3F, 0.3F), Color.SteelBlue, SpriteEffects.None, 1F); }
             else { spriteBatch.Draw(HealthBar, Position, null, rec, textCent, rotInRad(), new Vector2(0.3F, 0.3F), Color.Red, SpriteEffects.None, 1F); }
         }
         #endregion
@@ -391,6 +391,11 @@ namespace Towerdefense
                     }
                 }
         }
+
+        #endregion
+
+        #region helpFunctions
+
         /*check if degree is > than 360 and resets it */
         public float normalizeDegree(float degree)
         {
@@ -408,9 +413,6 @@ namespace Towerdefense
             }
             return degree;
         }
-        #endregion
-
-        #region helpFunctions
         public float rotInRad()
         {
             switch (Rotation)
