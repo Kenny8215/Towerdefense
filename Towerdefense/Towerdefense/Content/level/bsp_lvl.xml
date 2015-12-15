@@ -655,7 +655,7 @@
   <tower>
     <tow>
       <range>200</range>
-      <cost>100</cost>
+      <cost>50</cost>
       <damage>300</damage>
       <rate>1</rate>
       <speed>5</speed>
@@ -666,7 +666,7 @@
     <tow>
       <range>30</range>
       <cost>1</cost>
-      <damage>1</damage>
+      <damage>100</damage>
       <rate>5</rate>
       <speed>5</speed>
 	  <upgradecost>5</upgradecost>

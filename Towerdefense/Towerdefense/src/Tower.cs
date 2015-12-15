@@ -376,8 +376,8 @@ namespace Towerdefense
                 if (Level < maxLevel) {
                     Level++;
                     player.setGold(player.getGold()- upgradeCost);
-                    Damage += 10*(Damage/50);
-                    Range += 20*(Range/100);
+                    Damage += 10;
+                    Range += 20;
                     FireRate += 5;
                }
             }
