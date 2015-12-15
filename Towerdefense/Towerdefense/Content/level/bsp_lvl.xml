@@ -24,6 +24,30 @@
         <flying>True</flying>
       </enemy>
     </wave>
+	   <wave>
+      <count>10</count>
+      <enemy>
+        <name>penguin</name>
+        <hitPoints>5500</hitPoints>
+        <movementSpeed>1</movementSpeed>
+        <sprite>enemies/penguin</sprite>
+        <resistance>ice</resistance>
+        <boss>False</boss>
+        <flying>False</flying>
+      </enemy>
+    </wave>
+    <wave>
+      <count>1</count>
+      <enemy>
+        <name>penguinBoss</name>
+        <hitPoints>50000</hitPoints>
+        <movementSpeed>1</movementSpeed>
+        <sprite>enemies/penguin</sprite>
+        <resistance>ice</resistance>
+        <boss>true</boss>
+        <flying>True</flying>
+      </enemy>
+    </wave>
   </waves>
   <grid>
     <count>10</count>
@@ -630,19 +654,19 @@
   </grid>
   <tower>
     <tow>
-      <range>5</range>
-      <cost>50</cost>
-      <damage>5</damage>
-      <rate>5</rate>
+      <range>200</range>
+      <cost>100</cost>
+      <damage>300</damage>
+      <rate>1</rate>
       <speed>5</speed>
       <upgrade>true</upgrade>
-	  <upgradecost>5</upgradecost>
+	  <upgradecost>25</upgradecost>
       <path>Tower/tower1</path>
     </tow>
     <tow>
-      <range>5</range>
-      <cost>50</cost>
-      <damage>5</damage>
+      <range>30</range>
+      <cost>1</cost>
+      <damage>1</damage>
       <rate>5</rate>
       <speed>5</speed>
 	  <upgradecost>5</upgradecost>

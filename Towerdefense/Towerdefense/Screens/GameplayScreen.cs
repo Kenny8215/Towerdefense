@@ -252,16 +252,6 @@ namespace Towerdefense
             #endregion
 
             #region Loadlevel
-            /*Load Level in roadTypeAndRotation*/
-            for (int i = 0; i < amountOfField; i++)
-            {
-                for (int j = 0; j < amountOfField; j++)
-                {
-                    roadTypeAndRotation[i, j].X = 0;
-                    roadTypeAndRotation[i, j].Y = 0;
-                }
-            }
-
             foreach (Field f in grid)
             {
                 roadTypeAndRotation[f.X, f.Y].X = f.Type;
