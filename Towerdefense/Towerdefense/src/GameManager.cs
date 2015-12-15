@@ -199,7 +199,7 @@ namespace Towerdefense
                 foreach (Tower t in towerList)
                 {
                     closestEnemyPosition = t.SearchClosestEnemy(EnemyList);
-                    t.WeaponRotation = t.TurnToFace(t.Position, closestEnemyPosition, t.WeaponRotation, 0.025F);
+                    t.WeaponRotation = t.TurnToFace(t.Position, closestEnemyPosition + t.Position, t.WeaponRotation, 0.025F);
                     canShoot = t.CanShootEnemy(closestEnemyPosition);
                     if (canShoot)
                     {
