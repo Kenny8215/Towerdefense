@@ -173,7 +173,7 @@ namespace Towerdefense
                 t.Weapon = content.Load<Texture2D>(t.WeaponPath);
                 t.RangeCircle = content.Load<Texture2D>(t.RangeCirclePath);
                 t.Upgrade = content.Load<Texture2D>(t.UpdatePath);
-                t.ProjectileSprite = content.Load<Texture2D>("projectileTMP");
+                t.ProjectileSprite = content.Load<Texture2D>(t.ProjectileSpritePath);
             }
 
 

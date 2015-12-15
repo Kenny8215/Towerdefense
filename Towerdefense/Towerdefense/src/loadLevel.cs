@@ -72,7 +72,7 @@ namespace Towerdefense
                           UpdatePath = "Tower/upgradeGreen",
                           SpritePath = tower.Element("path").Value,
                           WeaponPath="Tower/viking_axe",
-                          ProjectileSpritePath = "projectileTMP"
+                          ProjectileSpritePath = "Tower/axe"
                       }).ToList();
             
             XElement g = doc.Descendants("grid").ElementAt(0);

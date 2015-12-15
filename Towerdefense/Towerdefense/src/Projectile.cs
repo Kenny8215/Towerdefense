@@ -47,7 +47,14 @@ namespace Towerdefense
         }
 
         public void Draw(SpriteBatch spriteBatch) {
-            spriteBatch.Draw(Sprite, Position, null, null, null, 0F, new Vector2(0.1F,0.1F), Color.White, SpriteEffects.None, 1F);
+            double angle = Math.Atan(target.Y / target.X);
+            //angle = this.degToRad(angle);
+            spriteBatch.Draw(Sprite, Position, null, null, null, (float)angle, new Vector2(0.2F,0.2F), Color.White, SpriteEffects.None, 1F);
+        }
+
+        private double degToRad(double angle)
+        {
+            return (angle * (Math.PI / 180));
         }
 
         public Texture2D Sprite {
