@@ -182,6 +182,9 @@
 #begin level/bsp_lvl.xml
 /copy:level/bsp_lvl.xml
 
+#begin level/bsp_lvl2.xml
+/copy:level/bsp_lvl2.xml
+
 #begin Arial.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor

@@ -29,14 +29,17 @@ namespace Towerdefense
         {
             // Create our menu entries.
             MenuEntry Level1MenuEntry = new MenuEntry("Level 1");
+            MenuEntry Level2MenuEntry = new MenuEntry("Level 2");
             MenuEntry exitMenuEntry = new MenuEntry("Back");
 
             // Hook up menu event handlers.
             Level1MenuEntry.Selected += Level1MenuEntrySelected;
+            Level2MenuEntry.Selected += Level2MenuEntrySelected;
             exitMenuEntry.Selected += OnBack;
 
             // Add entries to the menu.
             MenuEntries.Add(Level1MenuEntry);
+            MenuEntries.Add(Level2MenuEntry);
             MenuEntries.Add(exitMenuEntry);
         }
 
@@ -53,6 +56,11 @@ namespace Towerdefense
         {
             LoadingScreen.Load(ScreenManager, true, e.PlayerIndex,
                                new GameplayScreen("bsp_lvl.xml"));
+        }
+        void Level2MenuEntrySelected(object sender, PlayerIndexEventArgs e)
+        {
+            LoadingScreen.Load(ScreenManager, true, e.PlayerIndex,
+                               new GameplayScreen("bsp_lvl2.xml"));
         }
 
         /// <summary>
