@@ -61,7 +61,7 @@ namespace Towerdefense
             count.InnerText = "10";
             wave.AppendChild(count);
 
-            enemy = createEnemyNote("megafish", 11000, 0.5f, "enemies/wolf", "ice", true, true, doc);
+            enemy = createEnemyNote("megafish", 11000, 1f, "enemies/wolf", "ice", true, true, doc);
             wave.AppendChild(enemy);
 
             waves.AppendChild(wave);
