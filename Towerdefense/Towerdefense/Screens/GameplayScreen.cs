@@ -101,8 +101,13 @@ namespace Towerdefense
         List<Enemy> toDraw;
         int currentEnemy;
 
-
+        double newTime;
+        double oldTime = 0;
+        double spendTime;
         double timeLaps;
+
+        double wavetime = 30;
+        double lapsedWavetime = 0;
 
 
         bool levelDone = false;
@@ -170,8 +175,8 @@ namespace Towerdefense
                 t.Upgrade = content.Load<Texture2D>(t.UpdatePath);
                 t.ProjectileSprite = content.Load<Texture2D>("projectileTMP");
             }
-       
-          
+
+
             gameFont = content.Load<SpriteFont>("gamefont");
             background = content.Load<Texture2D>("background");
             nonroad = content.Load<Texture2D>("tiles/noRoad1");
@@ -190,18 +195,18 @@ namespace Towerdefense
             moneyIcon = content.Load<Texture2D>("Menu/helmicon");
             tower1Icon = content.Load<Texture2D>("Menu/tower1");
             tower2Icon = content.Load<Texture2D>("Menu/tower2");
-       /*     tower3Icon = content.Load<Texture2D>("Menu/tower1");
-            tower4Icon = content.Load<Texture2D>("Menu/tower1");*/
+            /*     tower3Icon = content.Load<Texture2D>("Menu/tower1");
+                 tower4Icon = content.Load<Texture2D>("Menu/tower1");*/
             rangeCircle = content.Load<Texture2D>("rangeCircle");
 
-            upgrade = content.Load < Texture2D>("tower/upgradeGreen");
+            upgrade = content.Load<Texture2D>("tower/upgradeGreen");
 
-            roadArray = new Texture2D[] { nonroad, nonroad1, road1, road2, road3, road4,nonroad2,nonroad3,nonroad4,nonroad5,nonroad6 };
-            menuTextureArray = new Texture2D[] { lifeIcon, moneyIcon, tower1Icon, tower2Icon};
+            roadArray = new Texture2D[] { nonroad, nonroad1, road1, road2, road3, road4, nonroad2, nonroad3, nonroad4, nonroad5, nonroad6 };
+            menuTextureArray = new Texture2D[] { lifeIcon, moneyIcon, tower1Icon, tower2Icon };
 
-            foreach(Wave w in waveList)
+            foreach (Wave w in waveList)
             {
-                foreach(Enemy e in w.getEnemys())
+                foreach (Enemy e in w.getEnemys())
                 {
                     e.setSprite(content.Load<Texture2D>(e.SpritePath));
                     e.HealthBar = content.Load<Texture2D>("enemies/health");
@@ -302,7 +307,10 @@ namespace Towerdefense
         {
             base.Update(gameTime, otherScreenHasFocus, false);
 
-            timeLaps += gameTime.ElapsedGameTime.TotalSeconds;
+            newTime = gameTime.TotalGameTime.TotalSeconds;
+            spendTime = newTime - oldTime;
+            oldTime = newTime;
+            timeLaps += spendTime;
 
             // Gradually fade in or out depending on whether we are covered by the pause screen.
             if (coveredByOtherScreen)
@@ -313,83 +321,84 @@ namespace Towerdefense
             if (IsActive)
             {
                 placedTowerList = gameManager.PlacedTowerList;
-                if (timeLaps >= 1)
+
+
+                if (!levelDone)
                 {
-                    timeLaps = 0;
-                    if (!levelDone)
+                    List<Enemy> list = waveList[currentWave].getEnemys();
+                    if (list.Count != 0)
                     {
-                        toDraw.Add(waveList[currentWave].getEnemys()[currentEnemy]);
-                        try
+                        if (timeLaps >= 1)
                         {
-                            if (waveList[currentWave].getEnemys()[currentEnemy + 1] != null)
-                            {
-                                currentEnemy += 1;
-                            }
-                            else
-                            {
-
-                            }
-                        }
-                        catch (ArgumentOutOfRangeException)
-                        {
-                            currentWave += 1;
-                            try
-                            {
-                                if (waveList[currentWave + 1] != null)
-                                {
-                                    currentWave += 1;
-                                }
-                            }
-                            catch (ArgumentOutOfRangeException)
-                            {
-                                levelDone = true;
-                            }
-
+                            timeLaps = 0;
+                            toDraw.Add(waveList[currentWave].getEnemys()[currentEnemy]);
+                            waveList[currentWave].removeEnemy(currentEnemy);
+                            currentEnemy += 0;
                         }
                     }
                     else
                     {
-                        if (toDraw.Count == 0)
+                        lapsedWavetime += spendTime;
+                        if (lapsedWavetime >= wavetime)
                         {
-                            ScreenManager.AddScreen(new WinScreen(), ControllingPlayer);
+                            lapsedWavetime = 0;
+                            waveList.RemoveAt(currentWave);
+                            if (waveList.Count != 0)
+                            {
+                                currentWave += 0;
+                            }
+                            else
+                            {
+                                levelDone = true;
+                            }
                         }
-                    }      
-                    
+                    }
                 }
-                foreach(Enemy e in toDraw)
+                else
                 {
-                    e.Position = gameManager.updateEnemies(e, roadTypeAndRotation, offset, amountOfField, FieldCenterPosition);
-                        if (e.Position.X <= 0 || e.Position.Y <= 0 || e.Position.X >= amountOfField*offset.X || e.Position.Y >= amountOfField*offset.Y) {
-                        removedEnemies.Add(e);
+                    if (toDraw.Count == 0)
+                    {
+                        ScreenManager.AddScreen(new WinScreen(), ControllingPlayer);
                     }
                 }
 
-
-                foreach (Enemy e in removedEnemies)
+            }
+            foreach (Enemy e in toDraw)
+            {
+                e.Position = gameManager.updateEnemies(e, roadTypeAndRotation, offset, amountOfField, FieldCenterPosition);
+                if (e.Position.X <= 0 || e.Position.Y <= 0 || e.Position.X >= amountOfField * offset.X || e.Position.Y >= amountOfField * offset.Y)
                 {
-                    player.loseHitPoints(e.Dmg);
-                    toDraw.Remove(e);
-                }
-
-                gameManager.CurrentEnemys = toDraw;
-                gameManager.towerShoot(placedTowerList, toDraw);
-                gameManager.moveProjectiles(player);
-
-                removedEnemies = new List<Enemy>();
-                // TODO: this game isn't very fun! You could probably improve
-                // it by inserting something more interesting in this space :-)
-
-                for (int i = 0; i < placedTowerList.Count; i++)
-                {
-                    placedTowerList[i].SearchClosestEnemy(toDraw);
-                }
-
-                if(player.HitPoints <= 0) {
-
-                    ScreenManager.AddScreen(new LoseScreen(), ControllingPlayer);
+                    removedEnemies.Add(e);
                 }
             }
+
+
+            foreach (Enemy e in removedEnemies)
+            {
+                player.loseHitPoints(e.Dmg);
+                toDraw.Remove(e);
+            }
+
+            gameManager.CurrentEnemys = toDraw;
+            gameManager.towerShoot(placedTowerList, toDraw);
+            gameManager.moveProjectiles(player);
+
+            removedEnemies = new List<Enemy>();
+            // TODO: this game isn't very fun! You could probably improve
+            // it by inserting something more interesting in this space :-)
+
+            for (int i = 0; i < placedTowerList.Count; i++)
+            {
+                placedTowerList[i].SearchClosestEnemy(toDraw);
+            }
+
+            if (player.HitPoints <= 0)
+            {
+
+                ScreenManager.AddScreen(new LoseScreen(), ControllingPlayer);
+            }
         }
+
 
 
         /// <summary>
@@ -424,22 +433,22 @@ namespace Towerdefense
             {
                 highlightedGridElement = gameManager.SetCurrentFieldMouse(mouseState, offset, highlightedGridElement, true);
                 highlitedMenuElement = gameManager.SetCurrentMenuField(mouseState, menuRectangle);
-                drawTower = gameManager.TowerToMouse(mouseState, previousMouseState, menuRectangle, drawTower,menuTextureArray,highlitedMenuElement,offset);
+                drawTower = gameManager.TowerToMouse(mouseState, previousMouseState, menuRectangle, drawTower, menuTextureArray, highlitedMenuElement, offset);
 
                 towerAmount = placedTowerList.Count;
-                placedTowerList = gameManager.addPlacedTowerToList(mouseState, previousMouseState, drawTower, placedTowerList, highlightedGridElement, tower1Icon, FieldCenterPosition, amountOfField, roadTypeAndRotation, highlightedGridElement, player, rangeCircle, upgrade,offset);
-         
+                placedTowerList = gameManager.addPlacedTowerToList(mouseState, previousMouseState, drawTower, placedTowerList, highlightedGridElement, tower1Icon, FieldCenterPosition, amountOfField, roadTypeAndRotation, highlightedGridElement, player, rangeCircle, upgrade, offset);
+
                 if (towerAmount != placedTowerList.Count)
                 {
                     roadTypeAndRotation[(int)highlightedGridElement.X, (int)highlightedGridElement.Y].X = 1;
                 }
 
-            gameManager.towerSelected(placedTowerList, highlightedGridElement);
-            gameManager.towerUpgraded(placedTowerList,mouseState,previousMouseState,player);
+                gameManager.towerSelected(placedTowerList, highlightedGridElement);
+                gameManager.towerUpgraded(placedTowerList, mouseState, previousMouseState, player);
                 // roadTypeAndRotation[ towerList[towerAmount].Position.X] , towerList[towerAmount].Position.Y ] = 1;  }
-            drawTower = gameManager.placeTower(mouseState, previousMouseState, drawTower, placedTowerList, highlightedGridElement, tower1Icon, FieldCenterPosition, amountOfField);
+                drawTower = gameManager.placeTower(mouseState, previousMouseState, drawTower, placedTowerList, highlightedGridElement, tower1Icon, FieldCenterPosition, amountOfField);
 
-            
+
 
 
                 //TODO Handle Input
@@ -480,9 +489,9 @@ namespace Towerdefense
             gameManager.drawProjectile(spriteBatch);
 
             /*Draws The TowerTexture to the Mouseposition when leftclicked*/
-            gameManager.drawTowerToMouse(drawTower, spriteBatch,ScreenManager.GraphicsDevice,amountOfField);
+            gameManager.drawTowerToMouse(drawTower, spriteBatch, ScreenManager.GraphicsDevice, amountOfField);
 
-            
+
 
             gameManager.drawEnemies(toDraw, spriteBatch);
             spriteBatch.End();

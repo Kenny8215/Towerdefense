@@ -59,6 +59,10 @@ namespace Towerdefense
             return listEnemy;
         }
 
+        public void removeEnemy(int x)
+        {
+            listEnemy.RemoveAt(x);
+        }
         public void loadDone()
         {
             listEnemy = new List<Enemy>();
