@@ -182,7 +182,7 @@ namespace Towerdefense
             doc.Save(@desktopPath+"/custom_lvl.xml");
         }
 
-        private XmlNode createEnemyNote(string name, int hitPoints, int speed, string sprite, string resistance, bool boss, bool flying, XmlDocument doc)
+        private XmlNode createEnemyNote(string name, int hitPoints, float speed, string sprite, string resistance, bool boss, bool flying, XmlDocument doc)
         {
             XmlNode enemy = doc.CreateElement("enemy");
 
