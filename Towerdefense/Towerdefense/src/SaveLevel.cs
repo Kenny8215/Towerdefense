@@ -47,7 +47,7 @@ namespace Towerdefense
             count.InnerText = "10";
             wave.AppendChild(count);
 
-            enemy = createEnemyNote("fish", 1100, 3, "enemies/wolf", "ice", false, true, doc);
+            enemy = createEnemyNote("fish", 1100, 3, "enemies/penguin", "ice", false, true, doc);
             wave.AppendChild(enemy);
 
             waves.AppendChild(wave);
@@ -137,6 +137,10 @@ namespace Towerdefense
             isUpgradeable.InnerText = "true";
             tow.AppendChild(isUpgradeable);
 
+            XmlNode upgradecost = doc.CreateElement("upgradecost");
+            upgradecost.InnerText = "25";
+            tow.AppendChild(upgradecost);
+
             XmlNode path = doc.CreateElement("path");
             path.InnerText = "tower/tower1";
             tow.AppendChild(path);
@@ -169,6 +173,10 @@ namespace Towerdefense
             isUpgradeable = doc.CreateElement("upgrade");
             isUpgradeable.InnerText = "true";
             tow2.AppendChild(isUpgradeable);
+
+            upgradecost = doc.CreateElement("upgradecost");
+            upgradecost.InnerText = "50";
+            tow2.AppendChild(upgradecost);
 
             path = doc.CreateElement("path");
             path.InnerText = "tower/tower2";
