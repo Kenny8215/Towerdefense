@@ -385,27 +385,24 @@ namespace Towerdefense
 
         public Vector2 SearchClosestEnemy(List<Enemy> enemies){
 
-            Vector2 enemy;
             Vector2 tmp;
 
             if (enemies.Count != 0)
-            {
-                enemy = enemies[0].Position - position;
+            { 
                 closestEnemy = enemies[0];
-                enemyVector = enemy;
+                enemyVector = enemies[0].Position - position;
 
                 for (int i = 0; i < enemies.Count; i++)
                 {
                     tmp = enemies[i].Position - position;
-                    if (enemy.Length() > tmp.Length())
-                    {
-                        enemy = tmp;
+                    if (enemyVector.Length() > tmp.Length())
+                    {                        
                         enemyVector = tmp;
                         closestEnemy = enemies[i];
                     }
                 }
 
-                return enemy;
+                return enemyVector;
             }
             else { return Vector2.Zero; }
         }
