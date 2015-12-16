@@ -49,7 +49,7 @@ namespace Towerdefense
         public void Draw(SpriteBatch spriteBatch) {
             double angle = Math.Atan(target.Y / target.X);
             //angle = this.degToRad(angle);
-            spriteBatch.Draw(Sprite, Position, null, null, null, (float)angle, new Vector2(0.2F,0.2F), Color.White, SpriteEffects.None, 1F);
+            spriteBatch.Draw(Sprite, Position, null, null, new Vector2(sprite.Width / 2, sprite.Height / 2), (float)angle, new Vector2(0.2F, 0.2F), Color.White, SpriteEffects.None, 1F);
         }
 
         private double degToRad(double angle)
