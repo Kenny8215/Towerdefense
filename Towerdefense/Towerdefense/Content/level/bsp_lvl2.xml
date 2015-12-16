@@ -644,7 +644,7 @@
     <tow>
       <range>200</range>
       <cost>100</cost>
-      <damage>300</damage>
+      <damage>700</damage>
       <rate>1</rate>
       <speed>5</speed>
       <upgrade>true</upgrade>
