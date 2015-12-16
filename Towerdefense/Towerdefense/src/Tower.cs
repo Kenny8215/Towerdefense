@@ -412,7 +412,7 @@ namespace Towerdefense
 
         public Boolean CanShootEnemy(Vector2 enemyPosition)
         {
-            if (enemyVector.Length() > range)
+            if ( enemyVector.Length() > range)
             {
                 return false;
             }
@@ -420,7 +420,7 @@ namespace Towerdefense
             {
                 return true;
             }
-        }
+        }   
 
         public void Shoot(GameManager g) {
             pastFrames++;

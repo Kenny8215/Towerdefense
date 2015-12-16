@@ -350,6 +350,7 @@ namespace Towerdefense
                     {
                         ScreenManager.AddScreen(new WinScreen(), ControllingPlayer);
                     }
+                    else if(player.HitPoints <=0) { ScreenManager.AddScreen(new screenl(), ControllingPlayer); }
                 }
 
             }
@@ -385,7 +386,7 @@ namespace Towerdefense
             if (player.HitPoints <= 0)
             {
 
-                ScreenManager.AddScreen(new LoseScreen(), ControllingPlayer);
+            //    ScreenManager.AddScreen(new screenl(), ControllingPlayer);
             }
         }
 

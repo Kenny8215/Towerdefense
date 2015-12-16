@@ -154,6 +154,7 @@ namespace Towerdefense
                 float scale = (float)graphicsDevice.Viewport.Height / (amountOfFields * towerList[0].Sprite.Height);
                 float scaleU = (float)graphicsDevice.Viewport.Height / (amountOfFields * 2000);
                 Vector2 scalev = new Vector2(scale, scale);
+                Vector2 scaleRange = Vector2.Zero;
                 Vector2 origin = new Vector2(towerList[0].Sprite.Width / 2, towerList[0].Sprite.Height / 2);
                 foreach (Tower t in towerList)
                 {
@@ -168,7 +169,11 @@ namespace Towerdefense
                 //    spriteBatch.Draw(t.Weapon, t.Position, null, null, origin, 0F,tmp,Color.White,SpriteEffects.None,0);
                     if (t.IsSelected)
                     {
-                        spriteBatch.Draw(t.RangeCircle, t.Position, null, null, new Vector2(t.RangeCircle.Width / 2, t.RangeCircle.Height / 2), 0F, new Vector2((t.Range/1000F), (t.Range/1000F)), Color.White, SpriteEffects.None, 0);
+                       
+                        scaleRange.X =  (t.Range / (float) t.RangeCircle.Width);
+                        scaleRange.Y = (t.Range / (float) t.RangeCircle.Height);
+                        spriteBatch.Draw(t.RangeCircle, new Rectangle((int)(t.Position.X-t.Range),(int) (t.Position.Y-t.Range), (int)(2*t.Range), (int)(2*t.Range)), new Color(1.0f, 1.0f, 1.0f, 0.1f));
+                       // spriteBatch.Draw(t.RangeCircle, t.Position, null, null, new Vector2(t.RangeCircle.Width / 2, t.RangeCircle.Height / 2), 0F, scaleRange, Color.White, SpriteEffects.None, 0);
                         if (t.Level < t.MaxLevel) { spriteBatch.Draw(t.Upgrade, t.Position, null, null, new Vector2(t.Upgrade.Width / 2, t.Upgrade.Height / 2), 0F, new Vector2(scaleU, scaleU), Color.Green, SpriteEffects.None, 0F); }
                         else { spriteBatch.Draw(t.Upgrade, t.Position, null, null, new Vector2(t.Upgrade.Width / 2, t.Upgrade.Height / 2), 0F, new Vector2(scaleU, scaleU), Color.Red, SpriteEffects.None, 0F); }
                     }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Towerdefense
 {
-    class LoseScreen : MenuScreen
+    class screenl : MenuScreen
     {
         #region Initialization
 
@@ -13,8 +13,8 @@ namespace Towerdefense
         /// <summary>
         /// Constructor.
         /// </summary>
-        public LoseScreen()
-            : base("You Lost :(!")
+        public screenl()
+            : base("You lose!")
         {
             // Create our menu entries.
             MenuEntry quitGameMenuEntry = new MenuEntry("Quit Game");
